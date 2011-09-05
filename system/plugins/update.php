@@ -98,18 +98,18 @@ class UpdatePlugin extends Plugin {
 	
 	private static function _check_directory($dir) {
 		$return = array();
-		foreach(Helper::read_directory($dir) as $i => $folder) {
-			if($i == ".") {
-				foreach($folder as $file) {
+		foreach(Helper::read_directory($dir) as $folder => $files) {
+			if($folder == ".") {
+				foreach($files as $file) {
 					if(Helper::permission($dir."/".$file) < 777) {
 						$return[$dir."/".$file] = "Set Permission to 777 for: <strong>".$dir."/".$file."</strong>";
 					}
 				}
 			} else {
 				if(Helper::permission($dir."/".$folder) < 777) {
-					$return[$dir."/".$folder] = "Set Permission to 777 for: <string>".$dir."/".$folder."</strong>";
+					$return[$dir."/".$folder] = "Set Permission to 777 for: <strong>".$dir."/".$folder."</strong>";
 				}
-				$return = array_merge($returm,self::_check_directory($dir.$folder));
+				$return = array_merge($return,self::_check_directory($dir."/".$folder));
 			}
 		}
 		return $return;
