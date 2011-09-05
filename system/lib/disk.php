@@ -12,8 +12,8 @@ class Disk {
 	
 	// Read a Directorys Content
 	public static function read_directory($directory) {
-		$return = array("." => array());
 		if(is_dir($directory)) {
+			$return = array("." => array());
 			$handler = opendir($directory);
 			while ($node = readdir($handler)) {
 				if($node[0] != ".") {
@@ -24,9 +24,11 @@ class Disk {
 					}
 				}
 			}
-			closedir($handler);			
+			closedir($handler);
+			return $return;
+		} else {
+			die("Disk::read_directory: Is not an Directory: ".$directory);
 		}
-		return $return;
 	}
 	
 	// Get Content of a File
@@ -38,7 +40,7 @@ class Disk {
 			}
 			return file_get_contents($file);
 		} else {
-			die("Hanya: File '".$file."' does not exist!");
+			die("Disk::read_file: File '".$file."' does not exist!");
 		}
 	}
 	
@@ -55,13 +57,17 @@ class Disk {
 			ob_end_clean();
 			return $data;
 		} else {
-			die("Hanya: File '".$file."' does not exist!");
+			die("Disk::eval_file: File '".$file."' does not exist!");
 		}
 	}
 	
 	// Check for Write Right
-	public static function writeable($file) {
-		return is_writable($file);
+	public static function writeable($path) {
+		if(is_dir($path) || is_file($path)) {
+			return is_writable($path);
+		} else {
+			die("Disk::writeable: Path is not a Directory or File: ".$path);
+		}
 	}
 	
 	// Unzip Archive to Directory
@@ -80,9 +86,7 @@ class Disk {
 			if(substr($path,-1) == "/") {
 				
 				// Create Directory
-				if(!self::create_directory($folder.$path)) {
-					die("Failed to create Directory: '".$folder.$path."'!");
-				}
+				self::create_directory($folder.$path));
 				
 			} else {
 				
@@ -90,7 +94,6 @@ class Disk {
 				self::create_file($folder.$path,zip_entry_read($item,zip_entry_filesize($item)));
 
 			}
-				
 		}
 		
 		// Close Zip
@@ -103,16 +106,16 @@ class Disk {
 			self::empty_directory($dir);
 			return rmdir($dir);
 		} else {
-			return false;
+			die("Disk::remove_directory: Is not a Directory: ".$dir);
 		}
 	}
 	
 	// Create Directory
 	public static function create_directory($dir) {
 		if(!is_dir($dir) && !is_file($dir)) {
-			return mkdir($dir,0777);
+			return mkdir($dir);
 		} else {
-			return false;
+			die("Disk::create_directory: Is an Directory or File: ".$dir);
 		}
 	}
 	
@@ -132,7 +135,7 @@ class Disk {
 			reset($objects);
 			return true;
 		} else {
-			return false;
+			die("Disk::empty_directory: Is not an Directory: ".$dir);
 		}
 	}
 	
@@ -169,17 +172,17 @@ class Disk {
 		
 		// Create new File
 		if(!touch($path)) {
-			return false;
+			die("Disk::create_file: Cant create File: ".$path);
 		}
 		
 		// Open Empty File
 		if(!$file = fopen($path,"a+")) {
-			return false;
+			die("Disk::create_file: Cant open File: ".$path);
 		}
 		
 		// Set Content
 		if(!fwrite($file,$data)) {
-			return false;
+			die("Disk::create_file: Cant write to File: ".$path);
 		}
 		
 		// Close
