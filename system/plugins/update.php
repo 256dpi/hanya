@@ -39,9 +39,8 @@ class Update_Plugin extends Plugin {
 			// Load Actual Version
 			$tempfile = sys_get_temp_dir()."hanya_update.zip";
 			$tempdir = sys_get_temp_dir()."hanya_update/";
-			if(!copy(Registry::get("system.update_url"),$tempfile)) {
-				echo HTML::paragraph("Failed to load Update!");
-			}
+			$data = Helper::read_url(Registry::get("system.update_url"));
+			Disk::create_file($tempfile,$data);
 			
 			// Check Download
 			if(!is_file($tempfile)) {
