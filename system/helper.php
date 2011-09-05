@@ -53,13 +53,6 @@ class Helper {
 			if(Registry::get("site.newest_file") < $time) {
 				Registry::set("site.newest_file",$time);
 			}
-			//$data = "";
-			//$handle = fopen($file, "r");
-			//while(!feof($handle)) {
-				//$data .= fgets($handle, 4096);
-			//}	
-			//fclose($handle);
-			//return $data;
 			return file_get_contents($file);
 		} else {
 			die("Hanya: File '".$file."' does not exist!");
@@ -94,6 +87,84 @@ class Helper {
 		$perms = fileperms($file);
 		$cut = $octal ? 1 : 2;
 		return substr(decoct($perms), $cut);
+	}
+	
+	// Unzip Archive to Directory
+	public static function unzip($file,$folder) {
+		
+		// Open Zip
+		$zip = zip_open($file);
+		
+		// Get Zip Elements
+		while($item = zip_read($zip)) {
+			
+			// Get Item Path
+			$path = zip_entry_name($item);
+			
+			// Check Filetype
+			if(substr($path,-1) == "/") {
+				
+				// Create Directory
+				if(!Helper::create_directory($folder.$path)) {
+					die("Failed to create Directory: '".$folder.$path."'!");
+				}
+				
+			} else {
+				
+				// Create new File
+				if(!touch($folder.$path)) {
+					die("Failed to create File: '".$folder.$path."'!");
+				}
+				
+				// Open Empty File
+				$file = fopen($folder.$path,"r+");
+				
+				// Set Content
+				fwrite($file,zip_entry_read($item));
+				
+				// Close
+				fclose($file);
+			}
+				
+		}
+		
+		// Close Zip
+		zip_close($zip);
+	}
+	
+	// Remove Directory
+	public static function remove_directory($dir) {
+		if(is_dir($dir)) {
+			self::empty_directory($dir);
+			return rmdir($dir);
+		} else {
+			return false;
+		}
+	}
+	
+	// Create Directory
+	public static function create_directory($dir) {
+		return mkdir($dir,0777);
+	}
+	
+	// Empty Directory
+	public static function remove_directory($dir) {
+		if(is_dir($dir)) {
+			$objects = scandir($dir); 
+	    foreach ($objects as $object) {
+				if ($object != "." && $object != "..") { 
+	      	if (filetype($dir."/".$object) == "dir") {
+						Helper::remove_directory($dir."/".$object);
+					} else {
+						unlink($dir."/".$object);
+					}
+				}
+			}
+			reset($objects);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/* PLUGIN HANDLING */

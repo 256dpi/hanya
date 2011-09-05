@@ -120,6 +120,9 @@ class Hanya {
 			Registry::set("base.url","http://".$_SERVER["HTTP_HOST"].Registry::get("base.path"));
 		}
 		
+		// Set System Path
+		Registry::set("system.path",$_SERVER["DOCUMENT_ROOT"].Registry::get("base.path"));
+		
 		// Set Referer if exists 
 		if(array_key_exists("HTTP_REFERER",$_SERVER)) {
 			Registry::set("request.referer",$_SERVER["HTTP_REFERER"]);
@@ -152,11 +155,6 @@ class Hanya {
 		$system_definitions = Helper::read_directory("system/definitions");
 		$user_definitions = Helper::read_directory("user/definitions");
 		Registry::set("loaded.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
-		
-		// Check Permission
-		(Helper::permission("system")<777)?die('Set Permissions for "system" to 777'):null;
-		(Helper::permission("public/system")<777)?die('Set Permissions for "public/system" to 777'):null;
-		(Helper::permission("user")<777)?die('Set Permissions for "user" to 777'):null;
 		
 		// Check for Automatic DB Setup
 		if(Registry::get("system.automatic_db_setup")) {
