@@ -74,7 +74,7 @@ class UpdatePlugin extends Plugin {
 					echo($error.HTML::br());
 				}
 				foreach($dies2 as $error) {
-					echo($error.HTML::br()):
+					echo($error.HTML::br());
 				}
 				die();
 			}

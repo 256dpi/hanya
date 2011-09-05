@@ -148,7 +148,7 @@ class Helper {
 	}
 	
 	// Empty Directory
-	public static function remove_directory($dir) {
+	public static function empty_directory($dir) {
 		if(is_dir($dir)) {
 			$objects = scandir($dir); 
 	    foreach ($objects as $object) {
