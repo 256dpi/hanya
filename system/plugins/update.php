@@ -20,10 +20,30 @@ class Update_Plugin extends Plugin {
 		echo HTML::header(1,"Update Hanya");
 		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to Website"));
 		
-		// Check for new Version
+		// Print Status
 		echo HTML::header(2,"System Information");
 		echo HTML::paragraph("Current Version: <strong>".HANYA_VERSION."</strong>");
 		echo HTML::paragraph("Installable Version: <strong>".$installable_version."</strong>");
+		
+		// Link to Update
+		if(HANYA_VERSION < $installable_version) {
+			echo HTML::anchor(Helper::url("?command=do_update"),"Hanya aktualisieren");
+		}
+		
+		// End
+		exit;
+	
+	}
+	
+	// Do a System Update
+	public static function on_do_update() {
+		
+		// Get Data
+		$installable_version = Helper::read_url(Registry::get("system.version_url"));
+		
+		// Header
+		echo HTML::header(1,"Update Hanya");
+		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to Website"));
 		
 		// Has no Update?
 		if(HANYA_VERSION >= $installable_version) {
@@ -109,12 +129,12 @@ class Update_Plugin extends Plugin {
 		foreach(Disk::read_directory($dir) as $folder => $files) {
 			if($folder == ".") {
 				foreach($files as $file) {
-					if(Disk::permission($dir."/".$file) < 777) {
+					if(!Disk::writeable($dir."/".$file)) {
 						$return[$dir."/".$file] = "Set Permission to 777 for: <strong>".$dir."/".$file."</strong>";
 					}
 				}
 			} else {
-				if(Disk::permission($dir."/".$folder) < 777) {
+				if(!Disk::writeable($dir."/".$folder)) {
 					$return[$dir."/".$folder] = "Set Permission to 777 for: <strong>".$dir."/".$folder."</strong>";
 				}
 				$return = array_merge($return,self::_check_directory($dir."/".$folder));

@@ -59,12 +59,9 @@ class Disk {
 		}
 	}
 	
-	// Get Permissions
-	public static function permission($file,$octal=false) {
-		if(!file_exists($file)) return false;
-		$perms = fileperms($file);
-		$cut = $octal ? 1 : 2;
-		return substr(decoct($perms), $cut);
+	// Check for Write Right
+	public static function writeable($file) {
+		return is_writable($file)
 	}
 	
 	// Unzip Archive to Directory
@@ -176,7 +173,7 @@ class Disk {
 		}
 		
 		// Open Empty File
-		if(!$file = fopen($$path,"a+")) {
+		if(!$file = fopen($path,"a+")) {
 			return false;
 		}
 		
