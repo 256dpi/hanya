@@ -166,5 +166,14 @@ class Disk {
 		}
 		return true;
 	}
-		
+	
+	// Has File
+	public static function has_file($file) {
+		return is_file($file);
+	}
+	
+	// Has Direcotry
+	public static function has_directory($dir) {
+		return is_dir($dir);
+	}
 }

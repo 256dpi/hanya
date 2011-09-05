@@ -24,14 +24,27 @@ class Hanya {
 		
 		// Uncamelize
 		$segments = explode("_",strtolower($class));
+		$file = $segments[0].".php";
 		
 		// Check Parent Class
 		if($segments[1] == "plugin") {
-			require("system/plugins/".$segments[0].".php");
+			if(Disk::has_file("user/plugins/".$file)) {
+				require("user/plugins/".$file);
+			} else {
+				require("system/plugins/".$file);
+			}
 		} else if($segments[1] == "tag") {
-			require("system/tags/".$segments[0].".php");
+			if(Disk::has_file("user/tags/".$file)) {
+				require("user/tags/".$file);
+			} else {
+				require("system/tags/".$file);
+			}
 		} else if($segments[1] == "definition") {
-			require("system/definitions/".$segments[0].".php");
+			if(Disk::has_file("user/definitions/".$file)) {
+				require("user/definitions/".$file);
+			} else {
+				require("system/definitions/".$file);
+			}
 		} else {
 			require("system/lib/".$segments[0].".php");
 		}

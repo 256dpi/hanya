@@ -35,7 +35,17 @@ var Hanya = {
 	centerManager: function(element) {
 		var left = ($(window).width()-element.width())/2;
 		var top = ($(window).height()-element.height())/2;
+		if(top < 25) { top = 25; }
 		element.css("top",top).css("left",left);
+	},
+	deleteEntry: function() {
+		var def = $("#hanya-input-definition").first().val();
+		var id = $("#hanya-input-id").first().val();
+		$.post(window.location.href+"?command=manager_delete",{"definition":def,"id":id},function(data) {
+			if(data == "ok") {
+				window.location.reload();
+			}
+		});
 	}
 }
 

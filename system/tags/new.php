@@ -11,8 +11,8 @@
 class New_Tag {
 	
 	public static function call($attributes) {
-		if(Memory::get("admin.edit_page")) {
-			return HTML::div(null,"hanya-createable",I18n::_("definition.".$attributes[0].".new"),array("data-definition"=>$attributes[0]));
+		if(Memory::get("edit_page")) {
+			return HTML::div(null,"hanya-createable",I18n::_("definition.".$attributes[0].".new_entry"),array("data-definition"=>$attributes[0]));
 		} else {
 			return "";
 		}

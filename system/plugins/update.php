@@ -19,6 +19,7 @@ class Update_Plugin extends Plugin {
 		
 		// Begin Update Script
 		echo HTML::header(1,"Update Hanya");
+		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to Website"));
 		
 		// Check for new Version
 		echo HTML::header(2,"System Information");
@@ -91,11 +92,15 @@ class Update_Plugin extends Plugin {
 			echo HTML::paragraph("<strong>Update completed</strong>");
 		}
 		
+		// Changelog
+		echo HTML::header(2,"Changelog");
+		echo "<pre>".Disk::read_file("CHANGELOG.md")."</pre>";
+		
 		// End
-		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to your Homepage"));
 		exit;
 	}
 	
+	// Check Directory for Write Permission recursively
 	private static function _check_directory($dir) {
 		$return = array();
 		foreach(Disk::read_directory($dir) as $folder => $files) {

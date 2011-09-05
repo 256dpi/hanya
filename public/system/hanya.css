@@ -81,6 +81,13 @@
 	color: #bbb;
 	text-decoration: none;
 	float: right;
+	margin-left: 15px;
+}
+
+.hanya-manager-head-delete {
+	color: red;
+	text-decoration: none;
+	float: right;
 }
 
 .hanya-manager-body {

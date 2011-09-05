@@ -15,7 +15,7 @@ class Manager_Plugin extends Plugin {
 		
 		// Get Data
 		$definition = Request::post("definition");
-		$class = ucfirst($definition)."Definition";
+		$class = ucfirst($definition)."_Definition";
 		$id = Request::post("id","int");
 		$entry = ORM::for_table($definition);
 		
@@ -28,13 +28,16 @@ class Manager_Plugin extends Plugin {
 		echo HTML::div_open(null,"hanya-manager-head");
 		echo HTML::span(I18n::_("definition.".$definition.".edit_entry"));
 		echo HTML::anchor("javascript:Hanya.removeManager()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
+		if($entry->id) {
+			echo HTML::anchor("javascript:Hanya.deleteEntry()",I18n::_("system.manager.delete"),array("class"=>"hanya-manager-head-delete"));
+		}
 		echo HTML::div_close();
 		
 		// Open Body
 		echo HTML::div_open(null,"hanya-manager-body");
 		echo HTML::form_open(Registry::get("request.referer")."?command=manager_update");
-		echo HTML::hidden("definition",$definition);
-		echo HTML::hidden("id",$id);
+		echo HTML::hidden("definition",$definition,array("id"=>"hanya-input-definition"));
+		echo HTML::hidden("id",$id,array("id"=>"hanya-input-id"));
 		
 		// Print Form Elements
 		foreach($class::$blueprint as $field => $config) {
@@ -122,7 +125,7 @@ class Manager_Plugin extends Plugin {
 		$definition = Request::post("definition");
 		$id = Request::post("id","int");
 		$data = Request::post($definition,"array");
-		$class = $class= ucfirst($definition)."Definition";
+		$class = $class= ucfirst($definition)."_Definition";
 		$entry = ORM::for_table($definition);
 		
 		// Check for new Entry
@@ -149,6 +152,27 @@ class Manager_Plugin extends Plugin {
 		
 		// Redirect
 		Helper::redirect_to_referer();
+	}
+	
+	// Delete an Entry
+	public static function on_manager_delete() {
+
+		// Get Data
+		$definition = Request::post("definition");
+		$class = ucfirst($definition)."_Definition";
+		$id = Request::post("id","int");
+		$entry = ORM::for_table($definition)->find_one($id);
+		
+		// Check Entry
+		if($entry->id) {
+			$entry->delete();
+			echo "ok";
+		} else {
+			echo "Entry not found!";
+		}
+		
+		// End
+		exit;
 	}
 	
 	// Validate Data

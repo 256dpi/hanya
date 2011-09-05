@@ -34,11 +34,11 @@ class I18n {
 		}
 		
 		// Load User Translations
-		$user_files = Disk::read_directory("extensions/i18n");
+		$user_files = Disk::read_directory("user/i18n");
 		foreach($user_files["."] as $file) {
 			if(strpos($file,$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));
-				self::$_i18n[$meta[1]][$meta[0]] = parse_ini_file("extensions/i18n/".$file,true);
+				self::$_i18n[$meta[1]][$meta[0]] = parse_ini_file("user/i18n/".$file,true);
 			}
 		}
 	}
