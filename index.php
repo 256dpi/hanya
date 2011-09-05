@@ -19,7 +19,7 @@ Hanya::run(array(
 	"db.password" => "",
 	"i18n.languages" => array("en"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "en",
-	"auth.users" => array("user"=>"user"),
+	"auth.users" => array("admin"=>"admin"),
 ));
 
 /*

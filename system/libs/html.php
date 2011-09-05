@@ -126,6 +126,16 @@ class HTML {
 	}
 	
 	/* TEXT */
+	
+	// Header
+	public static function header($i,$text,$attributes=array()) {
+		return self::_tag("h".$i,"both",$attributes,$text);
+	}
+
+	// Paragraph
+	public static function paragraph($text,$attributes=array()) {
+		return self::_tag("p","both",$attributes,$text);
+	}
 
 	// Linebreak
 	public static function br() {

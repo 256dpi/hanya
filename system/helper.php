@@ -53,13 +53,14 @@ class Helper {
 			if(Registry::get("site.newest_file") < $time) {
 				Registry::set("site.newest_file",$time);
 			}
-			$data = "";
-			$handle = fopen($file, "r");
-			while(!feof($handle)) {
-				$data .= fgets($handle, 4096);
-			}	
-			fclose($handle);
-			return $data;
+			//$data = "";
+			//$handle = fopen($file, "r");
+			//while(!feof($handle)) {
+				//$data .= fgets($handle, 4096);
+			//}	
+			//fclose($handle);
+			//return $data;
+			return file_get_contents($file);
 		} else {
 			die("Hanya: File '".$file."' does not exist!");
 		}
@@ -80,6 +81,11 @@ class Helper {
 		} else {
 			die("Hanya: File '".$file."' does not exist!");
 		}
+	}
+	
+	// Get Contents of URL
+	public static function read_url($url) {
+		return file_get_contents($url);
 	}
 	
 	/* PLUGIN HANDLING */

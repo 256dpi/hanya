@@ -88,8 +88,8 @@ class AdminPlugin extends Plugin {
 	public static function action_logout() {
 		
 		// Set Memory
-		Memory::set("admin.logged_in",false);
-		Memory::set("admin.edit_page",false);
+		Memory::set("logged_in",false);
+		Memory::set("edit_page",false);
 		
 		// Redirect
 		Helper::redirect_to_referer();
@@ -100,8 +100,8 @@ class AdminPlugin extends Plugin {
 	public static function action_edit() {
 		
 		// Set Memory
-		if(Memory::get("admin.logged_in")) {
-			Memory::set("admin.edit_page",true);
+		if(Memory::get("logged_in")) {
+			Memory::set("edit_page",true);
 		}
 		
 		// Redidrect
@@ -112,8 +112,8 @@ class AdminPlugin extends Plugin {
 	public static function action_show() {
 		
 		// Set Memory
-		if(Memory::get("admin.logged_in")) {
-			Memory::set("admin.edit_page",false);
+		if(Memory::get("logged_in")) {
+			Memory::set("edit_page",false);
 		}
 		
 		// Redirect
@@ -125,8 +125,8 @@ class AdminPlugin extends Plugin {
 	private static function _request_login() {
 		
 		// Set Memory
-		Memory::set("admin.logged_in",false);
-		Memory::set("admin.edit_page",false);
+		Memory::set("logged_in",false);
+		Memory::set("edit_page",false);
 		
 		// Send Header
 		HTTP::authenticate("Hanya Admin","Sie haben keinen Zugriff auf den Administrationsbereich!");

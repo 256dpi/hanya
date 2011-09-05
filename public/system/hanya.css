@@ -1,19 +1,18 @@
 /* TOOLBAR */
 
-#hanya-toolbar {
+.hanya-toolbar {
 	background-color: black;
 	padding: 10px 15px;
 	padding-top: 12px;
 	color: white;
-	text-align: center;
 	overflow: hidden;
 }
 
-#hanya-toolbar a {
+.hanya-toolbar a {
 	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	border: 0;
 	padding: 0;
-	margin: 0;
+	margin: 0px 5px;
 	font-size: 14px;
 	background-color: black;
 	color: white;
@@ -21,18 +20,23 @@
 	text-decoration: none;
 }
 
-#hanya-toolbar a:hover {
+.hanya-toolbar a:hover {
 	text-decoration: underline;
 }
 
-#hanya-button-left {
+.hanya-toolbar-left, .hanya-toolbar-middle, .hanya-toolbar-right {
 	margin: 0;
 	float: left;
+	width: 33%;
 }
 
-#hanya-button-right {
-	margin: 0;
-	float: right;
+.hanya-toolbar-middle {
+	text-align: center;
+}
+
+.hanya-toolbar-right {
+	text-align: right;
+	width: 34%;
 }
 
 /* MANAGER */
