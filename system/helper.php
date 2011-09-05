@@ -120,7 +120,7 @@ class Helper {
 				$file = fopen($folder.$path,"r+");
 				
 				// Set Content
-				fwrite($file,zip_entry_read($item));
+				fwrite($file,zip_entry_read($item,zip_entry_filesize($item)));
 				
 				// Close
 				fclose($file);
@@ -165,6 +165,24 @@ class Helper {
 		} else {
 			return false;
 		}
+	}
+	
+	// Copy Directory
+	public static function copy_directory($src, $dst) {
+	  if (is_dir($src)) {
+	    self::create_directory($dst);
+	    $files = scandir($src);
+	    foreach ($files as $file) {
+				if ($file != "." && $file != "..") {
+					self::copy_directory("$src/$file", "$dst/$file");
+				}
+			}
+	  } else if (file_exists($src)) { 
+			copy($src, $dst);
+		} else {
+			return false;
+		}
+		return true;
 	}
 	
 	/* PLUGIN HANDLING */

@@ -79,12 +79,16 @@ class UpdatePlugin extends Plugin {
 				die();
 			}
 			
-			// Empty Userspace Folders
+			// Empty Directories
+			Helper::empty_directory($real_system_dir);
+			Helper::empty_directory($teal_public_system_dir);
 			
 			// Copy New Files
+			Helper::copy_directory($tmp_system_dir,$real_system_dir);
+			Helper::copy_directory($tmp_public_system_dir,$real_public_system_dir);
 			
-			
-			
+			// Info
+			echo HTML::paragraph("<strong>Update completed</strong>");
 		}
 		
 		// End
