@@ -88,14 +88,6 @@ class Helper {
 		return file_get_contents($url);
 	}
 	
-	// Get Permissions
-	public static function permission($file,$octal=false) {
-		if(!file_exists($file)) return false;
-		$perms = fileperms($file);
-		$cut = $octal ? 1 : 2;
-		return substr(decoct($perms), $cut);
-	}
-	
 	/* PLUGIN HANDLING */
 	
 	// Dispatch an Event to Plugins

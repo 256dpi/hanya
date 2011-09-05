@@ -17,9 +17,9 @@ Helper::import_folder("system/libs");
 Helper::import_folder("system/tags");
 Helper::import_folder("system/plugins");
 Helper::import_folder("system/definitions");
-Helper::import_folder("user/tags");
-Helper::import_folder("user/plugins");
-Helper::import_folder("user/definitions");
+Helper::import_folder("extensions/tags");
+Helper::import_folder("extensions/plugins");
+Helper::import_folder("extensions/definitions");
 Helper::import_folder("system/vendor");
 
 class Hanya {
@@ -104,7 +104,7 @@ class Hanya {
 		Registry::load(array(
 			"system.automatic_db_setup" => true,
 			"system.update_url" => "http://github.com/256dpi/Hanya/zipball/master",
-			"system.version_url" => "https://raw.github.com/256dpi/Hanya/master/system/VERSION"
+			"system.version_url" => "https://raw.github.com/256dpi/Hanya/master/VERSION"
 		));
 		
 		// Load Config
@@ -140,30 +140,25 @@ class Hanya {
 		
 		// Load Plugins
 		$system_plugins = Helper::read_directory("system/plugins");
-		$user_plugins = Helper::read_directory("user/plugins");
+		$user_plugins = Helper::read_directory("extensions/plugins");
 		Registry::set("loaded.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
 		
 		// Load Tags
 		$system_tags = Helper::read_directory("system/tags");
-		$user_tags = Helper::read_directory("user/tags");
+		$user_tags = Helper::read_directory("extensions/atgs");
 		Registry::set("loaded.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));
 		
 		// Load Definitions
 		$system_definitions = Helper::read_directory("system/definitions");
-		$user_definitions = Helper::read_directory("user/definitions");
+		$user_definitions = Helper::read_directory("extensions/definitions");
 		Registry::set("loaded.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
-		
-		// Check Permission
-		(Helper::permission("system")<777)?die('Set Permissions for "system" to 777'):null;
-		(Helper::permission("public/system")<777)?die('Set Permissions for "public/system" to 777'):null;
-		(Helper::permission("user")<777)?die('Set Permissions for "user" to 777'):null;
 		
 		// Check for Automatic DB Setup
 		if(Registry::get("system.automatic_db_setup")) {
 			
 			// Check if Sqlite Db Exists
 			if(Registry::get("db.driver") == "sqlite") {
-				Sqlite::create_database(str_replace("sqlite:","",Registry::get("db.location")));
+				Sqlite::create_database("system/db.sq3");
 			}
 			
 			// Get Tables
@@ -173,18 +168,18 @@ class Hanya {
 			}
 		
 			// Check each Definition
-			foreach(Registry::get("loaded.definitions") as $table) {
+			foreach(Registry::get("loaded.definitions") as $definition) {
 				
 				// Database has Table?
-				if(!in_array($table,$tables)) {
+				if(!in_array($definition,$tables)) {
 					
 					// Get Class
 					$class = ucfirst($table)."Definition";
 					
 					// Get Creation Code
 					switch(Registry::get("db.driver")) {
-						case "sql": $sql = Mysql::generate_create($table,$class::$blueprint); break;
-						case "sqlite": $sql = Sqlite::generate_create($table,$class::$blueprint); break;
+						case "sql": $sql = Mysql::generate_create($class::$blueprint); break;
+						case "sqlite": $sql = Sqlite::generate_create($class::$blueprint); break;
 					}
 					
 					// Execute Code

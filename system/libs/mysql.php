@@ -20,7 +20,7 @@ class Mysql {
 	}
 
 	// Generate Creation Code
-	public static function generate_create($table,$blueprint) {
+	public static function generate_create($blueprint) {
 		
 		// Begin
 		$sql = "CREATE TABLE `".$table."` ( `id` int(11) unsigned NOT NULL AUTO_INCREMENT";
