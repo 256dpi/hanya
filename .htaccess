@@ -51,6 +51,6 @@ RewriteBase /GitHub/Hanya/
   Order Deny,Allow
   Deny From All
 </Files>
-RewriteRule ^(?:source|templates|system|plugins)\b index.php
+RewriteRule ^(?:elements|user|system|templates|tree)\b index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php

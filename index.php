@@ -14,7 +14,7 @@ Hanya::dynamic_point("database-item","(/<id>)");
 
 Hanya::run(array(
 	"db.driver" => "sqlite",
-	"db.location" => "sqlite:system/db.sq3",
+	"db.location" => "sqlite:user/db.sq3",
 	"db.user" => "",
 	"db.password" => "",
 	"i18n.languages" => array("en"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
