@@ -173,14 +173,9 @@ class Disk {
 
 	// Create File
 	public static function create_file($path,$data) {
-		
-		// Create new File
-		if(!touch($path)) {
-			die("Disk::create_file: Cant create File: ".$path);
-		}
-		
+				
 		// Open Empty File
-		if(!$file = fopen($path,"r+")) {
+		if(!$file = fopen($path,"w+")) {
 			die("Disk::create_file: Cant open File: ".$path);
 		}
 		
