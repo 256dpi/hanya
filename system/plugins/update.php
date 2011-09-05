@@ -43,6 +43,11 @@ class Update_Plugin extends Plugin {
 				echo HTML::paragraph("Failed to load Update!");
 			}
 			
+			// Check Download
+			if(!is_file($tempfile)) {
+				die("Error while Loading Update from GitHub!");
+			}
+			
 			// Next Steps
 			echo HTML::paragraph("Unpack Update from <strong>".$tempfile."</strong> to <strong>".$tempdir."</strong>");
 			flush();
