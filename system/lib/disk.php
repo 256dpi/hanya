@@ -61,7 +61,7 @@ class Disk {
 	
 	// Check for Write Right
 	public static function writeable($file) {
-		return is_writable($file)
+		return is_writable($file);
 	}
 	
 	// Unzip Archive to Directory
