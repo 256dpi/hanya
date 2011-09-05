@@ -13,7 +13,7 @@ define("HANYA_SCRIPT_START",microtime(true));
 
 // Require All Classes
 require("helper.php");
-Helper::import_folder("system/libs");
+Helper::import_folder("system/lib");
 Helper::import_folder("system/tags");
 Helper::import_folder("system/plugins");
 Helper::import_folder("system/definitions");
