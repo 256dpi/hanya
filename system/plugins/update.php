@@ -3,8 +3,8 @@
  * Hanya - A rapid Website Engine
  *
  * @author Joël Gähwiler <joel.gaehwiler@bluewin.ch>
- * @version 1.0
- * @copyright (c) 2011 Joël Gähwiler 
+ * @version 0.2
+ * @copyright (c) 2011 Joël Gähwiler
  * @package Hanya
  **/
 
