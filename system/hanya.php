@@ -129,8 +129,8 @@ class Hanya {
 		// Load Default System Settings
 		Registry::load(array(
 			"system.automatic_db_setup" => true,
-			"system.update_url" => "http://github.com/256dpi/Hanya/zipball/master",
-			"system.version_url" => "http://raw.github.com/256dpi/Hanya/master/VERSION",
+			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
+			"system.version_url" => "https://raw.github.com/256dpi/Hanya/master/VERSION",
 		));
 		
 		// Load Config
