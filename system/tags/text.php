@@ -28,7 +28,7 @@ class Text_Tag {
 			self::$_texts[$key] = $text->value;
 		}
 		
-		if(Memory::get("admin.edit_page")) {
+		if(Memory::get("edit_page")) {
 			$text = ORM::for_table("text")->where("key",$key)->find_one();
 			return Helper::wrap_as_editable($text->value,"text",$text->id);
 		} else {

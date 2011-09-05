@@ -28,7 +28,7 @@ class String_Tag {
 			self::$_strings[$key] = $string->value;
 		}
 		
-		if(Memory::get("admin.edit_page")) {
+		if(Memory::get("edit_page")) {
 			$string = ORM::for_table("string")->where("key",$key)->find_one();
 			return Helper::wrap_as_editable($string->value,"string",$string->id);
 		} else {

@@ -1,3 +1,14 @@
+# URL REWRITING
+RewriteEngine On
+RewriteBase /GitHub/Hanya/
+<Files .*>
+  Order Deny,Allow
+  Deny From All
+</Files>
+RewriteRule ^(?:elements|user|system|templates|tree)\b index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* index.php
+
 # NO ETAGS
 Header unset ETag
 FileETag None
@@ -43,14 +54,3 @@ ExpiresByType text/css                  		"access plus 2 months"
 ExpiresByType application/javascript    		"access plus 2 months"
 ExpiresByType text/javascript           		"access plus 2 months"
 Header append Cache-Control "public"
-
-# URL REWRITING
-RewriteEngine On
-RewriteBase /GitHub/Hanya/
-<Files .*>
-  Order Deny,Allow
-  Deny From All
-</Files>
-RewriteRule ^(?:elements|user|system|templates|tree)\b index.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule .* index.php

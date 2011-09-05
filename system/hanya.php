@@ -108,7 +108,7 @@ class Hanya {
 		}
 		
 		// Get Segments
-		Registry::set("request.segments",explode("/",$path));
+		Registry::set("request.segments",Request::get_segments($path));
 		
 		// Dispatch Event
 		Plugin::dispatch("before_execution");
