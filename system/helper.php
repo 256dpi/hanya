@@ -144,7 +144,11 @@ class Helper {
 	
 	// Create Directory
 	public static function create_directory($dir) {
-		return mkdir($dir,0777);
+		if(!is_dir($dir) && !is_file($dir)) {
+			return mkdir($dir,0777);
+		} else {
+			return false;
+		}
 	}
 	
 	// Empty Directory
