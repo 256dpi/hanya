@@ -109,7 +109,7 @@ class Hanya {
 		
 		// Get Segments
 		Registry::set("request.segments",Request::get_segments($path));
-		
+
 		// Dispatch Event
 		Plugin::dispatch("before_execution");
 		
@@ -164,20 +164,20 @@ class Hanya {
 		ORM::configure("username",Registry::get("db.user"));
 		ORM::configure("password",Registry::get("db.password"));
 		
-		// Load Plugins
+		// Get Plugins
 		$system_plugins = Disk::read_directory("system/plugins");
 		$user_plugins = Disk::read_directory("user/plugins");
-		Registry::set("loaded.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
+		Registry::set("available.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
 		
-		// Load Tags
+		// Get Tags
 		$system_tags = Disk::read_directory("system/tags");
 		$user_tags = Disk::read_directory("user/tags");
-		Registry::set("loaded.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));
+		Registry::set("available.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));
 		
 		// Load Definitions
 		$system_definitions = Disk::read_directory("system/definitions");
 		$user_definitions = Disk::read_directory("user/definitions");
-		Registry::set("loaded.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
+		Registry::set("available.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
 		
 		// Check for Automatic DB Setup
 		if(Registry::get("system.automatic_db_setup")) {
@@ -194,7 +194,7 @@ class Hanya {
 			}
 		
 			// Check each Definition
-			foreach(Registry::get("loaded.definitions") as $table) {
+			foreach(Registry::get("available.definitions") as $table) {
 				
 				// Database has Table?
 				if(!in_array($table,$tables)) {

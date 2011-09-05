@@ -22,13 +22,17 @@ class Request {
 
 	// Get Segments of a Path
 	public static function get_segments($path) {
+		if(Registry::get("base.path") != "/" && Registry::get("base.path") != "") {
+			$path = str_replace(Registry::get("base.path"),"",$path);
+		}
 		$segments = explode("/",$path);
 		$i = count($segments);
 		if($i > 1) {
-			if($segments[0] = "") {
+			if($segments[0] == "") {
 				array_shift($segments);
 			}
 		}
+		return $segments;
 	}
 
 	// Get Variable from POST

@@ -38,7 +38,7 @@ class I18n {
 		foreach($user_files["."] as $file) {
 			if(strpos($file,$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));
-				self::$_i18n[$meta[1]][$meta[0]] = parse_ini_file("user/i18n/".$file,true);
+				self::$_i18n[$meta[1]][$meta[0]] = array_merge(self::$_i18n[$meta[1]][$meta[0]],parse_ini_file("user/i18n/".$file,true));
 			}
 		}
 	}
