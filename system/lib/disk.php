@@ -106,11 +106,9 @@ class Disk {
 	
 	// Remove Directory
 	public static function remove_directory($dir) {
-		if(is_dir($dir)) {
+		if(is_dir($dir) && !is_file($dir)) {
 			self::empty_directory($dir);
 			return rmdir($dir);
-		} else {
-			die("Disk::remove_directory: Is not a Directory: ".$dir);
 		}
 	}
 	
@@ -187,7 +185,7 @@ class Disk {
 		}
 		
 		// Set Content
-		if(!fwrite($file,$data)) {
+		if(fwrite($file,$data) === false) {
 			die("Disk::create_file: Cant write to File: ".$path);
 		}
 		
