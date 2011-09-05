@@ -75,27 +75,31 @@ class Disk {
 		
 		// Open Zip
 		$zip = zip_open($file);
-		
+
 		// Get Zip Elements
 		while($item = zip_read($zip)) {
-			
+
 			// Get Item Path
 			$path = zip_entry_name($item);
-			
+
 			// Check Filetype
 			if(substr($path,-1) == "/") {
-				
+
 				// Create Directory
-				self::create_directory($folder.$path));
-				
+				self::create_directory($folder.$path)) {
+
 			} else {
-				
+
 				// Create File with Content
 				self::create_file($folder.$path,zip_entry_read($item,zip_entry_filesize($item)));
 
 			}
+			
+			// Close Entry
+			zip_entry_close($item);
+
 		}
-		
+
 		// Close Zip
 		zip_close($zip);
 	}
