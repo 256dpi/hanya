@@ -86,7 +86,7 @@ class Disk {
 			if(substr($path,-1) == "/") {
 
 				// Create Directory
-				self::create_directory($folder.$path)) {
+				self::create_directory($folder.$path);
 
 			} else {
 
@@ -146,7 +146,9 @@ class Disk {
 	// Copy Directory
 	public static function copy_directory($src, $dst) {
 	  if (is_dir($src)) {
-	    self::create_directory($dst);
+			if(!is_dir($dst)) {
+				self::create_directory($dst);
+			}
 	    $files = scandir($src);
 	    foreach ($files as $file) {
 				if ($file != "." && $file != "..") {
@@ -180,7 +182,7 @@ class Disk {
 		}
 		
 		// Open Empty File
-		if(!$file = fopen($path,"a+")) {
+		if(!$file = fopen($path,"r+")) {
 			die("Disk::create_file: Cant open File: ".$path);
 		}
 		

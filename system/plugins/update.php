@@ -82,6 +82,11 @@ class Update_Plugin extends Plugin {
 			echo HTML::paragraph("Install Revision: <strong>".$revision."</strong>");
 			flush();
 			
+			// Check Revision
+			if(!Disk::has_directory($tempdir)) {
+				die("Revision not found!");
+			}
+			
 			// Set Folders
 			$tmp_system_dir = $tempdir.$revision."/system";
 			$tmp_public_system_dir = $tempdir.$revision."/public/system";	
@@ -105,7 +110,7 @@ class Update_Plugin extends Plugin {
 			
 			// Empty Directories
 			Disk::empty_directory($real_system_dir);
-			Disk::empty_directory($teal_public_system_dir);
+			Disk::empty_directory($real_public_system_dir);
 			
 			// Copy New Files
 			Disk::copy_directory($tmp_system_dir,$real_system_dir);
