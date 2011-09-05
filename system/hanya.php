@@ -57,13 +57,13 @@ class Hanya {
 	  self::_initialize($config);
 	
 		// Dispatch First Event
-		Helper::dispatch("after_initialize");
+		Plugin::dispatch("after_initialize");
 		
 		// Check for Command
 		if(Request::has_get("command") && Memory::get("logged_in")) {
 			
 			// Dispatch Event
-			Helper::dispatch("on_".Request::get("command"));
+			Plugin::dispatch("on_".Request::get("command"));
 			
 			// Redirect to Referer
 			Helper::redirect_to_referer();
@@ -88,7 +88,7 @@ class Hanya {
 		Registry::set("request.segments",explode("/",$path));
 		
 		// Dispatch Event
-		Helper::dispatch("before_execution");
+		Plugin::dispatch("before_execution");
 		
 		// Set Default Content Type
 		HTTP::content_type();
@@ -142,18 +142,18 @@ class Hanya {
 		ORM::configure("password",Registry::get("db.password"));
 		
 		// Load Plugins
-		$system_plugins = Helper::read_directory("system/plugins");
-		$user_plugins = Helper::read_directory("user/plugins");
+		$system_plugins = Disk::read_directory("system/plugins");
+		$user_plugins = Disk::read_directory("user/plugins");
 		Registry::set("loaded.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
 		
 		// Load Tags
-		$system_tags = Helper::read_directory("system/tags");
-		$user_tags = Helper::read_directory("user/tags");
+		$system_tags = Disk::read_directory("system/tags");
+		$user_tags = Disk::read_directory("user/tags");
 		Registry::set("loaded.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));
 		
 		// Load Definitions
-		$system_definitions = Helper::read_directory("system/definitions");
-		$user_definitions = Helper::read_directory("user/definitions");
+		$system_definitions = Disk::read_directory("system/definitions");
+		$user_definitions = Disk::read_directory("user/definitions");
 		Registry::set("loaded.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
 		
 		// Check for Automatic DB Setup

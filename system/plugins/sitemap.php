@@ -26,7 +26,7 @@ class SitemapPlugin extends Plugin {
 			echo '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 			
 			// Read Tree
-			$tree = Helper::read_directory("tree");
+			$tree = Disk::read_directory("tree");
 			
 			// Genrate XML Entries
 		  foreach(str_replace(".html","",self::_get_files_from_tree($tree)) as $url) {

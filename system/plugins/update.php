@@ -14,7 +14,7 @@ class UpdatePlugin extends Plugin {
 	public static function on_update() {
 		
 		// Get Data
-		$current_version = Helper::read_file("system/VERSION");
+		$current_version = Disk::read_file("system/VERSION");
 		$installable_version = Helper::read_url(Registry::get("system.version_url"));
 		
 		// Begin Update Script
@@ -48,9 +48,9 @@ class UpdatePlugin extends Plugin {
 			flush();
 			
 			// Unpack Update
-			Helper::remove_directory($tempdir);
-			Helper::create_directory($tempdir);
-			Helper::unzip($tempfile,$tempdir);
+			Disk::remove_directory($tempdir);
+			Disk::create_directory($tempdir);
+			Disk::unzip($tempfile,$tempdir);
 			
 			// Get Revision
 			$folders = scandir($tempdir,1);
@@ -80,12 +80,12 @@ class UpdatePlugin extends Plugin {
 			}
 			
 			// Empty Directories
-			Helper::empty_directory($real_system_dir);
-			Helper::empty_directory($teal_public_system_dir);
+			Disk::empty_directory($real_system_dir);
+			Disk::empty_directory($teal_public_system_dir);
 			
 			// Copy New Files
-			Helper::copy_directory($tmp_system_dir,$real_system_dir);
-			Helper::copy_directory($tmp_public_system_dir,$real_public_system_dir);
+			Disk::copy_directory($tmp_system_dir,$real_system_dir);
+			Disk::copy_directory($tmp_public_system_dir,$real_public_system_dir);
 			
 			// Info
 			echo HTML::paragraph("<strong>Update completed</strong>");
@@ -98,15 +98,15 @@ class UpdatePlugin extends Plugin {
 	
 	private static function _check_directory($dir) {
 		$return = array();
-		foreach(Helper::read_directory($dir) as $folder => $files) {
+		foreach(Disk::read_directory($dir) as $folder => $files) {
 			if($folder == ".") {
 				foreach($files as $file) {
-					if(Helper::permission($dir."/".$file) < 777) {
+					if(Disk::permission($dir."/".$file) < 777) {
 						$return[$dir."/".$file] = "Set Permission to 777 for: <strong>".$dir."/".$file."</strong>";
 					}
 				}
 			} else {
-				if(Helper::permission($dir."/".$folder) < 777) {
+				if(Disk::permission($dir."/".$folder) < 777) {
 					$return[$dir."/".$folder] = "Set Permission to 777 for: <strong>".$dir."/".$folder."</strong>";
 				}
 				$return = array_merge($return,self::_check_directory($dir."/".$folder));

@@ -92,7 +92,7 @@ class ManagerPlugin extends Plugin {
 					// File Select
 					case "file": {
 						$data = array();
-						$files = Helper::read_directory("public/".$config["folder"]);
+						$files = Disk::read_directory("public/".$config["folder"]);
 						foreach($files["."] as $file) {
 							$data[$file] = $file;
 						}

@@ -25,7 +25,7 @@ class I18n {
 		date_default_timezone_set($languages[$lang]["timezone"]);
 		
 		// Load System Translations
-		$system_files = Helper::read_directory("system/i18n");
+		$system_files = Disk::read_directory("system/i18n");
 		foreach($system_files["."] as $file) {
 			if(strpos($file,$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));
@@ -34,7 +34,7 @@ class I18n {
 		}
 		
 		// Load User Translations
-		$user_files = Helper::read_directory("extensions/i18n");
+		$user_files = Disk::read_directory("extensions/i18n");
 		foreach($user_files["."] as $file) {
 			if(strpos($file,$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));

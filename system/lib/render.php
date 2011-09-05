@@ -57,7 +57,7 @@ class Render {
 	public static function file($file) {
 		
 		// Evaluate Fie
-		$output = Helper::eval_file($file);
+		$output = Disk::eval_file($file);
 		
 		// Process "request" Variables
 		$output = self::_process_variables("request",Registry::get("request.variables"),$output);
