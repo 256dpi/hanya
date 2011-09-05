@@ -1,0 +1,122 @@
+/* TOOLBAR */
+
+#hanya-toolbar {
+	background-color: black;
+	padding: 10px 15px;
+	padding-top: 12px;
+	color: white;
+	text-align: center;
+	overflow: hidden;
+}
+
+#hanya-toolbar a {
+	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#hanya-toolbar a:hover {
+	text-decoration: underline;
+}
+
+#hanya-button-left {
+	margin: 0;
+	float: left;
+}
+
+#hanya-button-right {
+	margin: 0;
+	float: right;
+}
+
+/* MANAGER */
+
+.hanya-editable {
+	border: 2px dashed red;
+	padding: 4px;
+}
+
+.hanya-createable {
+	border: 2px dashed green;
+	padding: 4px;
+}
+
+.hanya-overlay {
+	background-color: black;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.7;
+}
+
+.hanya-manager {
+	background-color: white;
+	background-image: url(background.png);
+	position: absolute;
+	border: 1px solid #222;
+	box-shadow: 0 0 15px #222;
+	overflow: scroll;
+}
+
+.hanya-manager-head {
+	background-color: #222;
+	padding: 10px 15px;
+	color: white;
+	font-size: 14px;
+}
+
+.hanya-manager-head-close {
+	color: #bbb;
+	text-decoration: none;
+	float: right;
+}
+
+.hanya-manager-body {
+	padding: 15px 15px;
+}
+
+.hanya-manager-body-row {
+	padding: 4px 0px;
+}
+
+.hanya-manager-body input[type="text"], .hanya-manager textarea {
+	width: 97%;
+	border: 1px solid #999;
+	padding: 5px;
+	border-radius: 3px;
+	font-family: monospace;
+	font-size: 14px;
+}
+
+.hanya-manager-body textarea {
+	height: 100px;
+}
+
+.hanya-manager-body label {
+	display: block;
+	padding: 2px 0;
+	color: #444;
+}
+
+.hanya-manager-body button, .hanya-manager-body input[type="submit"] {
+	margin: 0;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.hanya-manager-body input[type="radio"] {
+	margin-right: 5px;
+	margin-left: 15px;
+}
+
+.hanya-manager-body .radiogroup input[type="radio"]:first-child {
+	margin-left: 0;
+}

@@ -1,0 +1,21 @@
+<?php
+/**
+ * Hanya - A rapid Website Engine
+ *
+ * @author Joël Gähwiler <joel.gaehwiler@bluewin.ch>
+ * @version 1.0
+ * @copyright (c) 2011 Joël Gähwiler 
+ * @package Hanya
+ **/
+
+class AttachTag {
+	
+	public static function call($attributes) {
+		switch($attributes[1]) {
+			case "file" : $addon = Render::file("elements/".$attributes[2].".html"); break;
+			case "html" : $addon = $attributes[2]; break;
+		}
+		Registry::append("block.".$attributes[0],$addon);
+	}
+	
+}

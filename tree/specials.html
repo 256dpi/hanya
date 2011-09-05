@@ -1,0 +1,20 @@
+{tag:template(default)}
+{tag:write(title|Specials)}
+{tag:write(site_id|specials)}
+<h1>Specials in Hanya</h1>
+<h2>Sitemap Generation</h2>
+<p>The automatic generation of the "sitemap.xml" is builtin. The generator checks the structure in the "tree" directory to buid the xml file.</p>
+<pre>&lt;urlset xsi:schemaLocation="http://www.sitemaps.org/schem...
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/page&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/directory/page&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;
+</pre>
+<h2>.htaccess</h2>
+<p>The .htaccess file comes with some important settings. The "Expire" settings are all set by default and the server trys to gzip compress all files. "ETags" are off so the Browser loads the tiny Site at every Request.</p>

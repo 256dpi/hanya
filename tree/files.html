@@ -1,0 +1,82 @@
+{tag:template(default)}
+{tag:write(title|Files)}
+{tag:write(site_id|files)}
+<h1>Hanya's File Structure</h1>
+<p>To Generate a HTML Page, Hanya needs at least one Page and one Template file. To keep this files clean divide your pages into reuseable partials and blocks. Partials can loaded by a "include" tag and will be placed immediately at his space. The Blocksystem allows you to attach Blocks and HTML Code to an id, which can be rendered in a template or other file.</p>
+<h2>File Structure</h2>
+<p>Images, Stylesheets and Javascript files are stored in the "public" directory. This is the only directory that is accessible from outside. Includeable partials and attachable blocks are stored in the "elements" directory. They are marked with an underscore for partial and a plus for block.</p>
+<pre>
+<strong>elements</strong>
+  +block.html
+  _partial.html
+  404.html
+<strong>public</strong>
+  javascript.js
+  stylesheet.css
+<strong>templates</strong>
+  default.html
+<strong>tree</strong>
+  index.html
+  page.html
+  directory
+    page.html
+</pre>
+<h2>Templates</h2>
+<pre>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;<strong>&#123hanya:read(title|Default Title|)&#125</strong>&lt;/title&gt;
+    &lt;link rel="stylesheet" href="<strong>&#123hanya:file(reset.css)&#125</strong>" type="text/css"&gt;
+    &lt;link rel="stylesheet" href="<strong>&#123hanya:file(style.css)&#125</strong>" type="text/css" media="screen"&gt;
+    &lt;script src="<strong>&#123hanya:file(jquery.js)&#125</strong>" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="<strong>&#123hanya:file(hanya.js)&#125</strong>" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <strong>&#123hanya:toolbar()&#125</strong>
+    &lt;header&gt;
+      <strong>&#123hanya:include(header)&#125</strong>
+    &lt;/header&gt;
+    &lt;div id="content"&gt;
+      <strong>&#123hanya:block(content)&#125</strong>
+      <strong>&#123hanya:block(sidebar)&#125</strong>
+    &lt;/div&gt;
+    &lt;footer&gt;
+      <strong>&#123hanya:benchmark()&#125</strong>
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Partial &amp; Block</h2>
+<pre>&lt;h1&gt;Site Title&lt;/h2&gt;
+&lt;p&gt;Sub Title or Slogan&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="<strong>&#123hanya:link()&#125</strong>"&gt;Index&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="<strong>&#123hanya:link(page)&#125</strong>"&gt;Page&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="<strong>&#123hanya:link(directory/subpage)&#125</strong>"&gt;Sub Page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+<h2>Page</h2>
+<pre><strong>&#123hanya:template(default)&#125</strong>
+<strong>&#123hanya:write(title|Welcome to my Site)&#125</strong>
+&lt;article&gt;
+  &lt;h1&gt;Welcome to my Site&lt;/h1&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consetetur ...&lt;/p&gt;
+  &lt;h2&gt;Some Informations&lt;/h2&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing ...&lt;/p&gt;
+&lt;/article&gt;
+<strong>&#123hanya:attach(blockname|file|filename)&#125</strong>
+<strong>&#123hanya:attach(blockname|html|&lt;p&gt;Lorem ipsum dolor sit amet, consetetur ...&lt;/p&gt;)&#125</strong>
+</pre>

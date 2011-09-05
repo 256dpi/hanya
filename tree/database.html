@@ -1,0 +1,23 @@
+{tag:template(default)}
+{tag:write(title|Database)}
+{tag:write(site_id|database)}
+
+<h1>{tag:string(welcome-one)}</h1>
+<p>{tag:text(welcome-two)}
+<p><strong>Open the <a href="{tag:link(admin)}">Admin Interface</a> to Edit this Page. Use "admin" as username and password.</strong></p>
+
+<h1>Example Content Definition</h1>
+
+[def:example()]
+	<span>$example(string)</span>
+	<span>{tag:link($example(document))}
+[/def:example]
+{tag:new(example)}
+
+[def:example(1)]
+	[-def:example(string|hello)]
+	[/-def:example]
+[/def:example]
+
+[def:example(string|hello|number|1|text|paragraph)]
+[/def:example]
