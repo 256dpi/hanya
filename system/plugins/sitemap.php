@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class SitemapPlugin extends Plugin {
+class Sitemap_Plugin extends Plugin {
 	
 	// Check for ../sitemap.xml
 	public static function before_execution() {

@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class TextTag {
+class Text_Tag {
 	
 	private static $_texts = array();
 	

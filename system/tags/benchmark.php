@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class BenchmarkTag {
+class Benchmark_Tag {
 	
 	public static function call($attributes) {
 		$time = (microtime(true)-HANYA_SCRIPT_START)*1000;

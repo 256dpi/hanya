@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class ReadTag {
+class Read_Tag {
 	
 	public static function call($attributes) {
 		$var = Registry::get("var.".$attributes[0]);

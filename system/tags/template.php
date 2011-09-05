@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class TemplateTag {
+class Template_Tag {
 	
 	public static function call($attributes) {
 		Registry::set("site.template",$attributes[0]);

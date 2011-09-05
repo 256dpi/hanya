@@ -11,21 +11,31 @@
 // Log Script Start for Benchmarking
 define("HANYA_SCRIPT_START",microtime(true));
 
-// Require All Classes
-require("helper.php");
-Helper::import_folder("system/lib");
-Helper::import_folder("system/tags");
-Helper::import_folder("system/plugins");
-Helper::import_folder("system/definitions");
-Helper::import_folder("user/tags");
-Helper::import_folder("user/plugins");
-Helper::import_folder("user/definitions");
-Helper::import_folder("system/vendor");
+// Register Autoloader
+spl_autoload_register("Hanya::autoload");
 
 class Hanya {
 	
 	// Expressions for Dynamic Points
 	private static $_dynamic_points = array();
+	
+	// Autoloader
+	public static function autoload($class) {
+		
+		// Uncamelize
+		$segments = explode("_",strtolower($class));
+		
+		// Check Parent Class
+		if($segments[1] == "plugin") {
+			require("system/plugins/".$segments[0].".php");
+		} else if($segments[1] == "tag") {
+			require("system/tags/".$segments[0].".php");
+		} else if($segments[1] == "definition") {
+			require("system/definitions/".$segments[0].".php");
+		} else {
+			require("system/lib/".$segments[0].".php");
+		}
+	}
 	
 	// Add a Dynamic Point
 	public static function dynamic_point($static,$optional) {

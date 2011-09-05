@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class FileTag {
+class File_Tag {
 	
 	public static function call($attributes) {
 		return Helper::url("public/".$attributes[0]);

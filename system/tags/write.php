@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class WriteTag {
+class Write_Tag {
 	
 	public static function call($attributes) {
 		Registry::set("var.".$attributes[0],$attributes[1]);

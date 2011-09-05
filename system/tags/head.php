@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class HeadTag {
+class Head_Tag {
 	
 	public static function call($attributes) {
 		$html = HTML::stylesheet(Helper::url("public/system/hanya.css"));

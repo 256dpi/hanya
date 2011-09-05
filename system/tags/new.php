@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class NewTag {
+class New_Tag {
 	
 	public static function call($attributes) {
 		if(Memory::get("admin.edit_page")) {

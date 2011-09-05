@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class AttachTag {
+class Attach_Tag {
 	
 	public static function call($attributes) {
 		switch($attributes[1]) {

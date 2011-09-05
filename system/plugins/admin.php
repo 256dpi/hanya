@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class AdminPlugin extends Plugin {
+class Admin_Plugin extends Plugin {
 	
 	// Check for ../admin/ in URL
 	public static function before_execution() {
@@ -25,7 +25,7 @@ class AdminPlugin extends Plugin {
 			if($action) {
 				
 				// Delegate Action
-				self::_delegate("AdminPlugin",$action);
+				self::_delegate("Admin_Plugin",$action);
 				
 			} else {
 				

@@ -105,7 +105,7 @@ class Render {
 	
 	// Execute a Tag
 	private static function _execute_tag($tag,$attributes) {
-		$classname = ucfirst($tag)."Tag";
+		$classname = ucfirst($tag)."_Tag";
 		if(method_exists($classname,"call")) {
 			return $classname::call($attributes);
 		} else {

@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class ToolbarTag {
+class Toolbar_Tag {
 	
 	public static function call($attributes) {
 		

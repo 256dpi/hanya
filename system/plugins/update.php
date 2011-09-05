@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class UpdatePlugin extends Plugin {
+class Update_Plugin extends Plugin {
 	
 	// Perform a Update of the System
 	public static function on_update() {

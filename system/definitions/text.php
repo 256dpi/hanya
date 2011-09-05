@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class TextDefinition extends Definition {
+class Text_Definition extends Definition {
 	
 	static $blueprint = array(
 		"key" => array("as"=>"string","hidden"=>true,"validation"=>array("not_empty"=>null,"match"=>"!^[a-z0-9-_]+$!")),

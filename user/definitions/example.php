@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class ExampleDefinition extends Definition {
+class Example_Definition extends Definition {
 		
 	static $blueprint = array(
 		"string" => array("as"=>"string"),

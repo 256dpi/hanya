@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class BlockTag {
+class Block_Tag {
 	
 	public static function call($attributes) {
 		return Registry::get("block.".$attributes[0]);

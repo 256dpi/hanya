@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class IncludeTag {
+class Include_Tag {
 	
 	public static function call($attributes) {
 		return Render::file("elements/".$attributes[0].".html");

@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class LinkTag {
+class Link_Tag {
 	
 	public static function call($attributes) {
 		return Registry::get("base.path").$attributes[0];

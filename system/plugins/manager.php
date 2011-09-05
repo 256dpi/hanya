@@ -8,7 +8,7 @@
  * @package Hanya
  **/
 
-class ManagerPlugin extends Plugin {
+class Manager_Plugin extends Plugin {
 	
 	// Send Back HTML to Display Form
 	public static function on_manager_form() {

@@ -28,7 +28,7 @@ abstract class Plugin {
 	// Dispatch Event to all Plugins
 	public static function dispatch($event,$options=null) {
 		foreach(Registry::get("loaded.plugins") as $plugin) {
-			$classname = ucfirst($plugin)."Plugin";
+			$classname = ucfirst($plugin)."_Plugin";
 			if(class_exists($classname)) {
 				if(method_exists($classname,$event)) {
 					$classname::$event($options);
