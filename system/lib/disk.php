@@ -89,19 +89,9 @@ class Disk {
 				
 			} else {
 				
-				// Create new File
-				if(!touch($folder.$path)) {
-					die("Failed to create File: '".$folder.$path."'!");
-				}
-				
-				// Open Empty File
-				$file = fopen($folder.$path,"r+");
-				
-				// Set Content
-				fwrite($file,zip_entry_read($item,zip_entry_filesize($item)));
-				
-				// Close
-				fclose($file);
+				// Create File with Content
+				self::create_file($folder.$path,zip_entry_read($item,zip_entry_filesize($item)));
+
 			}
 				
 		}
@@ -176,4 +166,27 @@ class Disk {
 	public static function has_directory($dir) {
 		return is_dir($dir);
 	}
+
+	// Create File
+	public static function create_file($path,$data) {
+		
+		// Create new File
+		if(!touch($path)) {
+			return false;
+		}
+		
+		// Open Empty File
+		if(!$file = fopen($$path,"a+")) {
+			return false;
+		}
+		
+		// Set Content
+		if(!fwrite($file,$data) {
+			return false;
+		}
+		
+		// Close
+		fclose($file);
+	}
+
 }
