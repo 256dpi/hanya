@@ -22,7 +22,6 @@ class Helper {
 		curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
 	  $data = curl_exec($curl);
 	  curl_close($curl);
-		var_dump($data);
 	  return $data;
 	}
 	
