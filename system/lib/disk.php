@@ -181,7 +181,7 @@ class Disk {
 		}
 		
 		// Set Content
-		if(!fwrite($file,$data) {
+		if(!fwrite($file,$data)) {
 			return false;
 		}
 		
