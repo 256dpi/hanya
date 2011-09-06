@@ -30,7 +30,7 @@ class Sitemap_Plugin extends Plugin {
 			
 			// Genrate XML Entries
 		  foreach(str_replace(".html","",self::_get_files_from_tree($tree)) as $url) {
-				echo ('<url><loc>'.Helper::url($url).'</loc></url>');
+				echo ('<url><loc>'.Url::_($url).'</loc></url>');
 			}
 			
 			// End

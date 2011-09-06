@@ -160,7 +160,7 @@ class Definition_Plugin extends Plugin {
 		$entry = $class::before_update($entry);
 		
 		// Redirect
-		Helper::redirect_to_referer();
+		Url::redirect_to_referer();
 	}
 	
 	// Delete an Entry

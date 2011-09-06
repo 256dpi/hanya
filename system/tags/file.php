@@ -11,7 +11,7 @@
 class File_Tag {
 	
 	public static function call($attributes) {
-		return Helper::url("public/".$attributes[0]);
+		return Url::_("public/".$attributes[0]);
 	}
 	
 }

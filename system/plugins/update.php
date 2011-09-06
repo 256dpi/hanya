@@ -19,11 +19,11 @@ class Update_Plugin extends Plugin {
 		}
 		
 		// Get Data
-		$installable_version = Helper::read_url(Registry::get("system.version_url"));
+		$installable_version = Url::load(Registry::get("system.version_url"));
 		
 		// Begin Update Script
 		echo HTML::header(1,"Update Hanya");
-		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to Website"));
+		echo HTML::paragraph(HTML::anchor(Url::_(),"Return to Website"));
 		
 		// Print Status
 		echo HTML::header(2,"System Information");
@@ -32,7 +32,7 @@ class Update_Plugin extends Plugin {
 		
 		// Link to Update
 		if(HANYA_VERSION < $installable_version) {
-			echo HTML::anchor(Helper::url("?command=do_update"),"Install Update");
+			echo HTML::anchor(Url::_("?command=do_update"),"Install Update");
 		}
 		
 		// End
@@ -49,11 +49,11 @@ class Update_Plugin extends Plugin {
 		}
 				
 		// Get Data
-		$installable_version = Helper::read_url(Registry::get("system.version_url"));
+		$installable_version = Url::load(Registry::get("system.version_url"));
 		
 		// Header
 		echo HTML::header(1,"Update Hanya");
-		echo HTML::paragraph(HTML::anchor(Helper::url(),"Return to Website"));
+		echo HTML::paragraph(HTML::anchor(Url::_(),"Return to Website"));
 		
 		// Has no Update?
 		if(HANYA_VERSION >= $installable_version) {
@@ -68,7 +68,7 @@ class Update_Plugin extends Plugin {
 			// Load Actual Version
 			$tempfile = sys_get_temp_dir()."/hanya_update.zip";
 			$tempdir = sys_get_temp_dir()."/hanya_update/";
-			$data = Helper::read_url(Registry::get("system.update_url"));
+			$data = Url::load(Registry::get("system.update_url"));
 			Disk::create_file($tempfile,$data);
 			
 			// Check Download

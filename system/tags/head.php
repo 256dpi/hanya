@@ -11,12 +11,12 @@
 class Head_Tag {
 	
 	public static function call($attributes) {
-		$html = HTML::stylesheet(Helper::url("public/system/hanya.css"));
-		$html .= HTML::stylesheet(Helper::url("public/system/jquery.cleditor.css"));
-		$html .= HTML::script(Helper::url("public/system/jquery.js"));
-		$html .= HTML::script(Helper::url("public/system/hanya.js"));
-		$html .= HTML::script(Helper::url("public/system/jquery.cleditor.js"));
-		$html .= HTML::script(Helper::url("public/system/jquery.treeview.js"));
+		$html = HTML::stylesheet(Url::_("public/system/hanya.css"));
+		$html .= HTML::stylesheet(Url::_("public/system/jquery.cleditor.css"));
+		$html .= HTML::script(Url::_("public/system/jquery.js"));
+		$html .= HTML::script(Url::_("public/system/hanya.js"));
+		$html .= HTML::script(Url::_("public/system/jquery.cleditor.js"));
+		$html .= HTML::script(Url::_("public/system/jquery.treeview.js"));
 		return $html;
 	}
 

@@ -59,7 +59,7 @@ class Admin_Plugin extends Plugin {
 				Memory::set("edit_page",false);
 				
 				// Redirect to Base
-				Helper::redirect_to_referer();
+				Url::redirect_to_referer();
 				
 			}
 			
@@ -67,7 +67,7 @@ class Admin_Plugin extends Plugin {
 		
 		// Redirect to Base
 		Memory::raise(I18n::_("system.admin.error"));
-		Helper::redirect_to_referer();
+		Url::redirect_to_referer();
 		
 	}
 	
@@ -79,7 +79,7 @@ class Admin_Plugin extends Plugin {
 		Memory::set("edit_page",false);
 		
 		// Redirect
-		Helper::redirect_to_referer();
+		Url::redirect_to_referer();
 		
 	}	
 	
@@ -92,7 +92,7 @@ class Admin_Plugin extends Plugin {
 		}
 		
 		// Redidrect
-		Helper::redirect_to_referer();
+		Url::redirect_to_referer();
 	}
 	
 	// Show Page
@@ -104,7 +104,7 @@ class Admin_Plugin extends Plugin {
 		}
 		
 		// Redirect
-		Helper::redirect_to_referer();
+		Url::redirect_to_referer();
 		
 	}
 	
