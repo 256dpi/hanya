@@ -71,9 +71,16 @@ class Update_Plugin extends Plugin {
 			echo HTML::paragraph("Unpack Update from <strong>".$tempfile."</strong> to <strong>".$tempdir."</strong>");
 			flush();
 			
-			// Unpack Update
+			// Directories
 			Disk::remove_directory($tempdir);
 			Disk::create_directory($tempdir);
+			
+			// Check Permission
+			if(!Disk::writeable($tempdir)) {
+				die("Temporary Directory ist not writeable");
+			}
+			
+			// Unzip
 			Disk::unzip($tempfile,$tempdir);
 			
 			// Get Revision
