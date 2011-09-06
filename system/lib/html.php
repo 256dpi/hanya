@@ -163,6 +163,12 @@ class HTML {
 		return self::_tag("a","both",$attributes,$text);
 	}
 	
+	// Image
+	public static function image($src,$attributes=array()) {
+		$attributes = array_merge(array("src"=>$src),$attributes);
+		return self::_tag("img","semi",$attributes);
+	}
+	
 	/* LAYOUT */
 	
 	// Open Div

@@ -28,6 +28,9 @@ var Hanya = {
 	},
 	command: function(command) {
 		window.location = window.location+"?command="+command;
+	},
+	deleteFile: function() {
+		
 	}
 }
 

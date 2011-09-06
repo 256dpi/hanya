@@ -81,10 +81,12 @@ class Upload_Plugin extends Plugin {
 
 				// Row
 				$return .= "<tr>";
+				$return .= "<td>".HTML::image(Helper::url("public/system/filetypes/".Disk::extension($file).".png"))."</td>";
 				$return .= "<td>".$file."</td>";
+				$return .= "<td>".HTML::anchor(Helper::url($folder."/".$file),I18n::_("system.upload.copy_link"))."</td>";
+				$return .= "<td>".Disk::filesize($folder."/".$file)."</td>";
+				$return .= "<td>".HTML::image(Helper::url("public/system/images/cross.png"), array("onclick"=>"Hanya.deleteFile('".$folder."/".$file."')","class"=>"hanya-delete-button"))."</td>";
 				$return .= "</tr>";
-				
-				// ADD size filetype icon uri delete button open button
 
 			}
 

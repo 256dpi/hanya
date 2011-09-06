@@ -184,6 +184,23 @@
 	background: white;
 }
 
+.hanya-files-list table {
+	width: 100%;
+}
 
+.hanya-files-list td {
+	padding: 5px 0;
+	border-top: 1px solid #ddd;
+}
 
+.hanya-files-list tr:first-child td {
+	border: 0;
+}
 
+.hanya-files-list td a {
+	color: black;
+}
+
+.hanya-files-list .hanya-delete-button {
+	cursor: pointer;
+}

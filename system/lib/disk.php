@@ -202,4 +202,25 @@ class Disk {
 		fclose($file);
 	}
 
+	// Get Formatted Filesize
+	public static function filesize($path) {
+		
+		// Get Filesize
+		$size = filesize($path);
+		$sizes = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+		
+		// Calculate
+    if ($size == 0) {
+			return('n/a');
+		} else {
+    	return (round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $sizes[$i]);
+		}
+		
+	}
+	
+	// Get Extension of a File
+	public static function extension($filename) {
+		return end(explode(".", $filename));
+	}
+
 }
