@@ -9,7 +9,7 @@
  **/
 
 // Hanya Version
-define("HANYA_VERSION","0.2");
+define("HANYA_VERSION","0.3");
 
 // Log Script Start for Benchmarking
 define("HANYA_SCRIPT_START",microtime(true));
