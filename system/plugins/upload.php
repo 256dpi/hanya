@@ -108,7 +108,7 @@ class Upload_Plugin extends Plugin {
 		
 		// Return
 		$return = '<ul id="hanya-files-browser" class="hanya-files-treeview">';
-		$return .= '<li><span class="folder">'.$folder.'</span>';
+		$return .= '<li>'.HTML::span($folder,array("class"=>"folder","onclick"=>"Hanya.loadFiles('".$folder."')")).'</li>';
 		
 		// Get Directories
 		$return .= self::_level(Disk::read_directory($folder));
@@ -132,7 +132,7 @@ class Upload_Plugin extends Plugin {
 				if($folder != ".") {
 
 					// Add Current Directory
-					$return .= '<li><span class="folder">'.$folder.'</span></li>';
+					$return .= '<li>'.HTML::span($folder,array("class"=>"folder","onclick"=>"Hanya.loadFiles('".$folder."')")).'</li>';
 
 					// Add Subdirectories
 					$return .= self::_level($files);
