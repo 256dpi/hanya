@@ -12,7 +12,7 @@ class Attach_Tag {
 	
 	public static function call($attributes) {
 		switch($attributes[1]) {
-			case "file" : $addon = Render::file("elements/".$attributes[2].".html"); break;
+			case "file" : $addon = Render::file("elements/partials/".$attributes[2].".html"); break;
 			case "html" : $addon = $attributes[2]; break;
 		}
 		Registry::append("block.".$attributes[0],$addon);

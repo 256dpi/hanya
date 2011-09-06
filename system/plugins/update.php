@@ -13,6 +13,11 @@ class Update_Plugin extends Plugin {
 	// Perform a Update of the System
 	public static function on_update() {
 		
+		// Check Admin
+		if(!Memory::get("logged_in")) {
+			die(Render::page("elements/errors/403.html"));
+		}
+		
 		// Get Data
 		$installable_version = Helper::read_url(Registry::get("system.version_url"));
 		
@@ -27,7 +32,7 @@ class Update_Plugin extends Plugin {
 		
 		// Link to Update
 		if(HANYA_VERSION < $installable_version) {
-			echo HTML::anchor(Helper::url("?command=do_update"),"Hanya aktualisieren");
+			echo HTML::anchor(Helper::url("?command=do_update"),"Install Update");
 		}
 		
 		// End
@@ -37,6 +42,11 @@ class Update_Plugin extends Plugin {
 	
 	// Do a System Update
 	public static function on_do_update() {
+		
+		// Check Admin
+		if(!Memory::get("logged_in")) {
+			die(Render::page("elements/errors/403.html"));
+		}
 				
 		// Get Data
 		$installable_version = Helper::read_url(Registry::get("system.version_url"));
@@ -54,7 +64,6 @@ class Update_Plugin extends Plugin {
 		if(HANYA_VERSION < $installable_version) {
 			echo HTML::header(2,"Install new Version from GitHub");
 			echo HTML::paragraph("Load: <strong>".Registry::get("system.update_url")."</strong>");
-			flush();
 			
 			// Load Actual Version
 			$tempfile = sys_get_temp_dir()."/hanya_update.zip";
@@ -69,7 +78,6 @@ class Update_Plugin extends Plugin {
 			
 			// Next Steps
 			echo HTML::paragraph("Unpack Update from <strong>".$tempfile."</strong> to <strong>".$tempdir."</strong>");
-			flush();
 			
 			// Directories
 			Disk::remove_directory($tempdir);
@@ -87,7 +95,6 @@ class Update_Plugin extends Plugin {
 			$folders = scandir($tempdir,1);
 			$revision = $folders[0];
 			echo HTML::paragraph("Install Revision: <strong>".$revision."</strong>");
-			flush();
 			
 			// Check Revision
 			if($revision == "" || $revision == "." || $revision == ".." ) {

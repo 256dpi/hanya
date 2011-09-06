@@ -25,7 +25,7 @@ class Render {
 			HTTP::not_found();
 			
 			// Check Error File
-			$error_file = "elements/404.html";
+			$error_file = "elements/errors/404.html";
 			if(file_exists($error_file)) {
 				
 				// Process Error File

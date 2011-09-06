@@ -2,17 +2,17 @@ var Hanya = {
 	init: function() {
 		$(".hanya-editable").click(function(){
 			Overlay.create(Manager.remove);
-			Manager.loadContent(window.location+"?command=manager_form",{"definition":$(this).data("definition"),"id":$(this).data("id")},"800px");
+			Manager.loadContent(window.location+"?command=definition_manager",{"definition":$(this).data("definition"),"id":$(this).data("id")},"800px");
 		});
 		$(".hanya-createable").click(function(){
 			Overlay.create(Manager.remove);
-			Manager.loadContent(window.location+"?command=manager_form",{"definition":$(this).data("definition"),"id":$(this).data("id")},"800px");
+			Manager.loadContent(window.location+"?command=definition_manager",{"definition":$(this).data("definition"),"id":$(this).data("id")},"800px");
 		});
 	},
 	deleteEntry: function() {
 		var def = $("#hanya-input-definition").first().val();
 		var id = $("#hanya-input-id").first().val();
-		$.post(window.location.href+"?command=manager_delete",{"definition":def,"id":id},function(data) {
+		$.post(window.location.href+"?command=definition_remove",{"definition":def,"id":id},function(data) {
 			if(data == "ok") {
 				window.location.reload();
 			}
@@ -21,6 +21,10 @@ var Hanya = {
 	login: function() {
 		Overlay.create(Manager.remove);
 		Manager.loadContent(window.location+"?command=admin_form",{},"300px");
+	},
+	upload: function() {
+		Overlay.create(Manager.remove);
+		Manager.loadContent(window.location+"?command=upload_manager",{},"800px");
 	},
 	command: function(command) {
 		window.location = window.location+"?command="+command;
@@ -79,6 +83,7 @@ var Manager = {
 			controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
 		});
 		$(".hanya-row-html br").remove();
+		$("#hanya-files-browser").treeview();
 	}
 }
 

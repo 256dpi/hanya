@@ -11,7 +11,7 @@
 class Include_Tag {
 	
 	public static function call($attributes) {
-		return Render::file("elements/".$attributes[0].".html");
+		return Render::file("elements/partials/".$attributes[0].".html");
 	}
 	
 }

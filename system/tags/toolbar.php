@@ -38,6 +38,7 @@ class Toolbar_Tag {
 			} else {
 				$html .= HTML::anchor(null,I18n::_("system.admin.edit"),array("onclick"=>"Hanya.command('admin_edit')"));
 			}
+			$html .= HTML::anchor(null,I18n::_("system.admin.upload"),array("onclick"=>"Hanya.upload()"));
 			$html .= HTML::div_close();
 			
 			// Middle

@@ -16,6 +16,7 @@ class Head_Tag {
 		$html .= HTML::script(Helper::url("public/system/jquery.js"));
 		$html .= HTML::script(Helper::url("public/system/hanya.js"));
 		$html .= HTML::script(Helper::url("public/system/jquery.cleditor.js"));
+		$html .= HTML::script(Helper::url("public/system/jquery.treeview.js"));
 		return $html;
 	}
 
