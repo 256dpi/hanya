@@ -57,8 +57,8 @@ class Update_Plugin extends Plugin {
 			flush();
 			
 			// Load Actual Version
-			$tempfile = sys_get_temp_dir()."hanya_update.zip";
-			$tempdir = sys_get_temp_dir()."hanya_update/";
+			$tempfile = sys_get_temp_dir()."/hanya_update.zip";
+			$tempdir = sys_get_temp_dir()."/hanya_update/";
 			$data = Helper::read_url(Registry::get("system.update_url"));
 			Disk::create_file($tempfile,$data);
 			
@@ -83,7 +83,7 @@ class Update_Plugin extends Plugin {
 			flush();
 			
 			// Check Revision
-			if(!Disk::has_directory($tempdir)) {
+			if($revision == "" || $revision == "." || $revision == ".." ) {
 				die("Revision not found!");
 			}
 			
