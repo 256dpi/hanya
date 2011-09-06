@@ -73,6 +73,9 @@ class Disk {
 	// Unzip Archive to Directory
 	public static function unzip($file,$folder) {
 		
+		// Output
+		$output = "Begin Unzipping of ".$file." to ".$folder."</br>";
+		
 		// Open Zip
 		$zip = zip_open($file);
 
@@ -87,11 +90,18 @@ class Disk {
 
 				// Create Directory
 				self::create_directory($folder.$path);
+				
+				// Debug
+				$output .= "Created Directory: ".$folder.$path."<br/>";
 
 			} else {
 
 				// Create File with Content
-				self::create_file($folder.$path,zip_entry_read($item,zip_entry_filesize($item)));
+				$size = zip_entry_filesize($item);
+				self::create_file($folder.$path,zip_entry_read($item,$size));
+				
+				// Debug
+				$output .= "Created File: ".$folder.$path." with size ".$size."<br/>";
 
 			}
 			
@@ -102,6 +112,10 @@ class Disk {
 
 		// Close Zip
 		zip_close($zip);
+		
+		// Return Output
+		return $output;
+		
 	}
 	
 	// Remove Directory

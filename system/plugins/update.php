@@ -37,7 +37,7 @@ class Update_Plugin extends Plugin {
 	
 	// Do a System Update
 	public static function on_do_update() {
-		
+				
 		// Get Data
 		$installable_version = Helper::read_url(Registry::get("system.version_url"));
 		
@@ -81,7 +81,7 @@ class Update_Plugin extends Plugin {
 			}
 			
 			// Unzip
-			Disk::unzip($tempfile,$tempdir);
+			$output = Disk::unzip($tempfile,$tempdir);
 			
 			// Get Revision
 			$folders = scandir($tempdir,1);
@@ -91,6 +91,7 @@ class Update_Plugin extends Plugin {
 			
 			// Check Revision
 			if($revision == "" || $revision == "." || $revision == ".." ) {
+				echo HTML::paragraph($output);
 				die("Revision not found!");
 			}
 			

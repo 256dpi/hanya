@@ -20,9 +20,16 @@ class Helper {
 	  curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
 	  curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,$timeout);
 		curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
+		curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,0);
+		curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,0); 
 	  $data = curl_exec($curl);
-	  curl_close($curl);
-	  return $data;
+	  
+		if(!$data) {
+			die("Helper::read_url: Curl process failed to load ".$url." with".curl_error($curl));
+		}
+		
+		curl_close($curl);
+		return $data;
 	}
 	
 	/* LOCATION HANDLING */
