@@ -48,7 +48,7 @@ class Manager_Plugin extends Plugin {
 		foreach($class::$blueprint as $field => $config) {
 			
 			// Open Row
-			echo HTML::div_open(null,"hanya-manager-body-row");
+			echo HTML::div_open(null,"hanya-manager-body-row hanya-row-".$config["as"]);
 			
 			// Merge Config with defaults
 			$config = array_merge($class::$default_config,$config);
@@ -78,7 +78,7 @@ class Manager_Plugin extends Plugin {
 					case "string": echo HTML::text($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Textareas
-					case "html":  echo HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")).HTML::br(); break;
+					case "html": echo HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")).HTML::br(); break;
 					case "text": echo HTML::textarea($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Special

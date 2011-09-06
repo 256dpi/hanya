@@ -78,6 +78,7 @@ var Manager = {
 			heigth: "300px",
 			controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
 		});
+		$(".hanya-row-html br").remove();
 	}
 }
 
