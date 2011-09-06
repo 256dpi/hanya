@@ -200,7 +200,7 @@ class Hanya {
 				if(!in_array($table,$tables)) {
 					
 					// Get Class
-					$class = ucfirst($table)."Definition";
+					$class = ucfirst($table)."_Definition";
 					
 					// Get Creation Code
 					switch(Registry::get("db.driver")) {

@@ -71,7 +71,7 @@
 
 .hanya-manager {
 	background-color: white;
-	background-image: url(background.png);
+	background-image: url(images/background.png);
 	position: absolute;
 	border: 1px solid #222;
 	box-shadow: 0 0 15px #222;
@@ -107,7 +107,7 @@
 }
 
 .hanya-manager-body input[type="text"], .hanya-manager-body input[type="password"], .hanya-manager textarea {
-	width: 97%;
+	width: 98%;
 	border: 1px solid #999;
 	padding: 5px;
 	border-radius: 3px;

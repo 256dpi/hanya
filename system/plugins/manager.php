@@ -32,7 +32,7 @@ class Manager_Plugin extends Plugin {
 		// Open Manager
 		echo HTML::div_open(null,"hanya-manager-head");
 		echo HTML::span(I18n::_("definition.".$definition.".edit_entry"));
-		echo HTML::anchor("javascript:Hanya.removeManager()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
+		echo HTML::anchor("javascript:Manager.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
 		if($entry->id) {
 			echo HTML::anchor("javascript:Hanya.deleteEntry()",I18n::_("system.manager.delete"),array("class"=>"hanya-manager-head-delete"));
 		}
@@ -78,8 +78,7 @@ class Manager_Plugin extends Plugin {
 					case "string": echo HTML::text($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Textareas
-					case "html":
-					case "textile":
+					case "html":  echo HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")).HTML::br(); break;
 					case "text": echo HTML::textarea($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Special

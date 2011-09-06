@@ -12,8 +12,10 @@ class Head_Tag {
 	
 	public static function call($attributes) {
 		$html = HTML::stylesheet(Helper::url("public/system/hanya.css"));
+		$html .= HTML::stylesheet(Helper::url("public/system/jquery.cleditor.css"));
 		$html .= HTML::script(Helper::url("public/system/jquery.js"));
 		$html .= HTML::script(Helper::url("public/system/hanya.js"));
+		$html .= HTML::script(Helper::url("public/system/jquery.cleditor.js"));
 		return $html;
 	}
 
