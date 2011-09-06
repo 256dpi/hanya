@@ -10,53 +10,43 @@
 
 class Admin_Plugin extends Plugin {
 	
-	// Check for ../admin/ in URL
-	public static function before_execution() {
+	// Form
+	public static function on_admin_form() {
 		
-		// Get Segments
-		$segments = Registry::get("request.segments");
+		// Form Head
+		echo HTML::div_open(null,"hanya-manager-head");
+		echo HTML::span(I18n::_("system.admin.login"));
+		echo HTML::anchor("javascript:Manager.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
+		echo HTML::div_close();
 		
-		// Check for admin
-		if($segments[0] == "admin") {
-			
-			// Get Action
-			$action = $segments[1];
-			
-			if($action) {
-				
-				// Delegate Action
-				self::_delegate("Admin_Plugin",$action);
-				
-			} else {
-				
-				//Check Login State
-				if(Memory::get("admin.logged_in")) {
-					
-					// Redirecto to Base
-					Helper::redirect();
-					
-				} else {
-					
-					// Redirecto to Login
-					Helper::redirect("admin/login");
-					
-				}
-			}
-			
-			// End
-			exit;
-		}
+		// Open Body
+		echo HTML::div_open(null,"hanya-manager-body");
+		echo HTML::form_open(Registry::get("request.referer")."?command=admin_login");
+		
+		// Open Row
+		echo HTML::div_open(null,"hanya-manager-body-row");
+		echo HTML::text("username",I18n::_("system.admin.username"),null,array("id"=>"hanya-input-username"));
+		echo HTML::password("password",I18n::_("system.admin.password"),null,array("id"=>"hanya-input-password"));
+		echo HTML::div_close();
+		
+		// Close Manager
+		echo HTML::submit(I18n::_("system.admin.login"));
+		echo HTML::form_close();
+		echo HTML::div_close();
+		
+		// End
+		exit;
 	}
 	
-	// Login a User
-	public static function action_login() {
+	// Login
+	public static function on_admin_login() {
 		
 		// Has Entered Credentials?
-		if(isset($_SERVER["PHP_AUTH_USER"]) && isset($_SERVER["PHP_AUTH_PW"])) {
+		if(Request::has_post("username") && Request::has_post("password")) {
 			
 			// Get Credentials
-			$username = $_SERVER["PHP_AUTH_USER"];
-			$password = $_SERVER["PHP_AUTH_PW"];
+			$username = Request::post("username");
+			$password = Request::post("password");
 			
 			// Get Users
 			$users = Registry::get("auth.users");
@@ -69,24 +59,21 @@ class Admin_Plugin extends Plugin {
 				Memory::set("edit_page",false);
 				
 				// Redirect to Base
-				Helper::redirect();
-			} else {
-				
-				// Request Login Again
-				self::_request_login();
+				Helper::redirect_to_referer();
 				
 			}
-		} else {
-			
-			// Request Login Again
-			self::_request_login();
 			
 		}
+		
+		// Redirect to Base
+		Memory::raise(I18n::_("system.admin.error"));
+		Helper::redirect_to_referer();
+		
 	}
 	
-	// Logout User
-	public static function action_logout() {
-		
+	// Logout
+	public static function on_admin_logout() {
+
 		// Set Memory
 		Memory::set("logged_in",false);
 		Memory::set("edit_page",false);
@@ -94,10 +81,10 @@ class Admin_Plugin extends Plugin {
 		// Redirect
 		Helper::redirect_to_referer();
 		
-	}
+	}	
 	
 	// Edit Page
-	public static function action_edit() {
+	public static function on_admin_edit() {
 		
 		// Set Memory
 		if(Memory::get("logged_in")) {
@@ -109,7 +96,7 @@ class Admin_Plugin extends Plugin {
 	}
 	
 	// Show Page
-	public static function action_show() {
+	public static function on_admin_show() {
 		
 		// Set Memory
 		if(Memory::get("logged_in")) {
@@ -118,21 +105,6 @@ class Admin_Plugin extends Plugin {
 		
 		// Redirect
 		Helper::redirect_to_referer();
-		
-	}
-	
-	// Request Login
-	private static function _request_login() {
-		
-		// Set Memory
-		Memory::set("logged_in",false);
-		Memory::set("edit_page",false);
-		
-		// Send Header
-		HTTP::authenticate("Hanya Admin","Sie haben keinen Zugriff auf den Administrationsbereich!");
-		
-		// End
-		exit;
 		
 	}
 	

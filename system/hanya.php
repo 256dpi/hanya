@@ -86,13 +86,10 @@ class Hanya {
 		Plugin::dispatch("after_initialize");
 		
 		// Check for Command
-		if(Request::has_get("command") && Memory::get("logged_in")) {
+		if(Request::has_get("command")) {
 			
 			// Dispatch Event
 			Plugin::dispatch("on_".Request::get("command"));
-			
-			// Redirect to Referer
-			Helper::redirect_to_referer();
 		}
 		
 		// Get Request Path

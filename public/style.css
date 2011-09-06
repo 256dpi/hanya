@@ -14,6 +14,21 @@ strong {
 
 /* HEADER */
 
+.hanya-admin-login {
+	padding: 10px 20px;
+	text-align: right;
+}
+
+.hanya-admin-login a {
+	visibility: hidden;
+	color: black;
+}
+
+.hanya-admin-login:hover a {
+	visibility: visible;
+	cursor: pointer;
+}
+
 header {
 	text-align: center;
 }
@@ -22,7 +37,7 @@ header h1 {
 	font-size: 64px;
 	font-weight: bold;
 	text-align: center;
-	margin-top: 75px;
+	padding-top: 75px;
 	text-shadow: 2px 2px 0 white;
 }
 

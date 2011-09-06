@@ -1,5 +1,13 @@
 /* TOOLBAR */
 
+.hanya-errorbar {
+	background-color: darkred;
+	padding: 10px 15px;
+	padding-top: 12px;
+	color: white;
+	overflow: hidden;
+}
+
 .hanya-toolbar {
 	background-color: black;
 	padding: 10px 15px;
@@ -98,7 +106,7 @@
 	padding: 4px 0px;
 }
 
-.hanya-manager-body input[type="text"], .hanya-manager textarea {
+.hanya-manager-body input[type="text"], .hanya-manager-body input[type="password"], .hanya-manager textarea {
 	width: 97%;
 	border: 1px solid #999;
 	padding: 5px;

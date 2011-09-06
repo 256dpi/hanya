@@ -39,4 +39,16 @@ class Memory {
 		return $_SESSION;
 	}
 	
+	// Raise Error
+	public static function raise($error) {
+		self::set("error",$error);
+	}
+	
+	// Get Errors
+	public static function errors() {
+		$error = self::get("error");
+		self::set("error",null);
+		return $error;
+	}
+	
 }

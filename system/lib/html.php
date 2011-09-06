@@ -55,6 +55,16 @@ class HTML {
 		return $ret;
 	}
 	
+	// Text Password
+	public static function password($name,$label=null,$value=null,$attributes=array()) {
+		$attributes = array_merge(array("type"=>"password","name"=>$name,"value"=>$value),$attributes);
+		$ret = self::_tag("input","semi",$attributes);
+		if($label) {
+			$ret = self::label($name,$label).$ret;
+		}
+		return $ret;
+	}
+	
 	// Textarara
 	public static function textarea($name,$label=null,$value=null,$attributes=array()) {
 		$attributes = array_merge(array("name"=>$name),$attributes);

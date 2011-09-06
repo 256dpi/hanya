@@ -12,6 +12,19 @@ class Toolbar_Tag {
 	
 	public static function call($attributes) {
 		
+		// Return
+		$html = "";
+		
+		// Get Errors
+		$error = Memory::errors();
+		
+		// Check
+		if($error) {
+			
+			// Open Errors Bar
+			$html .= HTML::div(null,"hanya-errorbar",$error);
+		}
+		
 		// Check for Admin
 		if(Memory::get("logged_in")) {
 			
@@ -21,9 +34,9 @@ class Toolbar_Tag {
 			// Left Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-left");
 			if(Memory::get("edit_page")) {
-				$html .= HTML::anchor(Helper::url("admin/show"),I18n::_("system.admin.show"));
+				$html .= HTML::anchor(null,I18n::_("system.admin.show"),array("onclick"=>"Hanya.command('admin_show')"));
 			} else {
-				$html .= HTML::anchor(Helper::url("admin/edit"),I18n::_("system.admin.edit"));
+				$html .= HTML::anchor(null,I18n::_("system.admin.edit"),array("onclick"=>"Hanya.command('admin_edit')"));
 			}
 			$html .= HTML::div_close();
 			
@@ -32,17 +45,22 @@ class Toolbar_Tag {
 			
 			// Right Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-right");
-			$html .= HTML::anchor(Helper::url()."?command=update",I18n::_("system.admin.update"));
-			$html .= HTML::anchor(Helper::url("admin/logout"),I18n::_("system.admin.logout"));
+			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("onclick"=>"Hanya.command('update')"));
+			$html .= HTML::anchor(null,I18n::_("system.admin.logout"),array("onclick"=>"Hanya.command('admin_logout')"));
 			$html .= HTML::div_close();
 			
 			// Close Toolbar
 			$html .= HTML::div_close();
-			return $html;
 			
 		} else {
-			return "";
+			
+			// Add Login Link
+			$html .= HTML::div(null,"hanya-admin-login",'<a onclick="Hanya.login()">'.I18n::_("system.admin.login_link").'</a>');
+			
 		}
+		
+		// End
+		return $html;
 	}
 	
 }

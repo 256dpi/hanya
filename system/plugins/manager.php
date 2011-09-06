@@ -13,6 +13,11 @@ class Manager_Plugin extends Plugin {
 	// Send Back HTML to Display Form
 	public static function on_manager_form() {
 		
+		// Check Admin
+		if(!Memory::get("logged_in")) {
+			die("You must be logged in!");
+		}
+		
 		// Get Data
 		$definition = Request::post("definition");
 		$class = ucfirst($definition)."_Definition";
@@ -121,6 +126,11 @@ class Manager_Plugin extends Plugin {
 	// Perform a Creationt or Update
 	public static function on_manager_update() {
 		
+		// Check Admin
+		if(!Memory::get("logged_in")) {
+			die("You must be logged in!");
+		}
+		
 		// Get Data
 		$definition = Request::post("definition");
 		$id = Request::post("id","int");
@@ -156,6 +166,11 @@ class Manager_Plugin extends Plugin {
 	
 	// Delete an Entry
 	public static function on_manager_delete() {
+		
+		// Check Admin
+		if(!Memory::get("logged_in")) {
+			die("You must be logged in!");
+		}
 
 		// Get Data
 		$definition = Request::post("definition");
