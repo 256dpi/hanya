@@ -26,7 +26,7 @@ class I18n {
 		// Load System Translations
 		$system_files = Disk::read_directory("system/i18n");
 		foreach($system_files["."] as $file) {
-			if(strpos($file,$lang)) {
+			if(strpos($file,".".$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));
 				self::$_i18n[$meta[1]][$meta[0]] = parse_ini_file("system/i18n/".$file,true);
 			}
@@ -35,7 +35,7 @@ class I18n {
 		// Load User Translations
 		$user_files = Disk::read_directory("user/i18n");
 		foreach($user_files["."] as $file) {
-			if(strpos($file,$lang)) {
+			if(strpos($file,".".$lang)) {
 				$meta = explode(".",str_replace(".ini","",$file));
 				self::$_i18n[$meta[1]][$meta[0]] = array_merge(self::$_i18n[$meta[1]][$meta[0]],parse_ini_file("user/i18n/".$file,true));
 			}
