@@ -146,17 +146,20 @@ class Render {
 		// Process Items
 		foreach($items->find_many() as $item) {
 			
+			// Get Array
+			$array = $item->as_array()
+			
 			// Process Special Fields
 			foreach($class::$blueprint as $field => $config) {
 				switch($config["as"]) {
 					case "boolean": break; // Get from I18n
-					case "selection": $item[$field."_value"] = $config["options"][$item[$field]]; break;
-					case "file": $item[$field."_path"] = $config["folder"]."/".$item[$field]; break;
+					case "selection": $array[$field."_value"] = $config["options"][$array[$field]]; break;
+					case "file": $array[$field."_path"] = $config["folder"]."/".$array[$field]; break;
 				}
 			}
 			
 			// Process Variables
-			$data = self::_process_variables($definition,$item->as_array(),$sub);
+			$data = self::_process_variables($definition,$array,$sub);
 			
 			// Check for Login
 			if(Memory::get("edit_page")) {
