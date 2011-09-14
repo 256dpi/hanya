@@ -7,9 +7,6 @@
  * @package Hanya
  **/
 
-// Hanya Version
-define("HANYA_VERSION","0.9");
-
 // Log Script Start for Benchmarking
 define("HANYA_SCRIPT_START",microtime(true));
 

@@ -23,15 +23,15 @@ class Updater_Plugin extends Plugin {
 	}
 	
 	// Get Version
-	public static function on_updater_version() {
+	public static function on_updater_check() {
 		
-		// Get Data
-		$version = HANYA_VERSION;
-		$installable_version = Url::load(Registry::get("system.version_url"));
-		$has_update = ($version < $installable_version);
+		// Get Revisions
+		$revision = self::_revision();
+		$remote_revision = self::_remote_revision();
+		$has_update = ($revision != $remote_revision);
 		
 		// Render View
-		echo Render::file("system/views/updater/version.html",array("version"=>$version,"installable_version"=>$installable_version,"has_update"=>$has_update));
+		echo Render::file("system/views/updater/check.html",array("revision"=>$revision,"remote_revision"=>$remote_revision,"has_update"=>$has_update));
 		
 		// End
 		exit;
@@ -57,10 +57,12 @@ class Updater_Plugin extends Plugin {
 		self::_check_admin();
 				
 		// Get Data
-		$installable_version = Url::load(Registry::get("system.version_url"));
+		$revision = self::_revision();
+		$remote_revision = self::_remote_revision();
+		$has_update = ($revision != $remote_revision);
 		
 		// Has no Update?
-		if(HANYA_VERSION >= $installable_version) {
+		if(!$has_update) {
 			echo HTML::paragraph(I18n::_("system.updater.no_update"));
 			exit;
 		}
@@ -97,25 +99,23 @@ class Updater_Plugin extends Plugin {
 		$output = Disk::unzip($tempfile,$tempdir);
 		
 		// Get Revision
-		$folders = scandir($tempdir,1);
-		$revision = $folders[0];
-		echo HTML::paragraph(I18n::_("system.updater.install_revision",array("revision"=>$revision)));
+		$update = "256dpi-Hanya-".$remote_revision;
+		echo HTML::paragraph(I18n::_("system.updater.install_revision",array("revision"=>$update)));
 		
 		// Check Revision
-		if($revision == "" || $revision == "." || $revision == ".." ) {
+		if(Disk::has_directory($update)) {
 			echo HTML::paragraph(I18n::_("system.updater.revision_not_found",array("error"=>$output)),array("class"=>"error"));
 			exit;
 		}
 		
 		// Set Folders
-		$tmp_system_dir = $tempdir.$revision."/system";
-		$tmp_public_system_dir = $tempdir.$revision."/public/system";	
+		$tmp_system_dir = $tempdir.$update."/system";
+		$tmp_public_system_dir = $tempdir.$update."/public/system";	
 		$real_system_dir = Registry::get("system.path")."system";
 		$real_public_system_dir = Registry::get("system.path")."public/system";
 		
 		// Check Permissions
-		$dies1 = self::_check_directory($real_system_dir);
-		$dies2 = self::_check_directory($real_public_system_dir);
+		$dies1 = self::_check_directory(".");
 		
 		// Empty Directories
 		Disk::empty_directory($real_system_dir);
@@ -124,6 +124,10 @@ class Updater_Plugin extends Plugin {
 		// Copy New Files
 		Disk::copy_directory($tmp_system_dir,$real_system_dir);
 		Disk::copy_directory($tmp_public_system_dir,$real_public_system_dir);
+		
+		// Write File
+		Disk::remove_file("user/system.revision");
+		Disk::create_file("user/system.revision",$remote_revision);
 		
 		// Info
 		echo HTML::paragraph(I18n::_("system.updater.complete"));
@@ -153,6 +157,21 @@ class Updater_Plugin extends Plugin {
 		if($error) {
 			exit;
 		}
+	}
+	
+	// Get Installed version
+	private static function _revision() {
+		if(Disk::has_file("user/sytem.revision")) {
+			return Disk::read_file("user/system.revision");
+		} else {
+			return "0";
+		}
+	}
+	
+	// Get Remote Revision
+	private static function _remote_revision() {
+		$data = json_decode(Url::load(Registry::get("system.review_url")));
+		return substr($data->commits[0]->id,0,7);
 	}
 	
 }
