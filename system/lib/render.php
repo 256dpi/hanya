@@ -147,7 +147,7 @@ class Render {
 		foreach($items->find_many() as $item) {
 			
 			// Get Array
-			$array = $item->as_array()
+			$array = $item->as_array();
 			
 			// Process Special Fields
 			foreach($class::$blueprint as $field => $config) {
