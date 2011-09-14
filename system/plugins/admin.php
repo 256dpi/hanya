@@ -15,7 +15,7 @@ class Admin_Plugin extends Plugin {
 		// Form Head
 		echo HTML::div_open(null,"hanya-manager-head");
 		echo HTML::span(I18n::_("system.admin.login"));
-		echo HTML::anchor("javascript:Manager.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
+		echo HTML::anchor("javascript:HanyaWindow.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
 		echo HTML::div_close();
 		
 		// Open Body

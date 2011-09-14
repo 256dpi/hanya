@@ -1,0 +1,5 @@
+<? if($has_update): ?>
+	<p><?=I18n::_("system.updater.has_update",array("from_version"=>$version,"to_version"=>$installable_version))?></p>
+<? else: ?>
+	<p><?=I18n::_("system.updater.no_update")?></p>
+<? endif; ?>

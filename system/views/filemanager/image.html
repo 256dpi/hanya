@@ -1,0 +1,10 @@
+<?
+	$size = getimagesize($file);
+?>
+<img src="<?=$file?>" />
+<table>
+	<tr>
+		<th><?=I18n::_("system.filemanager.image_dimension")?></th>
+		<td><?=$size[0]?> x <?=$size[1]?></td>
+	</tr>
+</table>

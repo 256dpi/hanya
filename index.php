@@ -29,7 +29,7 @@ Hanya::run(array(
 	"db.user" => "root",
 	"db.password" => "toor",
 	
-	[Overrideable Settings]
+	[Path & URL Settings]
 	"base.path" => "override",
 	"base.url" => "override",
 	

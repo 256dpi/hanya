@@ -23,4 +23,11 @@ class Helper {
 		}
 	}
 	
+	// Return a URL Safe Filename
+	public static function filename($string) {
+		$string = strtolower(trim($string));
+		$string = preg_replace('/[^a-z0-9_.]/','',$string);
+		return preg_replace('/_+/',"_",$string);
+	}
+	
 }

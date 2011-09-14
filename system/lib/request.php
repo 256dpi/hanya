@@ -39,6 +39,11 @@ class Request {
 		return self::_load($_POST,$key,$mode,$subarray);
 	}
 	
+	// Get File from FILES
+	public static function file($key) {
+		return self::_load($_FILES,$key,"array");
+	}
+	
 	// Get Variable from GET
 	public static function get($key,$mode="string") {
 		return self::_load($_GET,$key,$mode);

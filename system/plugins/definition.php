@@ -13,9 +13,7 @@ class Definition_Plugin extends Plugin {
 	public static function on_definition_manager() {
 		
 		// Check Admin
-		if(!Memory::get("logged_in")) {
-			die(Render::page("elements/errors/403.html"));
-		}
+		self::_check_admin();
 		
 		// Get Data
 		$definition = Request::post("definition");
@@ -31,9 +29,9 @@ class Definition_Plugin extends Plugin {
 		// Open Manager
 		echo HTML::div_open(null,"hanya-manager-head");
 		echo HTML::span(I18n::_("definition.".$definition.".edit_entry"));
-		echo HTML::anchor("javascript:Manager.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
+		echo HTML::anchor("javascript:HanyaWindow.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
 		if($entry->id) {
-			echo HTML::anchor("javascript:Hanya.deleteEntry()",I18n::_("system.definition.delete"),array("class"=>"hanya-manager-head-delete"));
+			echo HTML::anchor("javascript:HanyaDefinition.deleteEntry()",I18n::_("system.definition.delete"),array("class"=>"hanya-manager-head-delete"));
 		}
 		echo HTML::div_close();
 		
@@ -125,9 +123,7 @@ class Definition_Plugin extends Plugin {
 	public static function on_definition_update() {
 		
 		// Check Admin
-		if(!Memory::get("logged_in")) {
-			die(Render::page("elements/errors/403.html"));
-		}
+		self::_check_admin();
 		
 		// Get Data
 		$definition = Request::post("definition");
@@ -166,9 +162,7 @@ class Definition_Plugin extends Plugin {
 	public static function on_definition_remove() {
 		
 		// Check Admin
-		if(!Memory::get("logged_in")) {
-			die(Render::page("elements/errors/403.html"));
-		}
+		self::_check_admin();
 
 		// Get Data
 		$definition = Request::post("definition");

@@ -13,9 +13,7 @@ class Update_Plugin extends Plugin {
 	public static function on_update() {
 		
 		// Check Admin
-		if(!Memory::get("logged_in")) {
-			die(Render::page("elements/errors/403.html"));
-		}
+		self::_check_admin();
 		
 		// Get Data
 		$installable_version = Url::load(Registry::get("system.version_url"));
@@ -43,9 +41,7 @@ class Update_Plugin extends Plugin {
 	public static function on_do_update() {
 		
 		// Check Admin
-		if(!Memory::get("logged_in")) {
-			die(Render::page("elements/errors/403.html"));
-		}
+		self::_check_admin();
 				
 		// Get Data
 		$installable_version = Url::load(Registry::get("system.version_url"));

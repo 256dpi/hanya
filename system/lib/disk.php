@@ -44,14 +44,17 @@ class Disk {
 	}
 	
 	// Eval and get Content of a File
-	public static function eval_file($file) {
-		if(file_exists($file)) {
-			$time = filemtime($file);
-			if(Registry::get("site.newest_file") < $time) {
-				Registry::set("site.newest_file",$time);
+	public static function eval_file($__file,$__variables=array()) {
+		if(file_exists($__file)) {
+			foreach($__variables as $key => $value) {
+				$$key = $value;
+			}
+			$__time = filemtime($__file);
+			if(Registry::get("site.newest_file") < $__time) {
+				Registry::set("site.newest_file",$__time);
 			}
 			ob_start();
-			include($file);
+			include($__file);
 			$data = ob_get_contents();
 			ob_end_clean();
 			return $data;
@@ -119,9 +122,18 @@ class Disk {
 	
 	// Remove Directory
 	public static function remove_directory($dir) {
-		if(is_dir($dir) && !is_file($dir)) {
+		if(is_dir($dir)) {
 			self::empty_directory($dir);
 			return rmdir($dir);
+		}
+	}
+	
+	// Remove File
+	public static function remove_file($file) {
+		if(is_file($file) && is_writable($file)) {
+			return unlink($file);
+		} else {
+			return false;
 		}
 	}
 	
@@ -155,7 +167,7 @@ class Disk {
 	}
 	
 	// Copy Directory
-	public static function copy_directory($src, $dst) {
+	public static function copy_directory($src,$dst) {
 	  if (is_dir($src)) {
 			if(!is_dir($dst)) {
 				self::create_directory($dst);
@@ -167,11 +179,16 @@ class Disk {
 				}
 			}
 	  } else if (file_exists($src)) { 
-			copy($src, $dst);
+			self::copy_file($src,$dst);
 		} else {
 			return false;
 		}
 		return true;
+	}
+	
+	// Copy File
+	public static function copy_file($src,$dst) {
+		return copy($src,$dst);
 	}
 	
 	// Has File

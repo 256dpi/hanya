@@ -23,6 +23,13 @@ abstract class Plugin {
 			$for::$method();
 		}
 	}
+	
+	// Check for Admin Login
+	protected static function _check_admin() {
+		if(!Memory::get("logged_in")) {
+			die(Render::page("elements/errors/403.html"));
+		}
+	}
 
 	// Dispatch Event to all Plugins
 	public static function dispatch($event,$options=null) {

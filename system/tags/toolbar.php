@@ -33,20 +33,17 @@ class Toolbar_Tag {
 			// Left Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-left");
 			if(Memory::get("edit_page")) {
-				$html .= HTML::anchor(null,I18n::_("system.admin.show"),array("onclick"=>"Hanya.command('admin_show')"));
+				$html .= HTML::anchor(null,I18n::_("system.admin.show"),array("class"=>"hanya-has-command","data-command"=>"admin_show"));
 			} else {
-				$html .= HTML::anchor(null,I18n::_("system.admin.edit"),array("onclick"=>"Hanya.command('admin_edit')"));
+				$html .= HTML::anchor(null,I18n::_("system.admin.edit"),array("class"=>"hanya-has-command","data-command"=>"admin_edit"));
 			}
-			$html .= HTML::anchor(null,I18n::_("system.admin.upload"),array("onclick"=>"Hanya.upload()"));
+			$html .= HTML::anchor(null,I18n::_("system.admin.filemanager"),array("class"=>"hanya-has-command","data-command"=>"filemanager"));
 			$html .= HTML::div_close();
-			
-			// Middle
-			$html .= HTML::div(null,"hanya-toolbar-middle",I18n::_("system.admin.title"));
 			
 			// Right Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-right");
-			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("onclick"=>"Hanya.command('update')"));
-			$html .= HTML::anchor(null,I18n::_("system.admin.logout"),array("onclick"=>"Hanya.command('admin_logout')"));
+			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("class"=>"hanya-has-command","data-command"=>"updater"));
+			$html .= HTML::anchor(null,I18n::_("system.admin.logout"),array("class"=>"hanya-has-command","data-command"=>"admin_logout"));
 			$html .= HTML::div_close();
 			
 			// Close Toolbar
@@ -55,7 +52,7 @@ class Toolbar_Tag {
 		} else {
 			
 			// Add Login Link
-			$html .= HTML::div(null,"hanya-admin-login",'<a onclick="Hanya.login()">'.I18n::_("system.admin.login_link").'</a>');
+			$html .= HTML::div(null,"hanya-admin-login",HTML::anchor(null,I18n::_("system.admin.login_link"),array("onclick"=>"Hanya.login()")));
 			
 		}
 		

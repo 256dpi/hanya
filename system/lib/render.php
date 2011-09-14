@@ -53,10 +53,10 @@ class Render {
 	}
 	
 	// Process a File
-	public static function file($file) {
+	public static function file($file,$variables=array()) {
 		
 		// Evaluate Fie
-		$output = Disk::eval_file($file);
+		$output = Disk::eval_file($file,$variables);
 		
 		// Process "request" Variables
 		$output = self::_process_variables("request",Registry::get("request.variables"),$output);

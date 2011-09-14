@@ -10,6 +10,8 @@ Dynamic Function inspired by Kohana Routes
 
 Filetype Icons by https://github.com/teambox/Free-file-icons/tree/master/16px
 
+Icons from Fugue
+
 License
 -------
 Hanya is released under the MIT Licesne

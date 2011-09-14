@@ -134,6 +134,16 @@ class HTML {
 		return $html;
 	}
 	
+	// File Input
+	public static function file($name,$label=null,$attributes=array()) {
+		$attributes = array_merge(array("type"=>"file","name"=>$name),$attributes);
+		$ret = self::_tag("input","semi",$attributes);
+		if($label) {
+			$ret = self::label($name,$label).$ret;
+		}
+		return $ret;
+	}
+	
 	/* TEXT */
 	
 	// Header
