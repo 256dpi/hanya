@@ -30,7 +30,7 @@ var Hanya = {
 				definition: $(this).data("definition"),
 				id: $(this).data("id")
 			}
-			HanyaWindow.loadContent(window.location+"?command=definition_manager",data,"800px");
+			HanyaWindow.createFromURL(window.location+"?command=definition_manager",data,"800px");
 		});
 		
 		// Map Commands

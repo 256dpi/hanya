@@ -8,7 +8,7 @@
  **/
 
 // Hanya Version
-define("HANYA_VERSION","0.4");
+define("HANYA_VERSION","0.3");
 
 // Log Script Start for Benchmarking
 define("HANYA_SCRIPT_START",microtime(true));
@@ -127,6 +127,7 @@ class Hanya {
 			"system.automatic_db_setup" => true,
 			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
 			"system.version_url" => "https://raw.github.com/256dpi/Hanya/master/VERSION",
+			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master", //$ curl http://github.com/api/v2/json/commits/list/mojombo/grit/master
 		));
 		
 		// Load Config

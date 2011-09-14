@@ -7,145 +7,15 @@
 		<link rel="stylesheet" href="public/system/stylesheets/hanya.admin.css" type="text/css" media="screen">
 		<style type="text/css" media="screen">
 		
-			#version {
+			#version, #output {
 				background-color: white;
 				border: 1px solid #ddd;
 				padding: 15px;
 			}
-		
-			/*.wrapper .hint {
-				margin-top: 10px;
-				color: #888;
-			}
-		
-			#navigator {
-				background-color: white;
-				padding: 15px 20px;
-				border: 1px solid #ddd;
-			}
-
-			#navigator ul ul li {
-				padding-left: 10px;
-			}
-
-			#navigator li a {
-				display: block;
-				background: url(public/system/images/directory-closed.png) 0 center no-repeat;
-				padding: 3px;
-				padding-left: 20px;
-				vertical-align: middle;
-			}
-
-			#navigator li#open > a {
-				background-image: url(public/system/images/directory-open.png	);
-				font-weight: bold;
-			}
-
-			#navigator a {
+			
+			#output p {
 				margin: 5px 0;
-				height: 16px;
-				color: inherit;
-				text-decoration: none;
-				font-weight: inherit;
 			}
-
-			#files {
-				border: 1px solid #ddd;
-				background-color: white;
-			}
-
-			#files table {
-				width: 100%;
-			}
-
-			#files tr td {
-				border-top: 1px solid #ddd;
-				padding: 15px;
-				vertical-align: middle;
-			}
-			
-			#files tr:first-child td {
-				border: 0;
-			}
-
-			#files tr td span.directory {
-				display: none;
-			}
-
-			#files tr:hover td {
-				background-color: #eee;
-				cursor: pointer;
-			}
-
-			#files tr:hover td span.directory {
-				display: inline;
-			}
-
-			#files .right {
-				text-align: right;
-			} 
-
-			#files .delete {
-				cursor: pointer;
-			}
-
-			#files p {
-				padding: 15px;
-			}
-
-			#viewer {
-				border: 1px solid #ddd;
-				padding: 15px;
-				background-color: white;
-			}
-
-			#viewer img {
-				width: 100%;
-			}
-
-			#viewer table {
-				width: 100%;
-				margin-top: 10px;
-			}
-			
-			#viewer table tr td, #viewer table tr th {
-				padding: 5px;
-				border-top: 1px solid #eee;
-				border-bottom: 1px solid #eee;
-			}
-			
-			#viewer table tr th {
-				color: #666;
-				border-right: 1px solid #ddd;
-				text-align: right;
-			}
-
-			#create-directory {
-				border: 1px solid #ddd;
-				background-color: white;
-			}
-			
-			#create-directory input {
-				width: 98%;
-				border: 0;
-				margin: 0;
-				padding: 6px;
-				font-size: inherit;
-				color: #888;
-			}
-			
-			#create-directory input:focus {
-				color: black;
-			}
-			
-			#upload-file {
-				border: 1px solid #ddd;
-				background-color: #fff;
-				padding: 6px;
-			}
-			
-			#upload-file input {
-			}*/
 			
 		</style>
 		<script type="text/javascript" charset="utf-8">
@@ -156,7 +26,23 @@
 				// Get Version
 				$("#version").load("?command=updater_version");
 				
+				// Hide Output
+				$("#output, #output-title").hide();
+				
 			});
+			
+			function update() {
+				showOutput();
+			}
+			
+			function review() {
+				showOutput();
+				$("#output").load("?command=updater_review");
+			}
+			
+			function showOutput() {
+				$("#output, #output-title").show();
+			}
 			
 		</script>
   </head>
@@ -169,8 +55,14 @@
 		<h1><?=I18n::_("system.updater.title")?></h1>
 		<div class="wrapper">
 			<div class="w4">
+				<h2><?=I18n::_("system.updater.check_for_version")?></h2>
 				<div id="version">
-					<p><?=I18n::_("system.updater.checking_version")?></p>
+					<p><?=I18n::_("system.updater.checking")?></p>
+				</div>
+				<hr/>
+				<h2 id="output-title"><?=I18n::_("system.updater.output")?></h2>
+				<div id="output">
+					<p><?=I18n::_("system.updater.no_output")?></p>
 				</div>
 			</div>
 		</div>

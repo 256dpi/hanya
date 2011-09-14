@@ -1,0 +1,4 @@
+<p><strong>Displaying the latest Changes on the GitHub Repository</strong></p>
+<? foreach($data->commits as $commit): ?>
+	<p><?=$commit->committer->name?>: <strong><?=$commit->message?></strong></p>
+<? endforeach; ?>

@@ -1,5 +1,9 @@
 <? if($has_update): ?>
-	<p><?=I18n::_("system.updater.has_update",array("from_version"=>$version,"to_version"=>$installable_version))?></p>
+	<p>
+		<span><?=I18n::_("system.updater.has_update",array("from_version"=>$version,"to_version"=>$installable_version))?></span>
+		<a href="javascript:update();"><?=I18n::_("system.updater.do_update")?></a> or
+		<a href="javascript:review();"><?=I18n::_("system.updater.do_review")?></a>
+	</p>
 <? else: ?>
 	<p><?=I18n::_("system.updater.no_update")?></p>
 <? endif; ?>
