@@ -120,6 +120,7 @@ class Render {
 		
 		// Get ORM
 		$items = ORM::for_table($definition);
+		$class = ucfirst($definition)."_Definition";
 		
 		// Check for false Mode
 		if($mode == 1 && $attributes[0] == "") {
@@ -144,6 +145,15 @@ class Render {
 		
 		// Process Items
 		foreach($items->find_many() as $item) {
+			
+			// Process Special Fields
+			foreach($class::$blueprint as $field => $config) {
+				switch($config["as"]) {
+					case "boolean": break; // Get from I18n
+					case "selection": $item[$field."_value"] = $config["options"][$item[$field]]; break;
+					case "file": $item[$field."_path"] = $config["folder"]."/".$item[$field]; break;
+				}
+			}
 			
 			// Process Variables
 			$data = self::_process_variables($definition,$item->as_array(),$sub);
