@@ -42,6 +42,7 @@ class Toolbar_Tag {
 			
 			// Right Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-right");
+			$html .= HTML::anchor(null,I18n::_("system.admin.editor"),array("class"=>"hanya-has-command","data-command"=>"editor"));
 			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("class"=>"hanya-has-command","data-command"=>"updater"));
 			$html .= HTML::anchor(null,I18n::_("system.admin.logout"),array("class"=>"hanya-has-command","data-command"=>"admin_logout"));
 			$html .= HTML::div_close();

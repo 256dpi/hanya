@@ -75,6 +75,7 @@ class Request {
 			case "string": return trim(strip_tags($value)); break;
 			case "int": return (int)$value; break;
 			case "array": return (array)$value; break;
+			case "raw": return $value; break;
 		}
 	}
 	
