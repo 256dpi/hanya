@@ -20,7 +20,7 @@ class Example_Definition extends Definition {
 		"date" => array("as"=>"date"),
 		"selection" => array("as"=>"selection","options"=>array("opt1"=>"Option 1","opt2"=>"Option 2","opt3"=>"Option 3")),
 		"reference" => array("as"=>"reference","definition"=>"string","field"=>"value"),
-		"file" => array("as"=>"file","folder"=>"system"),
+		"file" => array("as"=>"file","folder"=>"."),
 	);
 	
 }

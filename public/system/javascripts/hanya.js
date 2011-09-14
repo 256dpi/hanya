@@ -47,13 +47,8 @@ var Hanya = {
 	// Open Login Hanya	
 	login: function() {
 		HanyaWindow.createFromURL(HanyaWindow.location+"?command=admin_form",{},"300px");
-	},
-		
-	// Open Update Window
-	update: function() {
-		HanyaWindow.createWithIFrame(window.location+"?command=update","800px","400px");
 	}
-
+	
 }
 
 /*
@@ -123,6 +118,9 @@ var HanyaWindow = {
 		
 		// Precenter Window
 		this.center(hwindow);
+		
+		// Add Enhancements
+		this.enhancements();
 	},
 
 	// Remove All HanyaWindows and HanyaOverlays
