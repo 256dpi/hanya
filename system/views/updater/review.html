@@ -3,7 +3,7 @@
 	<p>
 		<span><?=$commit->committer->name?>: <?=substr($commit->id,0,7)?> - <strong><?=$commit->message?></strong></span>
 		<? if(substr($commit->id,0,7) == $revision): ?>
-			<span>&larr; actual revision</span>
+			<span style="color:green;">&larr; actual revision</span>
 		<? endif; ?>
 	</p>
 <? endforeach; ?>
