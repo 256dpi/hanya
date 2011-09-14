@@ -31,15 +31,19 @@
 				
 			});
 			
+			// Perform Update
 			function update() {
 				showOutput();
+				$("#output").load("?command=updater_update");
 			}
 			
+			// Perform Review
 			function review() {
 				showOutput();
 				$("#output").load("?command=updater_review");
 			}
 			
+			// Show Output
 			function showOutput() {
 				$("#output, #output-title").show();
 			}
