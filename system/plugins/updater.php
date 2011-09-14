@@ -162,7 +162,7 @@ class Updater_Plugin extends Plugin {
 	
 	// Get Installed version
 	private static function _revision() {
-		if(Disk::has_file("user/sytem.revision")) {
+		if(Disk::has_file("user/system.revision")) {
 			return Disk::read_file("user/system.revision");
 		} else {
 			return "0";
