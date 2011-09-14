@@ -1,4 +1,9 @@
 <p><?=I18n::_("system.updater.latest_changes")?></p>
 <? foreach($data->commits as $commit): ?>
-	<p><?=$commit->committer->name?>: <strong><?=$commit->message?></strong></p>
+	<p>
+		<span><?=$commit->committer->name?>: <?=substr($commit->id,0,7)?> - <strong><?=$commit->message?></strong></span>
+		<? if(substr($commit->id,0,7) == $revision): ?>
+			<span>&larr; actual revision</span>
+		<? endif; ?>
+	</p>
 <? endforeach; ?>

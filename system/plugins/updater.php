@@ -41,10 +41,11 @@ class Updater_Plugin extends Plugin {
 	public static function on_updater_review() {
 		
 		// Get Data
+		$revision = self::_revision();
 		$data = json_decode(URL::load(Registry::get("system.review_url")));
 		
 		// Render View
-		echo render::file("system/views/updater/review.html",array("data"=>$data));
+		echo render::file("system/views/updater/review.html",array("data"=>$data,"revision"=>$revision));
 		
 		// End
 		exit;
