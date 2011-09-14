@@ -239,4 +239,9 @@ class Disk {
 		return end(explode(".", $filename));
 	}
 
+	// Clean a Path
+	public static function clean_path($path) {
+		return preg_replace('!/+!',"/",$path);
+	}
+
 }

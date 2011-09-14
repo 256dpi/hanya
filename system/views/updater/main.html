@@ -17,6 +17,10 @@
 				margin: 5px 0;
 			}
 			
+			p.error {
+				color: red;
+			}
+			
 		</style>
 		<script type="text/javascript" charset="utf-8">
 			
@@ -34,18 +38,25 @@
 			// Perform Update
 			function update() {
 				showOutput();
+				showLoader();
 				$("#output").load("?command=updater_update");
 			}
 			
 			// Perform Review
 			function review() {
 				showOutput();
+				showLoader();
 				$("#output").load("?command=updater_review");
 			}
 			
 			// Show Output
 			function showOutput() {
 				$("#output, #output-title").show();
+			}
+			
+			// Show Loader
+			function showLoader() {
+				$("#output").html($("<img>").attr("src","public/system/images/loader.gif"));
 			}
 			
 		</script>

@@ -27,7 +27,7 @@ class URL {
 	  $data = curl_exec($curl);
 
 		if(!$data) {
-			die("Url::load: Curl process failed to load ".$url." with".curl_error($curl));
+			die("Url::load: Curl process failed to load ".$url." with ".curl_error($curl));
 		}
 
 		curl_close($curl);
