@@ -12,6 +12,7 @@
 		<script src="public/system/javascripts/codemirror.xml.js" type="text/javascript" charset="utf-8"></script>
 		<script src="public/system/javascripts/codemirror.js.js" type="text/javascript" charset="utf-8"></script>
 		<script src="public/system/javascripts/codemirror.htmlmixed.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public/system/javascripts/codemirror.overlay.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" media="screen">
 				
 			#navigator {
@@ -64,8 +65,68 @@
 				color: red;
 			}
 			
+			.cm-hanyaTag {
+				color: violet;
+			}
+			
+			.cm-hanyaVar {
+				color: red;
+			}
+			
+			.cm-hanyaDef {
+				color: blue;
+			}
+			
 		</style>
 		<script type="text/javascript" charset="utf-8">
+		
+			// Highlight Definitions
+			CodeMirror.defineMode("hanyaDef", function(config, parserConfig) {
+			  var hanyaDefOverlay = {
+			    token: function(stream, state) {
+			      if (stream.match("[def") || stream.match("[/def")) {
+			        while ((ch = stream.next()) != null)
+			          if (ch == "]" && stream.next() == "}") break;
+			        return "hanyaDef";
+			      }
+			      while (stream.next() != null && !stream.match("[", false)) {}
+			      return null;
+			    }
+			  };
+			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), hanyaDefOverlay);
+			});
+		
+			// Higlight Tags
+			CodeMirror.defineMode("hanyaTag", function(config, parserConfig) {
+			  var hanyaTagOverlay = {
+			    token: function(stream, state) {
+			      if (stream.match("{tag")) {
+			        while ((ch = stream.next()) != null)
+			          if (ch == ")" && stream.next() == "}") break;
+			        return "hanyaTag";
+			      }
+			      while (stream.next() != null && !stream.match("{", false)) {}
+			      return null;
+			    }
+			  };
+			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaDef"), hanyaTagOverlay);
+			});
+			
+			// Higlight Vars
+			CodeMirror.defineMode("hanyaVar", function(config, parserConfig) {
+			  var hanyaVarOverlay = {
+			    token: function(stream, state) {
+			      if (stream.match("$")) {
+			        while ((ch = stream.next()) != null)
+			          if (ch == ")") break;
+			        return "hanyaVar";
+			      }
+			      while (stream.next() != null && !stream.match("$", false)) {}
+			      return null;
+			    }
+			  };
+			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaTag"), hanyaVarOverlay);
+			});
 			
 			// Variables
 			var editor;
@@ -81,7 +142,7 @@
 				// Load Source & Start Editor
 				$("#editor textarea").load("?command=editor_source&file=<?=$current_file?>",{},function(){
 					editor = CodeMirror.fromTextArea(document.getElementById("codemirror"),{
-						mode: "text/html",
+						mode: "hanyaVar",
 						tabMode: "indent",
 						lineNumbers: true,
 						onChange: function() {

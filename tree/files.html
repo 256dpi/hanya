@@ -22,61 +22,49 @@
     page.html
 </pre>
 <h2>Templates</h2>
-<pre>&lt;!doctype html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8" /&gt;
-    &lt;title&gt;<strong>&#123hanya:read(title|Default Title|)&#125</strong>&lt;/title&gt;
-    &lt;link rel="stylesheet" href="<strong>&#123hanya:file(reset.css)&#125</strong>" type="text/css"&gt;
-    &lt;link rel="stylesheet" href="<strong>&#123hanya:file(style.css)&#125</strong>" type="text/css" media="screen"&gt;
-    &lt;script src="<strong>&#123hanya:file(jquery.js)&#125</strong>" type="text/javascript"&gt;&lt;/script&gt;
-    &lt;script src="<strong>&#123hanya:file(hanya.js)&#125</strong>" type="text/javascript"&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    <strong>&#123hanya:toolbar()&#125</strong>
-    &lt;header&gt;
-      <strong>&#123hanya:include(header)&#125</strong>
-    &lt;/header&gt;
-    &lt;div id="content"&gt;
-      <strong>&#123hanya:block(content)&#125</strong>
-      <strong>&#123hanya:block(sidebar)&#125</strong>
-    &lt;/div&gt;
-    &lt;footer&gt;
-      <strong>&#123hanya:benchmark()&#125</strong>
-    &lt;/footer&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+<pre>
+<html>
+  <!--head>
+    <meta charset="utf-8" />
+    <title><strong>{tag:read(title|Default Title|)}</strong></title>
+    <link rel="stylesheet" href="<strong>{tag:file(reset.css)}</strong>" type="text/css">
+    <link rel="stylesheet" href="<strong>{tag:file(style.css)}</strong>" type="text/css" media="screen">
+    <script src="<strong>{tag:file(jquery.js)}</strong>" type="text/javascript"></script>
+    <script src="<strong>{tag:file(hanya.js)}</strong>" type="text/javascript"></script>
+  </head-->
+  <body>
+    <strong>{hanya:toolbar()}</strong>
+    <header>
+      <strong>{hanya:include(header)}</strong>
+    </header>
+    <div id="content">
+      <strong>{hanya:block(content)}</strong>
+      <strong>{hanya:block(sidebar)}</strong>
+    </div>
+    <footer>
+      <strong>{hanya:benchmark()}</strong>
+    </footer>
+  </body>
+</html>
 </pre>
-
-
-
-
-
-
-
-
-
-
-
-
-<h2>Partial &amp; Block</h2>
-<pre>&lt;h1&gt;Site Title&lt;/h2&gt;
-&lt;p&gt;Sub Title or Slogan&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href="<strong>&#123hanya:link()&#125</strong>"&gt;Index&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="<strong>&#123hanya:link(page)&#125</strong>"&gt;Page&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="<strong>&#123hanya:link(directory/subpage)&#125</strong>"&gt;Sub Page&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<h2>Partial & Block</h2>
+<pre><h1>Site Title</h2>
+<p>Sub Title or Slogan</p>
+<ul>
+  <li><a href="<strong>{hanya:link()}</strong>">Index</a></li>
+  <li><a href="<strong>{hanya:link(page)}</strong>">Page</a></li>
+  <li><a href="<strong>{hanya:link(directory/subpage)}</strong>">Sub Page</a></li>
+</ul>
 </pre>
 <h2>Page</h2>
-<pre><strong>&#123hanya:template(default)&#125</strong>
-<strong>&#123hanya:write(title|Welcome to my Site)&#125</strong>
-&lt;article&gt;
-  &lt;h1&gt;Welcome to my Site&lt;/h1&gt;
-  &lt;p&gt;Lorem ipsum dolor sit amet, consetetur ...&lt;/p&gt;
-  &lt;h2&gt;Some Informations&lt;/h2&gt;
-  &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing ...&lt;/p&gt;
-&lt;/article&gt;
-<strong>&#123hanya:attach(blockname|file|filename)&#125</strong>
-<strong>&#123hanya:attach(blockname|html|&lt;p&gt;Lorem ipsum dolor sit amet, consetetur ...&lt;/p&gt;)&#125</strong>
+<pre><strong>{hanya:template(default)}</strong>
+<strong>{hanya:write(title|Welcome to my Site)}</strong>
+<article>
+  <h1>Welcome to my Site</h1>
+  <p>Lorem ipsum dolor sit amet, consetetur ...</p>
+  <h2>Some Informations</h2>
+  <p>Lorem ipsum dolor sit amet, consetetur sadipscing ...</p>
+</article>
+<strong>{hanya:attach(blockname|file|filename)}</strong>
+<strong>{hanya:attach(blockname|html|<p>Lorem ipsum dolor sit amet, consetetur ...</p>)}</strong>
 </pre>
