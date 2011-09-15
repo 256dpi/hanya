@@ -1,25 +1,27 @@
-{tag:template(default)}
-{tag:write(title|Home)}
-{tag:write(site_id|index)}
+//--
+template = default
+site_id = "index"
+title = "Home"
+--//
 <h1>Welcome to Hanya</h1>
 <p>Hanya is a powerful and simple Website Engine. As a developer, you have total control over the structure and appearance of the page, while customers can easily process small parts of the site through an admin interface. The simple expansion System lets you quickly add more features to the System. <strong>Hanya is a rapid and lighweight System to build fast Websites.</strong></p>
 <h2>Rapid Webpage building</h2>
 <p>Hanya is a Website Engine no Content Management System, so you have to define the Structure of your Site with files. Every accesible Page is defined in a File in the "tree" directory. Hanya automatically maps the Request to a Page for you:
 <pre>
-<strong>http://www.example.com/</strong> => "tree/index.html"
-<strong>http://www.example.com/page/</strong> => "tree/page.html"
-<strong>http://www.example.com/directory/subpage</strong> => "tree/directory/subpage.html"
+  <strong>http://www.example.com/</strong> => "tree/index.html"
+  <strong>http://www.example.com/page/</strong> => "tree/page.html"
+  <strong>http://www.example.com/directory/subpage</strong> => "tree/directory/subpage.html"
 </pre>
 <h2>Tag-based Language</h2>
 <p>Hanya provides an understandable Tag system to keep your sourcefiles clean from Code. These Tags are available in every sourcefile and lets you focus on Design and Content. A Example Page sourcefile can look like this:</p>
 <pre>
-<strong>&#123hanya:write(title|Home)&#125</strong>
-&lt;h1&gt;Example Page&lt;/h1&gt;
-&lt;p><strong>&#123hanya:db(text|welcome-text)&#125</strong>&lt;/p&gt;
-&lt;div class="quicklinks"&gt;
-  <strong>&#123hanya:include(quicklinks)&#125</strong>
-&lt;/div&gt;
-<strong>&#123hanya:attach-to(sidebar|file|home)&#125</strong>
+  <strong>{hanya:write(title|Home)}</strong>
+  <h1>Example Page</h1>
+  <p><strong>{hanya:db(text|welcome-text)}</strong></p>
+  <div class="quicklinks">
+    <strong>{hanya:include(quicklinks)}</strong>
+  </div>
+  <strong>{hanya:attach-to(sidebar|file|home)}</strong>
 </pre>
 <p>Hanya has a global Variables system that allow write and read actions from every sourcefile. This Mechanism allows you to pass data from a page to a template or block element. The "db" Tags is used for interaction with a database. All db tags can interactively manipualted in the Administrator Interface. The system has also Tags to include files and attach content to blocks which can be rendered later in a template.</p>
 <h2>Configuration</h2>

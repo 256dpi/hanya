@@ -10,11 +10,14 @@
 class If_Tag {
 	
 	public static function call($attributes) {
-		$var = Registry::get("var.".$attributes[0]);
-		if($var == $attributes[1]) {
+		if($attributes[0] == $attributes[1]) {
 			return $attributes[2];
 		} else {
-			return "";
+			if($attributes[3]) {
+				return $attributes[3];
+			} else {
+				return "";
+			}
 		}
 	}
 	

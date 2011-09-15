@@ -15,17 +15,17 @@
 		<script src="public/system/javascripts/codemirror.overlay.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" media="screen">
 				
-			#navigator {
+			.navigator {
 				background-color: white;
 				padding: 15px 20px;
 				border: 1px solid #ddd;
 			}
 
-			#navigator ul ul li {
+			.navigator ul ul li {
 				padding-left: 20px;
 			}
 
-			#navigator li a, #navigator li span {
+			.navigator li a, .navigator li span {
 				display: block;
 				padding: 3px 0;
 				padding-left: 20px;
@@ -36,19 +36,19 @@
 				font-weight: inherit;
 			}
 			
-			#navigator li.directory span, #navigator li.directory a {
+			.navigator li.directory span, .navigator li.directory a {
 				background: url(public/system/images/directory-closed.png) 0 center no-repeat;
 			}
 			
-			#navigator li.file span, #navigator li.file a {
+			.navigator li.file span, #navigator li.file a {
 				background: url(public/system/images/file.png) 0 center no-repeat;
 			}
 			
-			#navigator li.file span:hover {
+			.navigator li.file span:hover {
 				cursor: pointer;
 			}
 			
-			#navigator li#open span {
+			.navigator li#open span {
 				font-weight: bold;
 			}
 			
@@ -77,8 +77,27 @@
 				color: blue;
 			}
 			
+			.cm-hanyaMeta {
+				color: red;
+				font-weight: bold;
+			}
+			
 		</style>
 		<script type="text/javascript" charset="utf-8">
+		
+			// Highlight Definitions
+			CodeMirror.defineMode("hanyaMeta", function(config, parserConfig) {
+			  var hanyaMetaOverlay = {
+			    token: function(stream, state) {
+			      if (stream.match("//--") || stream.match("--//")) {
+			        return "hanyaMeta";
+			      }
+			      while (stream.next() != null && !stream.match("/", false)) {}
+			      return null;
+			    }
+			  };
+			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), hanyaMetaOverlay);
+			});
 		
 			// Highlight Definitions
 			CodeMirror.defineMode("hanyaDef", function(config, parserConfig) {
@@ -93,7 +112,7 @@
 			      return null;
 			    }
 			  };
-			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), hanyaDefOverlay);
+			  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaMeta"), hanyaDefOverlay);
 			});
 		
 			// Higlight Tags
@@ -135,7 +154,7 @@
 			$(document).ready(function(){
 				
 				// Navigator Interactivity
-				$("#navigator li.file span").click(function(){
+				$(".navigator li.file span").click(function(){
 					window.location = "?command=editor&file="+$(this).data("path");
 				});				
 				
@@ -143,7 +162,7 @@
 				$("#editor textarea").load("?command=editor_source&file=<?=$current_file?>",{},function(){
 					editor = CodeMirror.fromTextArea(document.getElementById("codemirror"),{
 						mode: "hanyaVar",
-						tabMode: "indent",
+						tabMode: "shift",
 						lineNumbers: true,
 						onChange: function() {
 							$("#modified").show();
@@ -182,10 +201,15 @@
 		<h1><?=I18n::_("system.editor.title")?> (<?=$current_file?>) <span id="modified"><?=I18n::_("system.editor.modified")?></span></h1>
 		<div class="wrapper">
 			<div class="w1">
-				<div id="navigator">
-					<?=Editor_Plugin::tree($current_file)?>
+				<h2><?=I18n::_("system.editor.tree")?></h2>
+				<div class="navigator">
+					<?=Editor_Plugin::tree($current_file,"tree")?>
 				</div>
 				<hr/>
+				<h2><?=I18n::_("system.editor.elements")?></h2>
+				<div class="navigator">
+					<?=Editor_Plugin::tree($current_file,"elements")?>
+				</div>
 			</div>
 			<div class="w3-last">
 				<div id="editor">

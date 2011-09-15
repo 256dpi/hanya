@@ -14,20 +14,35 @@ class Registry {
 	
 	// Load Array
 	public static function load($array) {
-		self::$_data = array_merge(self::$_data,$array);
+		$data = array();
+		foreach($array as $key => $value) {
+			if(strpos($key,".")) {
+				$segments = explode(".",$key);
+				$data[$segments[0]][$segments[1]] = $value;
+			} else {
+				$data[$key] = $value;
+			}
+		}
+		self::$_data = array_merge(self::$_data,$data);
 	}
 	
 	// Set Value by Key
 	public static function set($key,$value) {
-		self::$_data[$key] = $value;
+		if(strpos($key,".")) {
+			$segments = explode(".",$key);
+			self::$_data[$segments[0]][$segments[1]] = $value;
+		} else {
+			self::$_data[$key] = $value;
+		}
 	}
 	
 	// Get Value by Key
 	public static function get($key) {
-		if(array_key_exists($key,self::$_data)) {
-			return self::$_data[$key];
+		if(strpos($key,".")) {
+			$segments = explode(".",$key);
+			return self::$_data[$segments[0]][$segments[1]];
 		} else {
-			return null;
+			return self::$_data[$key];
 		}
 	}
 	

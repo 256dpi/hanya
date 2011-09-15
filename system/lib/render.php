@@ -42,7 +42,7 @@ class Render {
 		Registry::set("block.content",$content);
 		
 		// Get Template
-		$template_file = "templates/".Registry::get("site.template").".html";
+		$template_file = "templates/".Registry::get("meta.template").".html";
 		
 		// Process Template
 		if(file_exists($template_file)) {
@@ -58,8 +58,12 @@ class Render {
 		// Evaluate Fie
 		$output = Disk::eval_file($file,$variables);
 		
+		// Process the Meta Block And Process Variables
+		$output = self::_process_metablock($output);
+		$output = self::process_variables("meta",Registry::get("meta"),$output);
+		
 		// Process "request" Variables
-		$output = self::_process_variables("request",Registry::get("request.variables"),$output);
+		$output = self::process_variables("request",Registry::get("request.variables"),$output);
 		
 		// Process Definitions
 		$output = self::_process_definitions($output);
@@ -71,8 +75,19 @@ class Render {
 		return $output;
 	}
 	
+	// Process Metablock
+	private static function _process_metablock($output) {
+		preg_match_all('!^\/\/--(.*)--\/\/!Us',$output,$match);
+		Registry::set("meta",array_merge(Registry::get("meta"),parse_ini_string($match[1][0])));
+		/*foreach(parse_ini_string($match[1][0]) as $key => $value) {
+			Registry::set("var.".$key,$value);
+		}*/
+		$output = str_replace($match[0][0],"",$output);
+		return $output;
+	}
+	
 	// Process Variables
-	private static function _process_variables($name,$vars,$output) {
+	public static function process_variables($name,$vars,$output) {
 		if($vars) {
 			preg_match_all('!\$'.$name.'\((.+)\)!Us',$output,$matches);
 			foreach($matches[0] as $i => $var) {
@@ -159,7 +174,7 @@ class Render {
 			}
 			
 			// Process Variables
-			$data = self::_process_variables($definition,$array,$sub);
+			$data = self::process_variables($definition,$array,$sub);
 			
 			// Check for Login
 			if(Memory::get("edit_page")) {

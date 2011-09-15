@@ -36,7 +36,7 @@ class Editor_Plugin extends Plugin {
 		$current_file = Request::get("file");
 		
 		// Read Content
-		echo Disk::read_file($current_file);
+		echo str_replace(array("<",">"),array("&lt;","&gt;"),Disk::read_file($current_file));
 		
 		// End
 		exit;

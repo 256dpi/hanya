@@ -112,8 +112,13 @@ class Hanya {
 		// Set Default Content Type
 		HTTP::content_type();
 		
-		// Render an Echo File
-		echo Render::page(Helper::tree_file_from_segments(Registry::get("request.segments")));
+		// Get Render
+		$out = Render::page(Helper::tree_file_from_segments(Registry::get("request.segments")));
+		
+		// Replace Benchmark Info
+		$time = round((microtime(true)-HANYA_SCRIPT_START)*1000)."ms";
+		$peak = round(memory_get_peak_usage()/1024)."KB";
+		echo str_replace(array("#{HANYA_GENERATION_TIME}","#{HANYA_MEMORY_PEAK}"),array($time,$peak),$out);
   }
 	
 	// Initialize the Hanya System
@@ -123,8 +128,8 @@ class Hanya {
 		Registry::load(array(
 			"system.automatic_db_setup" => true,
 			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
-			"system.version_url" => "https://raw.github.com/256dpi/Hanya/master/VERSION",
-			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master", //$ curl http://github.com/api/v2/json/commits/list/mojombo/grit/master
+			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master",
+			"meta" => array("template"=>"default"),
 		));
 		
 		// Load Config

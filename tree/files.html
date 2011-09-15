@@ -1,6 +1,8 @@
-{tag:template(default)}
-{tag:write(title|Files)}
-{tag:write(site_id|files)}
+//--
+template = default
+site_id = "files"
+title = "Files"
+--//
 <h1>Hanya's File Structure</h1>
 <p>To Generate a HTML Page, Hanya needs at least one Page and one Template file. To keep this files clean divide your pages into reuseable partials and blocks. Partials can loaded by a "include" tag and will be placed immediately at his space. The Blocksystem allows you to attach Blocks and HTML Code to an id, which can be rendered in a template or other file.</p>
 <h2>File Structure</h2>
@@ -23,48 +25,44 @@
 </pre>
 <h2>Templates</h2>
 <pre>
-<html>
-  <!--head>
-    <meta charset="utf-8" />
-    <title><strong>{tag:read(title|Default Title|)}</strong></title>
-    <link rel="stylesheet" href="<strong>{tag:file(reset.css)}</strong>" type="text/css">
-    <link rel="stylesheet" href="<strong>{tag:file(style.css)}</strong>" type="text/css" media="screen">
-    <script src="<strong>{tag:file(jquery.js)}</strong>" type="text/javascript"></script>
-    <script src="<strong>{tag:file(hanya.js)}</strong>" type="text/javascript"></script>
-  </head-->
-  <body>
-    <strong>{hanya:toolbar()}</strong>
-    <header>
-      <strong>{hanya:include(header)}</strong>
-    </header>
-    <div id="content">
-      <strong>{hanya:block(content)}</strong>
-      <strong>{hanya:block(sidebar)}</strong>
-    </div>
-    <footer>
-      <strong>{hanya:benchmark()}</strong>
-    </footer>
-  </body>
-</html>
-</pre>
-<h2>Partial & Block</h2>
-<pre><h1>Site Title</h2>
-<p>Sub Title or Slogan</p>
-<ul>
-  <li><a href="<strong>{hanya:link()}</strong>">Index</a></li>
-  <li><a href="<strong>{hanya:link(page)}</strong>">Page</a></li>
-  <li><a href="<strong>{hanya:link(directory/subpage)}</strong>">Sub Page</a></li>
-</ul>
-</pre>
-<h2>Page</h2>
-<pre><strong>{hanya:template(default)}</strong>
-<strong>{hanya:write(title|Welcome to my Site)}</strong>
-<article>
-  <h1>Welcome to my Site</h1>
-  <p>Lorem ipsum dolor sit amet, consetetur ...</p>
-  <h2>Some Informations</h2>
-  <p>Lorem ipsum dolor sit amet, consetetur sadipscing ...</p>
-</article>
-<strong>{hanya:attach(blockname|file|filename)}</strong>
-<strong>{hanya:attach(blockname|html|<p>Lorem ipsum dolor sit amet, consetetur ...</p>)}</strong>
-</pre>
+	<html>
+	  <head>
+	    <meta charset="utf-8" />
+	    <title><strong>{hanya:read(title|Default Title|)}</strong></title>
+	  </head>
+	  <body>
+	    <strong>{hanya:toolbar()}</strong>
+	    <header>
+	      <strong>{hanya:include(header)}</strong>
+	    </header>
+	    <div id="content">
+	      <strong>{hanya:block(content)}</strong>
+	      <strong>{hanya:block(sidebar)}</strong>
+	    </div>
+	    <footer>
+	      <strong>{hanya:benchmark()}</strong>
+	    </footer>
+	  </body>
+	</html>
+	</pre>
+	<h2>Partial &amp; Block</h2>
+	<pre><h1>Site Title</h1>
+	<p>Sub Title or Slogan</p>
+	<ul>
+	  <li><a href="<strong>{hanya:link()}</strong>">Index</a></li>
+	  <li><a href="<strong>{hanya:link(page)}</strong>">Page</a></li>
+	  <li><a href="<strong>{hanya:link(directory/subpage)}</strong>">Sub Page</a></li>
+	</ul>
+	</pre>
+	<h2>Page</h2>
+	<pre><strong>{hanya:template(default)}</strong>
+	<strong>{hanya:write(title|Welcome to my Site)}</strong>
+	<article>
+	  <h1>Welcome to my Site</h1>
+	  <p>Lorem ipsum dolor sit amet, consetetur ...</p>
+	  <h2>Some Informations</h2>
+	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing ...</p>
+	</article>
+	<strong>{hanya:attach(blockname|file|filename)}</strong>
+	<strong>{hanya:attach(blockname|html|<p>Lorem ipsum dolor sit amet, consetetur ...</p>)}</strong>
+	</pre>

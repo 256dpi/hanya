@@ -2,7 +2,8 @@
 	<p>
 		<span><?=I18n::_("system.updater.has_update",array("from_revision"=>$revision,"to_revision"=>$remote_revision))?></span>
 		<a href="javascript:update();"><?=I18n::_("system.updater.do_update")?></a> or
-		<a href="javascript:review();"><?=I18n::_("system.updater.do_review")?></a>
+		<a href="javascript:review();"><?=I18n::_("system.updater.do_review")?></a> - 
+		<a href="http://www.github.com/256dpi/Hanya" target"_blank"><?=I18n::_("system.updater.github")?></a>
 	</p>
 <? else: ?>
 	<p><?=I18n::_("system.updater.no_update")?></p>

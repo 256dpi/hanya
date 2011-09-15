@@ -19,6 +19,8 @@ Hanya::run(array(
 	"i18n.languages" => array("en"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "en",
 	"auth.users" => array("admin"=>"admin"),
+	"mail.sender" => "hanya@example.com",
+	"mail.forms" => array("contact"=>array("reciever"=>"joel.gaehwiler@bluewin.ch","subject"=>"New Contact Message")),
 ));
 
 /*
@@ -35,5 +37,9 @@ Hanya::run(array(
 	
 	[System Settings]
 	"system.automatic_db_setup" => false,
+	
+	[Mail Settings]
+	mail.sender = "hanya@example.com",
+	mail.forms = array("form_id"=>array("reciever"=>"mail@example.com","subject"=>"The Subject")),
 	
 */

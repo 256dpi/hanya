@@ -1,31 +1,33 @@
-{tag:template(default)}
-{tag:write(title|Tags)}
-{tag:write(site_id|tags)}
+//--
+template = default
+site_id = "tags"
+title = "Tags"
+--//
 <h1>Read, Write, Include &amp; Link</h1>
 <p>The tag system allows for quick operation and takes off a lot of work. Are the basic tags not own enough you can add your own tags.</p>
 <h2>Variables</h2>
 <p>Create persistent variables to pass informatiom from your page to your template</p>
-<pre><strong>&#123hanya:write(key|value)&#125</strong> create a variable
-<strong>&#123hanya:read(key)&#125</strong> read the Variable
-<strong>&#123hanya:if(key|is|then)&#125</strong> checks the variable and prints on true</pre>
+<pre><strong>{hanya:write(key|value)}</strong> create a variable
+<strong>{hanya:read(key)}</strong> read the Variable
+<strong>{hanya:if(key|is|then)}</strong> checks the variable and prints on true</pre>
 <h2>Database</h2>
 <p>Data in the database can be edited by the customer through the admin interface.<p>
-<pre><strong>&#123hanya:db(string|id)&#125</strong> save a string to use with inline html elements
-<strong>&#123hanya:db(text|id)&#125</strong> save a text to use with block html elements
-<strong>&#123hanya:db(html|id)&#125</strong> save HTML sourcecode</pre>
+<pre><strong>{hanya:db(string|id)}</strong> save a string to use with inline html elements
+<strong>{hanya:db(text|id)}</strong> save a text to use with block html elements
+<strong>{hanya:db(html|id)}</strong> save HTML sourcecode</pre>
 <h2>Dynamic</h2>
 <p>Attach data to a block to render them later in the template with the block tag</p>
-<pre><strong>&#123hanya:attach(id|file|name)&#125</strong> searches for a file like "elements/+name.html"
-<strong>&#123hanya:attach(id|html|sourcecode)&#125</strong> appends the sourcecode to the block
-<strong>&#123hanya:block(id)&#125</strong> renders the given block</pre>
+<pre><strong>{hanya:attach(id|file|name)}</strong> searches for a file like "elements/+name.html"
+<strong>{hanya:attach(id|html|sourcecode)}</strong> appends the sourcecode to the block
+<strong>{hanya:block(id)}</strong> renders the given block</pre>
 <p>Include a partial to outsource Navigation and Footers</p>
-<pre><strong>&#123hanya:include(name)&#125</strong> searches for a file like "elements/_name.html"</pre>
+<pre><strong>{hanya:include(name)}</strong> searches for a file like "elements/_name.html"</pre>
 <h2>URL</h2>
 <p>Simplify your handling with URL's</p>
-<pre><strong>&#123hanya:file(name.ext)&#125</strong> gets URL for a file in the "files" directory
-<strong>&#123hanya:link(dir/page)&#125</strong> gets URL for a page</pre>
+<pre><strong>{hanya:file(name.ext)}</strong> gets URL for a file in the "files" directory
+<strong>{hanya:link(dir/page)}</strong> gets URL for a page</pre>
 <h2>Other</h2>
 <p>Some other tags</p>
-<pre><strong>&#123hanya:template(id)&#125</strong> defines the template (should be on top of a page)
-<strong>&#123hanya:benchmark()&#125</strong> renders the benchmark informations
-<strong>&#123hanya:toolbar()&#125</strong> renders the admin toolbar</pre>
+<pre><strong>{hanya:template(id)}</strong> defines the template (should be on top of a page)
+<strong>{hanya:benchmark()}</strong> renders the benchmark informations
+<strong>{hanya:toolbar()}</strong> renders the admin toolbar</pre>

@@ -23,9 +23,7 @@ class Head_Tag {
 		$html .= HTML::script(Url::_("public/system/javascripts/hanya.js"));
 			
 		// Load jQuery Extensions
-		$html .= HTML::script(Url::_("public/system/javascripts/jquery.cleditor.js"));
-		//$html .= HTML::script(Url::_("public/system/javascripts/jquery.treeview.js"));
-		//$html .= HTMl::script(Url::_("public/system/javascripts/jquery.form.js"));			
+		$html .= HTML::script(Url::_("public/system/javascripts/jquery.cleditor.js"));		
 		$html .= HTML::stylesheet(Url::_("public/system/stylesheets/jquery.cleditor.css"));		
 		
 		// Return
