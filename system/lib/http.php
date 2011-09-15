@@ -24,6 +24,11 @@ class HTTP {
 		header("HTTP/1.0 404 Not Found");
 	}
 
+	// Set Forbidden Header
+	public static function forbidden() {
+		header('HTTP/1.1 403 Forbidden');
+	}
+
 	// Request Authentication
 	public static function authenticate($title,$message) {
 		header('WWW-Authenticate: Basic realm="'.$title.'"');

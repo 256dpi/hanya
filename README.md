@@ -4,7 +4,7 @@ A Rapid Website Engine
 
 3rd Party
 ---------
-ORM Class by idiorm
+ORM Class by idiorm (http://github.com/j4mie/idiorm/)
 
 Dynamic Function inspired by Kohana Routes
 

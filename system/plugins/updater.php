@@ -123,8 +123,8 @@ class Updater_Plugin extends Plugin {
 		Disk::empty_directory($real_public_system_dir);
 		
 		// Copy New Files
-		Disk::copy_directory($tmp_system_dir,$real_system_dir);
-		Disk::copy_directory($tmp_public_system_dir,$real_public_system_dir);
+		Disk::copy($tmp_system_dir,$real_system_dir);
+		Disk::copy($tmp_public_system_dir,$real_public_system_dir);
 		
 		// Write File
 		Disk::remove_file("user/system.revision");

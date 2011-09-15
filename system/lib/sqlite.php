@@ -13,7 +13,7 @@ class Sqlite {
 	public static function create_database($file) {
 		
 		// Check if Files not exists
-		if(!file_exists($file)) {
+		if(!Disk::has_file($file)) {
 			
 			// Create a Dummy Connection
 			$db = sqlite_open($file,0777);
@@ -21,7 +21,6 @@ class Sqlite {
 			// Close Connection
 			sqlite_close($db);
 		}
-
 	}
 	
 	// Get Tables

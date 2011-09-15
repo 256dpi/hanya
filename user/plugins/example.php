@@ -7,23 +7,14 @@
  * @package Hanya
  **/
 
-class Admin {
-
-	// Render Head
-	public static function head($title) {
+class Example_Plugin extends Plugin {
+	
+	// View Login Form
+	public static function on_example() {
 		
-		// Begin
-		$ret = "<!doctype html>";
-		
-		// Root
-		$ret .= '<html>';
-		
-		// 
-		
-		
-
-		
-		
+		// Render View
+		echo "Example_Plugin"
+		exit;
 	}
 	
 }

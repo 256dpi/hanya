@@ -66,7 +66,6 @@ class I18n {
 			// Return Key to indicate missing Translation
 			return Registry::get("i18n.language").".".$key;	
 		}
-		
 	}
 	
 }

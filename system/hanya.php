@@ -66,7 +66,7 @@ class Hanya {
 		$expression = str_replace(array('<','>'),array('(?P<','>[^/.,;?\n]++)'),$expression);
 
 		// Add Expression to List
-		self::$_dynamic_points[$static] = '#^'.$expression.'$#uD';
+		self::$_dynamic_points[$static] = '!^'.$expression.'$!uD';
 	}
 
 	// Start the Main Hanya Process
@@ -98,7 +98,7 @@ class Hanya {
 				// Override Path
 				$path = $id;
 				
-				// Save Varibales
+				// Save Variables
 				Registry::set("request.variables",$match);
 			}
 		}
@@ -129,7 +129,7 @@ class Hanya {
 			"system.automatic_db_setup" => true,
 			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
 			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master",
-			"meta" => array("template"=>"default"),
+			"meta.template" => "default",
 		));
 		
 		// Load Config
@@ -172,9 +172,9 @@ class Hanya {
 		Registry::set("available.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
 		
 		// Get Tags
-		$system_tags = Disk::read_directory("system/tags");
+		/*$system_tags = Disk::read_directory("system/tags");
 		$user_tags = Disk::read_directory("user/tags");
-		Registry::set("available.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));
+		Registry::set("available.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));*/
 		
 		// Load Definitions
 		$system_definitions = Disk::read_directory("system/definitions");

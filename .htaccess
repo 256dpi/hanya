@@ -1,10 +1,12 @@
-# URL REWRITING
-RewriteEngine On
-RewriteBase /GitHub/Hanya/
+# HIDE SYSTEM FILES
 <Files .*>
   Order Deny,Allow
   Deny From All
 </Files>
+
+# URL REWRITING
+RewriteEngine On
+RewriteBase /GitHub/Hanya/
 RewriteRule ^(?:elements|user|system|templates|tree)\b index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php

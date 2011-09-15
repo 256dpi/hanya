@@ -13,7 +13,7 @@ class Render {
 	public static function page($page) {
 		
 		//Check Existence
-		if(file_exists($page)) {
+		if(Disk::has_file($page)) {
 			
 			// Process Content
 			$content = self::file($page);
@@ -25,7 +25,7 @@ class Render {
 			
 			// Check Error File
 			$error_file = "elements/errors/404.html";
-			if(file_exists($error_file)) {
+			if(Disk::has_file($error_file)) {
 				
 				// Process Error File
 				$content = self::file($error_file);
@@ -33,7 +33,7 @@ class Render {
 			} else {
 				
 				// Die with Error
-				die("Error 404 - Page not found! (".$file.") - Define 'elements/404.html' to Render a Error Page");
+				die("Error 404 - Page not found! Define 'elements/errors/404.html' to Render a Error Page");
 				
 			}
 		}
@@ -45,7 +45,7 @@ class Render {
 		$template_file = "templates/".Registry::get("meta.template").".html";
 		
 		// Process Template
-		if(file_exists($template_file)) {
+		if(Disk::has_file($template_file)) {
 			return self::file($template_file);	
 		} else {
 			die("Hanya: Template '".$template_file."' does not exists!");
@@ -79,9 +79,6 @@ class Render {
 	private static function _process_metablock($output) {
 		preg_match_all('!^\/\/--(.*)--\/\/!Us',$output,$match);
 		Registry::set("meta",array_merge(Registry::get("meta"),parse_ini_string($match[1][0])));
-		/*foreach(parse_ini_string($match[1][0]) as $key => $value) {
-			Registry::set("var.".$key,$value);
-		}*/
 		$output = str_replace($match[0][0],"",$output);
 		return $output;
 	}
@@ -167,9 +164,23 @@ class Render {
 			// Process Special Fields
 			foreach($class::$blueprint as $field => $config) {
 				switch($config["as"]) {
-					case "boolean": break; // Get from I18n
-					case "selection": $array[$field."_value"] = $config["options"][$array[$field]]; break;
-					case "file": $array[$field."_path"] = $config["folder"]."/".$array[$field]; break;
+					case "boolean": {
+						if($array[$field]) {
+							$val = I18n::_("definition.".$definition.".".$field."_true");
+						} else {
+							$val = I18n::_("definition.".$definition.".".$field."_false");
+						}	
+						$array[$field."_text"] = $val;
+						break;
+					}
+					case "selection": {
+						$array[$field."_value"] = $config["options"][$array[$field]];
+						break;
+					}
+					case "file": {
+						$array[$field."_path"] = $config["folder"]."/".$array[$field];
+						break;
+					}
 				}
 			}
 			
