@@ -4,13 +4,15 @@ A Rapid Website Engine
 
 3rd Party
 ---------
-ORM Class by idiorm (http://github.com/j4mie/idiorm/)
+Thanks for your good work!
 
-Dynamic Function inspired by Kohana Routes
+ORM Class idiorm by j4mie (http://github.com/j4mie/idiorm/)
 
-Filetype Icons by https://github.com/teambox/Free-file-icons/tree/master/16px
+Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
 
-Icons from Fugue
+Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
+
+Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
 
 License
 -------
