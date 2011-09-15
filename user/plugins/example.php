@@ -13,7 +13,7 @@ class Example_Plugin extends Plugin {
 	public static function on_example() {
 		
 		// Render View
-		echo "Example_Plugin"
+		echo "Example_Plugin";
 		exit;
 	}
 	
