@@ -53,7 +53,7 @@ class Disk {
 	
 	// Get Extension of a File
 	public static function extension($file) {
-		if(strpost($file,".")) {
+		if(strpos($file,".")) {
 			return end(explode(".",$file));
 		} else {
 			return false;
