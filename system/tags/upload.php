@@ -7,10 +7,10 @@
  * @package Hanya
  **/
 
-class File_Tag {
+class Upload_Tag {
 	
 	public static function call($attributes) {
-		return Url::_("public/".$attributes[0]);
+		return Url::_("uploads/".$attributes[0]);
 	}
 	
 }

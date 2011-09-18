@@ -13,7 +13,11 @@ class Request {
 	public static function path() {
 		if(array_key_exists("REQUEST_URI",$_SERVER)) {
 			$parsed = parse_url($_SERVER["REQUEST_URI"]);
-			return str_replace("index.php/","",$parsed["path"]);
+			$path = $parsed["path"];
+			if(Registry::get("base.path") != "/" && Registry::get("base.path") != "") {
+				$path = str_replace(Registry::get("base.path"),"",$path);
+			}
+			return str_replace("index.php/","",$path);
 		} else {
 			return "";
 		}
@@ -21,9 +25,6 @@ class Request {
 
 	// Get Segments of a Path
 	public static function get_segments($path) {
-		if(Registry::get("base.path") != "/" && Registry::get("base.path") != "") {
-			$path = str_replace(Registry::get("base.path"),"",$path);
-		}
 		$segments = explode("/",$path);
 		$i = count($segments);
 		if($i > 1) {
