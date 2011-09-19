@@ -97,7 +97,7 @@ class Render {
 	
 	// Process Definitions
 	private static function _process_definitions($output) {
-		while(preg_match('!\[(-*)([a-z]+)\((.*)\)\](.*)\[/\1def:\2\]!Us',$output,$match)) {
+		while(preg_match('!\[(-*)([a-z]+)\((.*)\)\](.*)\[/\1\2\]!Us',$output,$match)) {
 			$attributes = explode("|",$match[3]);
 			$output = str_replace($match[0],self::_execute_definition($match[2],$attributes,$match[4]),$output);
 		}
