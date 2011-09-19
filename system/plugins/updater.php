@@ -111,9 +111,9 @@ class Updater_Plugin extends Plugin {
 		
 		// Set Folders
 		$tmp_system_dir = $tempdir.$update."/system";
-		$tmp_public_system_dir = $tempdir.$update."/public/system";	
+		$tmp_public_system_dir = $tempdir.$update."/assets/system";	
 		$real_system_dir = Registry::get("system.path")."system";
-		$real_public_system_dir = Registry::get("system.path")."public/system";
+		$real_public_system_dir = Registry::get("system.path")."assets/system";
 		
 		// Check Permissions
 		self::_check_directory(".");

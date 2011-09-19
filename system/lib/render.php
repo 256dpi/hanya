@@ -42,7 +42,7 @@ class Render {
 		Registry::set("block.content",$content);
 		
 		// Get Template
-		$template_file = "templates/".Registry::get("meta.template").".html";
+		$template_file = "elements/templates/".Registry::get("meta.template").".html";
 		
 		// Process Template
 		if(Disk::has_file($template_file)) {
@@ -97,7 +97,7 @@ class Render {
 	
 	// Process Definitions
 	private static function _process_definitions($output) {
-		while(preg_match('!\[(-*)def:([a-z]+)\((.*)\)\](.*)\[/\1def:\2\]!Us',$output,$match)) {
+		while(preg_match('!\[(-*)([a-z]+)\((.*)\)\](.*)\[/\1def:\2\]!Us',$output,$match)) {
 			$attributes = explode("|",$match[3]);
 			$output = str_replace($match[0],self::_execute_definition($match[2],$attributes,$match[4]),$output);
 		}
@@ -106,7 +106,7 @@ class Render {
 	
 	// Process Tags
 	private static function _process_tags($output) {
-		preg_match_all('!\{tag:(.+)\((.*)\)\}!Us',$output,$matches);
+		preg_match_all('!\{(.+)\((.*)\)\}!Us',$output,$matches);
 		foreach($matches[1] as $i => $tag) {
 			$attributes = explode("|",$matches[2][$i]);
 			$output = str_replace($matches[0][$i],self::_execute_tag($tag,$attributes),$output);

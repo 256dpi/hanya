@@ -7,7 +7,7 @@
 # URL REWRITING
 RewriteEngine On
 RewriteBase /GitHub/Hanya/
-RewriteRule ^(?:elements|user|system|templates|tree)\b index.php
+RewriteRule ^(?:elements|user|system|tree)\b index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php
 

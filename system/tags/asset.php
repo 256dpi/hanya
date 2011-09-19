@@ -7,10 +7,10 @@
  * @package Hanya
  **/
 
-class Public_Tag {
+class Asset_Tag {
 	
 	public static function call($attributes) {
-		return Url::_("public/".$attributes[0]);
+		return Url::_("assets/".$attributes[0]);
 	}
 	
 }

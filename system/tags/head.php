@@ -15,16 +15,16 @@ class Head_Tag {
 		$html = '<base href="'.Registry::get("base.url").'" />';
 		
 		// Stylesheets
-		$html .= HTML::stylesheet(Url::_("public/system/stylesheets/reset.css"));
-		$html .= HTML::stylesheet(Url::_("public/system/stylesheets/hanya.css"));
+		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css"));
+		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/hanya.css"));
 		
 		// Load jQuery and Hanya JS
-		$html .= HTML::script(Url::_("public/system/javascripts/jquery.js"));
-		$html .= HTML::script(Url::_("public/system/javascripts/hanya.js"));
+		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.js"));
+		$html .= HTML::script(Url::_("assets/system/javascripts/hanya.js"));
 			
 		// Load jQuery Extensions
-		$html .= HTML::script(Url::_("public/system/javascripts/jquery.cleditor.js"));		
-		$html .= HTML::stylesheet(Url::_("public/system/stylesheets/jquery.cleditor.css"));		
+		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"));		
+		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));		
 		
 		// Return
 		return $html;
