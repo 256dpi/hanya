@@ -198,7 +198,7 @@ class Disk {
 	    $files = scandir($src);
 	    foreach ($files as $file) {
 				if ($file != "." && $file != "..") {
-					self::copy_directory("$src/$file", "$dst/$file");
+					self::copy("$src/$file", "$dst/$file");
 				}
 			}
 	  } else if (self::has_file($src)) { 
@@ -223,7 +223,7 @@ class Disk {
 		}
 		
 		// Check Directory
-		if(!self::writeable($fodler)) {
+		if(!self::writeable($folder)) {
 			die("Disk::unzip: Target ist not writeable! ".$folder);
 		}
 		
