@@ -53,7 +53,7 @@ class Toolbar_Tag {
 		} else {
 			
 			// Add Login Link
-			$html .= HTML::div(null,"hanya-admin-login",HTML::anchor(null,I18n::_("system.admin.login_link"),array("onclick"=>"Hanya.login()")));
+			$html .= HTML::div(null,"hanya-admin-login",HTML::anchor(null,HTML::span(I18n::_("system.admin.login_link")),array("onclick"=>"Hanya.login()")));
 			
 		}
 		
