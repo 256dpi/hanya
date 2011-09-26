@@ -14,26 +14,6 @@ strong {
 
 /* HEADER */
 
-.hanya-admin-login a {
-	display: block;
-	width: 41px;
-	height: 41px;
-	position: fixed;
-	top: 0;
-	right: 0;
-	text-align: right;
-	text-indent: -4000px;
-}
-
-.hanya-admin-login a span {
-	display: none;
-}
-
-.hanya-admin-login a:hover {
-	background: url(system/images/badge.png) no-repeat;
-	cursor: pointer;
-}
-
 header {
 	text-align: center;
 }
