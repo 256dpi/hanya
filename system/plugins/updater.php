@@ -116,7 +116,8 @@ class Updater_Plugin extends Plugin {
 		$real_public_system_dir = Registry::get("system.path")."assets/system";
 		
 		// Check Permissions
-		self::_check_directory(".");
+		self::_check_directory($real_system_dir);
+		self::_check_directory($real_public_system_dir);
 		
 		// Empty Directories
 		Disk::empty_directory($real_system_dir);
