@@ -7,6 +7,8 @@
  * @package Hanya
  **/
 
+// For use: rename file to example.php and move to user/definitions
+
 class Example_Definition extends Definition {
 		
 	static $blueprint = array(

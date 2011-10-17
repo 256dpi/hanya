@@ -7,14 +7,12 @@
  * @package Hanya
  **/
 
-class Example_Plugin extends Plugin {
+// For use: rename file to example.php and move to user/tags
+
+class Example_Tag {
 	
-	// View Login Form
-	public static function on_example() {
-		
-		// Render View
-		echo "Example_Plugin";
-		exit;
+	public static function call($attributes) {
+		return "Example_Tag"
 	}
 	
 }
