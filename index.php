@@ -23,6 +23,14 @@ Hanya::run(array(
 
 /*
 
+	### DIRECTORIES
+	tree - pages as page.html
+	elements/templates - templates as template.html
+	elements/partials - partials as partial.html
+	elements/mails - mail templates as form.html
+
+	### SETTINGS
+
 	[Mysql Settings]
 	"db.driver" => "mysql"
 	"db.location" => "mysql:dbname=hanya;unix_socket=/tmp/mysql.sock",
@@ -39,8 +47,9 @@ Hanya::run(array(
 	[Mail Settings]
 	mail.sender = "hanya@example.com",
 	mail.forms = array("form_id"=>array("reciever"=>"mail@example.com","subject"=>"The Subject")),
-	
-	# Add Dynamic Points
+
+	### DYNAMIC POINTS
+
 	Hanya::dynamic_point("site","(/<id>)");
 	
 */
