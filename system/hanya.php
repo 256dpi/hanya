@@ -168,18 +168,23 @@ class Hanya {
 		
 		// Get Plugins
 		$system_plugins = Disk::read_directory("system/plugins");
-		$user_plugins = Disk::read_directory("user/plugins");
-		Registry::set("available.plugins",str_replace(".php","",array_merge($system_plugins["."],$user_plugins["."])));
-		
-		// Get Tags
-		/*$system_tags = Disk::read_directory("system/tags");
-		$user_tags = Disk::read_directory("user/tags");
-		Registry::set("available.tags",str_replace(".php","",array_merge($system_tags["."],$user_tags["."])));*/
+		if(Disk::has_directory("user/plugins")) {
+			$user_plugins = Disk::read_directory("user/plugins");
+			$plugins = array_merge($system_plugins["."],$user_plugins["."]);
+		} else {
+			$plugins = $system_plugins["."];
+		}
+		Registry::set("available.plugins",str_replace(".php","",$plugins));
 		
 		// Load Definitions
 		$system_definitions = Disk::read_directory("system/definitions");
-		$user_definitions = Disk::read_directory("user/definitions");
-		Registry::set("available.definitions",str_replace(".php","",array_merge($system_definitions["."],$user_definitions["."])));
+		if(Disk::has_directory("user/definitions")) {
+			$user_definitions = Disk::read_directory("user/definitions");
+			$definitions = array_merge($system_definitions["."],$user_definitions["."]);
+		} else {
+			$definitions = $system_definitions["."];
+		}
+		Registry::set("available.definitions",str_replace(".php","",$definitions));
 		
 		// Check for Automatic DB Setup
 		if(Registry::get("system.automatic_db_setup")) {
