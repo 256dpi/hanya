@@ -65,11 +65,11 @@ class Render {
 		// Process "request" Variables
 		$output = self::process_variables("request",Registry::get("request.variables"),$output);
 		
-		// Process Conditions
-		$output = self::_process_conditions($output);
-		
 		// Process Definitions
 		$output = self::_process_definitions($output);
+		
+		// Process Conditions
+		$output = self::_process_conditions($output);
 		
 		// Process Tags
 		$output = self::_process_tags($output);
