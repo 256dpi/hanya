@@ -65,6 +65,9 @@ class Render {
 		// Process "request" Variables
 		$output = self::process_variables("request",Registry::get("request.variables"),$output);
 		
+		// Process Conditions
+		$output = self::_process_conditions($output);
+		
 		// Process Definitions
 		$output = self::_process_definitions($output);
 		
@@ -90,6 +93,40 @@ class Render {
 			foreach($matches[0] as $i => $var) {
 				$attributes = explode("|",$matches[1][$i]);
 				$output = str_replace($matches[0][$i],$vars[$attributes[0]],$output);
+			}
+		}
+		return $output;
+	}
+	
+	// Process Conditions
+	private static function _process_conditions($output) {
+		while(preg_match('!\[(-*)\?\((.*)\)\](.*)\[/\1\?]!Us',$output,$match)) {
+			$attributes = explode("|",$match[2]);
+			if(strpos($match[3],"[".$match[1]."?:]")) {
+				preg_match('!^(.*)\['.$match[1].'\?\:\](.*)$!Us',$match[3],$match2);
+				$when_true = $match2[1];
+				$when_false =$match2[2];
+			} else {
+				$when_true = $match[3];
+				$when_false = "";
+			}
+			switch(count($attributes)) {
+				case 1: $is = ($attributes[0]); break;
+				case 2: $is = ($attributes[0] == $attributes[1]); break;
+				case 3: {
+					switch($attributes[1]) {
+						case ">": $is = ($attributes[0]>$attributes[2]); break;
+						case "<": $is = ($attributes[0]<$attributes[2]); break;
+						case "<=": $is = ($attributes[0]<=$attributes[2]); break;
+						case ">=": $is = ($attributes[0]>=$attributes[2]); break;
+					}
+					break;
+				}
+			}
+			if($is) {
+				$output = str_replace($match[0],$when_true,$output);
+			} else {
+				$output = str_replace($match[0],$when_false,$output);
 			}
 		}
 		return $output;

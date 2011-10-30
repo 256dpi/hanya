@@ -1,0 +1,17 @@
+//--
+site_id = "index"
+title = "Home"
+test = true
+test2 = 4
+--//
+<h1>Welcome to Hanya</h1>
+[?($meta(test))]
+	yes
+	[-?($meta(test2)|>=|4)]
+		yeyes
+	[-?:]
+		nono
+	[/-?]
+[?:]
+	no
+[/?]
