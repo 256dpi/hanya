@@ -96,6 +96,9 @@ class Definition_Plugin extends Plugin {
 					// File Select
 					case "file": {
 						$data = array();
+						if($config["blank"]) {
+							$data = array(""=>"---");
+						}
 						$files = Disk::read_directory("uploads/".$config["folder"]);
 						foreach($files["."] as $file) {
 							$data[$file] = $file;
