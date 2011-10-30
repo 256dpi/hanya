@@ -111,7 +111,7 @@ class Render {
 				$when_false = "";
 			}
 			switch(count($attributes)) {
-				case 1: $is = ($attributes[0]); break;
+				case 1: $is = ($attributes[0] != ""); break;
 				case 2: $is = ($attributes[0] == $attributes[1]); break;
 				case 3: {
 					switch($attributes[1]) {
