@@ -40,7 +40,12 @@ class Registry {
 	public static function get($key) {
 		if(strpos($key,".")) {
 			$segments = explode(".",$key);
-			return self::$_data[$segments[0]][$segments[1]];
+			if(isset(self::$_data[$segments[0]][$segments[1]])) {
+				return self::$_data[$segments[0]][$segments[1]];
+			} else {
+				return NULL;
+			}
+			
 		} else {
 			return self::$_data[$key];
 		}
