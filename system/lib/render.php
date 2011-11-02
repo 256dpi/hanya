@@ -81,8 +81,10 @@ class Render {
 	// Process Metablock
 	private static function _process_metablock($output) {
 		preg_match_all('!^\/\/--(.*)--\/\/!Us',$output,$match);
-		Registry::set("meta",array_merge(Registry::get("meta"),parse_ini_string($match[1][0])));
-		$output = str_replace($match[0][0],"",$output);
+		if(isset($match[1][0])) {
+			Registry::set("meta",array_merge(Registry::get("meta"),parse_ini_string($match[1][0])));
+			$output = str_replace($match[0][0],"",$output);
+		}
 		return $output;
 	}
 	
