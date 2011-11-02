@@ -145,7 +145,7 @@ class Render {
 	
 	// Process Tags
 	private static function _process_tags($output) {
-		preg_match_all('!\{(.+)\((.*)\)\}!Us',$output,$matches);
+		preg_match_all('!\{([a-z-_]+)\((.*)\)\}!Us',$output,$matches);
 		foreach($matches[1] as $i => $tag) {
 			$attributes = explode("|",$matches[2][$i]);
 			$output = str_replace($matches[0][$i],self::_execute_tag($tag,$attributes),$output);
