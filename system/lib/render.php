@@ -94,7 +94,12 @@ class Render {
 			preg_match_all('!\$'.$name.'\((.+)\)!Us',$output,$matches);
 			foreach($matches[0] as $i => $var) {
 				$attributes = explode("|",$matches[1][$i]);
-				$output = str_replace($matches[0][$i],$vars[$attributes[0]],$output);
+				if(isset($vars[$attributes[0]])) {
+					$rep = $vars[$attributes[0]];
+				} else {
+					$rep = "";
+				}
+				$output = str_replace($matches[0][$i],$rep,$output);
 			}
 		}
 		return $output;
