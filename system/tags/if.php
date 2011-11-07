@@ -13,7 +13,7 @@ class If_Tag {
 		if($attributes[0] == $attributes[1]) {
 			return $attributes[2];
 		} else {
-			if($attributes[3]) {
+			if(isset($attributes[3])) {
 				return $attributes[3];
 			} else {
 				return "";
