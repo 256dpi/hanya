@@ -144,7 +144,7 @@ class Definition_Plugin extends Plugin {
 		
 		// Append Data
 		foreach($data as $field => $value) {
-			$entry->$field = $value;
+			$entry->$field = stripslashes($value);
 		}
 		
 		// Validate and Save
