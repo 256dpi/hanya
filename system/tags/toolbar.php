@@ -42,6 +42,7 @@ class Toolbar_Tag {
 			
 			// Right Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-right");
+			$html .= HTML::span("#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}",array("class"=>"hanya-system-information"));
 			$html .= HTML::anchor(null,I18n::_("system.admin.database"),array("class"=>"hanya-has-command","data-command"=>"database"));
 			$html .= HTML::anchor(null,I18n::_("system.admin.editor"),array("class"=>"hanya-has-command","data-command"=>"editor"));
 			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("class"=>"hanya-has-command","data-command"=>"updater"));

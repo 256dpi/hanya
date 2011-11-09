@@ -38,7 +38,7 @@
 	overflow: hidden;
 }
 
-.hanya-toolbar a {
+.hanya-toolbar a, .hanya-toolbar span {
 	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	border: 0;
 	padding: 0;
@@ -48,6 +48,10 @@
 	color: white;
 	cursor: pointer;
 	text-decoration: none;
+}
+
+.hanya-system-information {
+  color: #666 !important;
 }
 
 .hanya-toolbar a:hover {
