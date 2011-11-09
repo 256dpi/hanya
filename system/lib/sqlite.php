@@ -32,6 +32,16 @@ class Sqlite {
 		return $tables;
 	}
 	
+	// Get Table Info
+	public static function table($table) {
+		$data = ORM::get_db()->query("PRAGMA table_info(".$table.");")->fetchAll();
+		$ret = array();
+		foreach($data as $field) {
+			$ret[$field["name"]] = $field["type"];
+		}
+		return $ret;
+	}
+	
 	// Generate Creation Code
 	public static function generate_create($table,$settings,$blueprint) {
 		

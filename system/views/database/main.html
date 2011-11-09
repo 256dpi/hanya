@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hanya: <?=I18n::_("system.database.title")?></title>
+		{head()}
+		<link rel="stylesheet" href="assets/system/stylesheets/hanya.admin.css" type="text/css" media="screen">
+		<style type="text/css" media="screen">
+				
+			.navigator {
+				background-color: white;
+				padding: 15px 20px;
+				border: 1px solid #ddd;
+			}
+
+			.navigator ul ul li {
+				padding-left: 20px;
+			}
+
+			.navigator li a, .navigator li span {
+				display: block;
+				padding: 3px 0;
+				padding-left: 25px;
+				vertical-align: middle;
+				margin: 5px 0;
+				color: inherit;
+				text-decoration: none;
+				font-weight: inherit;
+			}
+			
+			.navigator li.table span, .navigator li.table a {
+				background: url(assets/system/images/table.png) 0 center no-repeat;
+			}
+			
+			.navigator li.table span:hover {
+				cursor: pointer;
+			}
+			
+			#table {
+				border: 1px solid #ddd;
+				background-color: white;
+			}			
+
+			#table table {
+				width: 100%;
+			}
+			
+			#table table tr td {
+				padding: 10px;
+				border-top: 1px solid #ddd;
+				border-right: 1px solid #eee;
+			}
+			
+			#table table tr th {
+				padding: 10px;
+				color: #666;
+				border-right: 1px solid #ddd;
+				text-align: left;
+			}
+			
+		</style>
+		<script type="text/javascript" charset="utf-8">
+		
+			// On Startup
+			$(document).ready(function(){
+				
+				// Navigator Interactivity
+				$(".navigator li.table span").click(function(){
+					window.location = "?command=database&table="+$(this).data("table");
+				});				
+				
+			});
+			
+		</script>
+  </head>
+  <body id="hanya-admin">
+		<div class="hanya-toolbar" >
+			<div class="hanya-toolbar-left" >
+				<?=HTML::anchor(".",I18n::_("system.admin.back_to_site"))?>
+			</div>
+		</div>
+		<h1><?=I18n::_("system.database.title")?> (<?=$current_table?>)</h1>
+		<div class="wrapper">
+			<div class="w1">
+				<h2><?=I18n::_("system.database.tables")?></h2>
+				<div class="navigator">
+					<?=Database_Plugin::tables($current_table)?>
+				</div>
+			</div>
+			<div class="w3-last">
+				<div id="table">
+					<table>
+						<thead>
+							<tr>
+								<? foreach($current_structure as $field => $type): ?>
+									<th><?=$field?></th>
+								<? endforeach; ?>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<? foreach(ORM::for_table($current_table)->find_many() as $entry): ?>
+								<tr>
+									<? foreach($current_structure as $field => $type): ?>
+										<td><?=$entry->$field?></td>
+									<? endforeach; ?>
+									<td></td>
+								</tr>
+							<? endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+  </body>
+</html>
