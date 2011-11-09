@@ -33,10 +33,15 @@ class Sqlite {
 	}
 	
 	// Generate Creation Code
-	public static function generate_create($table,$blueprint) {
+	public static function generate_create($table,$settings,$blueprint) {
 		
 		// Begin
 		$sql = "CREATE TABLE ".$table." ( id INTEGER PRIMARY KEY AUTOINCREMENT";
+		
+		// Check for Orderable
+		if(isset($settings["orderable"]) && $settings["orderable"]) {
+			$sql .= ", ordering INTEGER";
+		}
 		
 		// Add Fields
 		foreach($blueprint as $field => $def) {

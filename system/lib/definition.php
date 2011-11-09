@@ -9,6 +9,9 @@
 
 abstract class Definition {
 	
+	// The Definition Settings
+	public static $settings = array();
+	
 	// The Definition Blueprint
 	public static $blueprint = array();
 	
@@ -18,6 +21,11 @@ abstract class Definition {
 		"label" => true,
 		"validation" => array(),
 	);
+	
+	// Definition Load Method (invoked by [example()])
+	static function load($table,$arguments) {
+		return $table;
+	}
 	
 	// Before Create Event
 	static public function before_create($entry) { return $entry; }

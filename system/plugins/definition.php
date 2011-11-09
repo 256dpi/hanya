@@ -21,7 +21,7 @@ class Definition_Plugin extends Plugin {
 		$id = Request::post("id","int");
 		$entry = ORM::for_table($definition);
 		
-		// Load Entry if ist is a update
+		// Load Entry if isnt is a update
 		if($id > 0) {
 			$entry = $entry->find_one($id);
 		}

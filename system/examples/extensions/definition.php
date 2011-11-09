@@ -10,8 +10,12 @@
 // For use: rename file to example.php and move to user/definitions
 
 class Example_Definition extends Definition {
-		
-	static $blueprint = array(
+	
+	public static $settings = array(
+		"orderable" => true,
+	);
+	
+	public static $blueprint = array(
 		"string" => array("as"=>"string"),
 		"text" => array("as"=>"text"),
 		"html" => array("as"=>"html"),
@@ -24,5 +28,9 @@ class Example_Definition extends Definition {
 		"reference" => array("as"=>"reference","definition"=>"string","field"=>"value"),
 		"file" => array("as"=>"file","folder"=>".","blank"=>true),
 	);
+	
+	public static function load($table,$arguments) {
+		
+	}
 	
 }

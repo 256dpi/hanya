@@ -171,36 +171,18 @@ class Render {
 	// Execute Definition	
 	private static function _execute_definition($definition,$attributes,$sub) {
 		
-		// Get Mode
-		$mode = count($attributes);
-		
 		// Get ORM
-		$items = ORM::for_table($definition);
+		$table = ORM::for_table($definition);
 		$class = ucfirst($definition)."_Definition";
 		
-		// Check for false Mode
-		if($mode == 1 && $attributes[0] == "") {
-			$attributes = array();
-			$mode = 0;
-		}
-		
-		// Add Conditions
-		if($mode == 0) {
-		} else if($mode == 1) {
-			$items->where("id",$attributes[0]);
-		} else if ($mode%2 == 0) {
-			for($i=0; $i < $mode; $i = $i+2) {
-				$items->where($attributes[$i],$attributes[$i+1]);
-			}
-		} else {
-			die("Invalid Argument Count '".$mode."' for '".$definition."'");
-		}
+		// Invoke Definition's Load Method
+		$table = $class::load($table,$attributes);
 		
 		// Set Output
 		$output = "";
 		
 		// Process Items
-		foreach($items->find_many() as $item) {
+		foreach($table->find_many() as $item) {
 			
 			// Get Array
 			$array = $item->as_array();
