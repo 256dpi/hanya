@@ -43,6 +43,9 @@ class Sitemap_Plugin extends Plugin {
 	private static function _get_files_from_tree($tree,$path="") {
 		$files = array();
 		foreach($tree["."] as $file) {
+			if($path=="" && $file == "index.html") {
+				$file = "";
+			}
 			$files[] = $path.$file;
 		}
 		foreach($tree as $node => $content) {
