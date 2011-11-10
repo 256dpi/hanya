@@ -12,7 +12,7 @@ class Anchor_Tag {
 	public static function call($attributes) {
 		$url = Registry::get("base.path").$attributes[1];
 		$actual_path = Registry::get("request.path");
-		if($actual_path = "/") {
+		if($actual_path == "/") {
 			$actual_path = "";
 		}
 		$options = array();
