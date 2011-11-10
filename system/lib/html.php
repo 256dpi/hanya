@@ -18,8 +18,8 @@ class HTML {
 	}
 	
 	// Include a Stylesheet
-	public static function stylesheet($url,$mode="screen",$attributes=array()) {
-		$attributes = array_merge(array("href"=>$url,"rel"=>"stylesheet","type"=>"text/css","mode"=>$mode),$attributes);
+	public static function stylesheet($url,$media="screen",$attributes=array()) {
+		$attributes = array_merge(array("href"=>$url,"rel"=>"stylesheet","type"=>"text/css","media"=>$media),$attributes);
 		return self::tag("link","semi",$attributes);
 	}
 	
