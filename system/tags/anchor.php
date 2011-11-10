@@ -15,7 +15,7 @@ class Anchor_Tag {
 		if($actual_path == "/") {
 			$actual_path = "";
 		}
-		if(substr($actual_path,1,1) == "/") {
+		if(substr($actual_path,0,1) == "/") {
 			$actual_path = substr($actual_path,1);
 		}
 		$options = array();
