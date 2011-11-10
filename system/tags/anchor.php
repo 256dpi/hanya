@@ -15,8 +15,11 @@ class Anchor_Tag {
 		if($actual_path == "/") {
 			$actual_path = "";
 		}
+		if(substr($actual_path,1,1) == "/") {
+			$actual_path = substr($actual_path,1);
+		}
 		$options = array();
-		if($actual_path==$attributes[1]) {
+		if($actual_path == $attributes[1]) {
 			$options["class"] = $attributes[2];
 		}
 		return HTML::anchor($url,$attributes[0],$options);
