@@ -51,7 +51,11 @@ class I18n {
 		$meta = explode(".",$key);
 		
 		// Load String
-		$string = self::$_i18n[Registry::get("i18n.language")][$meta[0]][$meta[1]][$meta[2]];
+		if(isset(self::$_i18n[Registry::get("i18n.language")][$meta[0]][$meta[1]][$meta[2]])) {
+			$string = self::$_i18n[Registry::get("i18n.language")][$meta[0]][$meta[1]][$meta[2]];
+		} else {
+			$string = null;
+		}
 		
 		// Check String
 		if($string != null) {
