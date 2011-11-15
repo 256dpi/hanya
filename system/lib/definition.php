@@ -9,6 +9,9 @@
 
 abstract class Definition {
 	
+	// Is Definition Managed by Hanya
+	public static $managed = true;
+	
 	// The Definition Settings
 	public static $settings = array();
 	
@@ -23,8 +26,9 @@ abstract class Definition {
 	);
 	
 	// Definition Load Method (invoked by [example()])
-	static function load($table,$arguments) {
-		return $table;
+	static function load($definition,$arguments) {
+		$table = ORM::for_table($definition);
+		return $table->find_many()->as_array();
 	}
 	
 	// Before Create Event

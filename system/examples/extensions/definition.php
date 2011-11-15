@@ -7,7 +7,7 @@
  * @package Hanya
  **/
 
-// For use: rename file to example.php and move to user/definitions
+// INSTRUCTION: rename file to example.php and move to user/definitions
 
 class Example_Definition extends Definition {
 	
@@ -28,9 +28,5 @@ class Example_Definition extends Definition {
 		"reference" => array("as"=>"reference","definition"=>"string","field"=>"value"),
 		"file" => array("as"=>"file","folder"=>".","blank"=>true),
 	);
-	
-	public static function load($table,$arguments) {
-		
-	}
 	
 }

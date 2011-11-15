@@ -171,50 +171,51 @@ class Render {
 	// Execute Definition	
 	private static function _execute_definition($definition,$attributes,$sub) {
 		
-		// Get ORM
-		$table = ORM::for_table($definition);
+		// Get Class
 		$class = ucfirst($definition)."_Definition";
 		
 		// Invoke Definition's Load Method
-		$table = $class::load($table,$attributes);
+		$items = $class::load($definition,$attributes);
 		
 		// Set Output
 		$output = "";
 		
 		// Process Items
-		foreach($table->find_many() as $item) {
+		foreach($items as $item) {
 			
-			// Get Array
-			$array = $item->as_array();
-			
-			// Process Special Fields
-			foreach($class::$blueprint as $field => $config) {
-				switch($config["as"]) {
-					case "boolean": {
-						if($array[$field]) {
-							$val = I18n::_("definition.".$definition.".".$field."_true");
-						} else {
-							$val = I18n::_("definition.".$definition.".".$field."_false");
-						}	
-						$array[$field."_text"] = $val;
-						break;
-					}
-					case "selection": {
-						$array[$field."_value"] = $config["options"][$array[$field]];
-						break;
-					}
-					case "file": {
-						$array[$field."_path"] = $config["folder"]."/".$array[$field];
-						break;
+			// If Managed Invovke Magic Functions
+			if($class::$managed) {
+				
+				// Process Special Fields
+				foreach($class::$blueprint as $field => $config) {
+					switch($config["as"]) {
+						case "boolean": {
+							if($item[$field]) {
+								$val = I18n::_("definition.".$definition.".".$field."_true");
+							} else {
+								$val = I18n::_("definition.".$definition.".".$field."_false");
+							}	
+							$item[$field."_text"] = $val;
+							break;
+						}
+						case "selection": {
+							$item[$field."_value"] = $config["options"][$item[$field]];
+							break;
+						}
+						case "file": {
+							$item[$field."_path"] = $config["folder"]."/".$item[$field];
+							break;
+						}
 					}
 				}
+				
 			}
 			
 			// Process Variables
-			$data = self::process_variables($definition,$array,$sub);
+			$data = self::process_variables($definition,$item,$sub);
 			
 			// Check for Login
-			if(Memory::get("edit_page")) {
+			if(Memory::get("edit_page") && $class::$managed) {
 				$output .= Helper::wrap_as_editable($data,$definition,$item->id);
 			} else {
 				$output .= $data;
