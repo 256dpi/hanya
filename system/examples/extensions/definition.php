@@ -11,10 +11,6 @@
 
 class Example_Definition extends Definition {
 	
-	public static $settings = array(
-		"orderable" => true,
-	);
-	
 	public static $blueprint = array(
 		"string" => array("as"=>"string"),
 		"text" => array("as"=>"text"),

@@ -13,7 +13,8 @@ abstract class Definition {
 	public static $managed = true;
 	
 	// The Definition Settings
-	public static $settings = array();
+	public static $orderable = true;
+	public static $destroyable = true;
 	
 	// The Definition Blueprint
 	public static $blueprint = array();
@@ -28,7 +29,7 @@ abstract class Definition {
 	// Definition Load Method (invoked by [example()])
 	static function load($definition,$arguments) {
 		$table = ORM::for_table($definition);
-		return $table->find_many()->as_array();
+		return Helper::each_as_array($table->find_many());
 	}
 	
 	// Before Create Event

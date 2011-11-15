@@ -219,17 +219,15 @@ class Hanya {
 					
 						// Get Creation Code
 						switch(Registry::get("db.driver")) {
-							case "sql": $sql = Mysql::generate_create($table,$class::$settings,$class::$blueprint); break;
-							case "sqlite": $sql = Sqlite::generate_create($table,$class::$settings,$class::$blueprint); break;
+							case "sql": $sql = Mysql::generate_create($table,$class); break;
+							case "sqlite": $sql = Sqlite::generate_create($table,$class); break;
 						}
 						
 						// Execute Code
 						ORM::get_db()->exec($sql);
-						
 					}
 				}
 			}
 		}
 	}
-			
 }

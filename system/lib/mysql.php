@@ -19,18 +19,18 @@ class Mysql {
 	}
 
 	// Generate Creation Code
-	public static function generate_create($table,$settings,$blueprint) {
+	public static function generate_create($table,$class) {
 		
 		// Begin
 		$sql = "CREATE TABLE `".$table."` ( `id` int(11) unsigned NOT NULL AUTO_INCREMENT";
 		
 		// Check for Orderable
-		if(isset($settings["orderable"]) && $settings["orderable"]) {
+		if($class::$orderable) {
 			$sql .= ", `ordering` int(11) unsigned DEFAULT NULL";
 		}
 		
 		// Add Fields
-		foreach($blueprint as $field => $def) {
+		foreach($class::$blueprint as $field => $def) {
 			switch($def["as"]) {
 				case "boolean": $sql .= ", `".$field."` boolean DEFAULT NULL"; break;
 				case "reference":

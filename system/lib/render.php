@@ -216,11 +216,21 @@ class Render {
 			
 			// Check for Login
 			if(Memory::get("edit_page") && $class::$managed) {
-				$output .= Helper::wrap_as_editable($data,$definition,$item->id);
+				
+				// Get Options
+				$options = array("data-id"=>$item["id"],"data-definition"=>$definition);
+				$options["data-is-orderable"] = $class::$orderable?"true":"false";
+				$options["data-is-destroyable"] = $class::$destroyable?"true":"false";
+				
+				// Render HTML
+				$output .= HTML::div(null,"hanya-editable",$data,$options);
+				
 			} else {
+				
+				// Render Data
 				$output .= $data;
-			}
-			
+				
+			}	
 		}
 		
 		// End

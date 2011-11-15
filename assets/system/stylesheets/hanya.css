@@ -71,8 +71,9 @@
 /* MANAGER */
 
 .hanya-editable {
-	border: 2px dashed red;
+	border: 2px dashed black;
 	padding: 4px;
+	margin: 1px 0;
 }
 
 .hanya-createable {

@@ -9,9 +9,13 @@
 
 class Helper {
 	
-	// Wrap HTML as Editable
-	public static function wrap_as_editable($html,$definition,$id) {
-		return HTML::div(null,"hanya-editable",$html,array("data-id"=>$id,"data-definition"=>$definition));
+	// Invoke as_array on every child
+	public static function each_as_array($results) {
+		$ret = array();
+		foreach($results as $result) {
+			$ret[] = $result->as_array();
+		}
+		return $ret;
 	}
 	
 	// Get a Tree File from Segments
