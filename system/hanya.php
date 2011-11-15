@@ -114,6 +114,9 @@ class Hanya {
 		// Set Default Content Type
 		HTTP::content_type();
 		
+		// Set Admin Meta Flag
+		Registry::set("meta.is_admin",Memory::get("logged_in"));
+		
 		// Get Render
 		$out = Render::page(Helper::tree_file_from_segments(Registry::get("request.segments")));
 		
