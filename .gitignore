@@ -1,4 +1,7 @@
 .DS_Store
 user/system.revision
-
 user/db.sq3
+user/definitions/*.php
+user/plugins/*.php
+user/i18n/*.php
+user/tags/*.php

@@ -23,12 +23,6 @@ Hanya::run(array(
 
 /*
 
-	### DIRECTORIES
-	tree - pages as page.html
-	elements/templates - templates as template.html
-	elements/partials - partials as partial.html
-	elements/mails - mail templates as form.html
-
 	### SETTINGS
 
 	[Mysql Settings]
