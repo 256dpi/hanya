@@ -76,8 +76,7 @@
 }
 
 .hanya-createable {
-	border: 2px dashed green;
-	padding: 4px;
+  cursor: pointer;
 }
 
 .hanya-overlay {
