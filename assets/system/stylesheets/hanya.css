@@ -1,4 +1,4 @@
-/* LOGIN */
+/* LOGIN LINK */
 
 .hanya-admin-login a {
 	display: block;
@@ -8,7 +8,6 @@
 	top: 0;
 	right: 0;
 	text-align: right;
-	text-indent: -4000px;
 }
 
 .hanya-admin-login a span {
@@ -22,15 +21,9 @@
 
 /* TOOLBAR */
 
-.hanya-errorbar {
-	background-color: darkred;
-	padding: 10px 15px;
-	padding-top: 12px;
-	color: white;
-	overflow: hidden;
-}
-
-.hanya-toolbar {
+.hanya-toolbar, .hanya-errorbar {
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 14px;
 	background-color: black;
 	padding: 10px 15px;
 	padding-top: 12px;
@@ -39,19 +32,16 @@
 }
 
 .hanya-toolbar a, .hanya-toolbar span {
-	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	border: 0;
 	padding: 0;
 	margin: 0px 10px;
-	font-size: 14px;
-	background-color: black;
 	color: white;
 	cursor: pointer;
 	text-decoration: none;
 }
 
-.hanya-system-information {
-  color: #666 !important;
+.hanya-toolbar .hanya-system-information {
+  color: #666;
 }
 
 .hanya-toolbar a:hover {
@@ -68,17 +58,60 @@
 	text-align: right;
 }
 
-/* MANAGER */
+/* INLINE OBJETS */
 
 .hanya-editable {
-	border: 2px dashed black;
-	padding: 4px;
-	margin: 1px 0;
+  background-color: #eee;
 }
 
 .hanya-createable {
   cursor: pointer;
 }
+
+.hanya-definition-toolbar {
+  position: absolute;
+  border: 2px dashed #444;
+  border-radius: 5px;
+}
+
+.hanya-definition-toolbar li {
+  margin-top: 2px;
+  margin-right: 2px;
+  width: 25px;
+  height: 25px;
+  float: right;
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.hanya-definition-toolbar li:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+.hanya-definition-toolbar li span {
+  display: block;
+  width: 100%;
+  height: 100%
+}
+
+.hanya-definition-toolbar-edit span {
+  background: url(../images/small-icons.png) -161px 162px;
+}
+
+.hanya-definition-toolbar-delete span {
+  background: url(../images/small-icons.png) -132px -90px;
+}
+
+.hanya-definition-toolbar-orderup span {
+  background: url(../images/small-icons.png) -256px -7px;
+}
+
+.hanya-definition-toolbar-orderdown span {
+  background: url(../images/small-icons.png) -225px -6px;
+}
+
+/* MANAGER */
 
 .hanya-overlay {
 	background-color: black;
@@ -91,33 +124,29 @@
 }
 
 .hanya-manager {
-  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  font-family: "Helvetica", Arial, sans-serif;
 	background-color: white;
-	background-image: url(../images/background.png);
 	position: absolute;
-	border: 1px solid #222;
 	box-shadow: 0 0 15px #222;
 	overflow: scroll;
-}
-
-.hanya-manager-head {
-	background-color: #222;
-	padding: 10px 15px;
-	color: white;
 	font-size: 14px;
 }
 
-.hanya-manager-head-close {
-	color: #bbb;
-	text-decoration: none;
-	float: right;
-	margin-left: 15px;
+.hanya-manager-head {
+	background-color: black;
+	padding: 10px 15px;
+	color: white;
 }
 
-.hanya-manager-head-delete {
-	color: red;
+.hanya-manager-head-close {
+  display: block;
+  width: 20px;
+  height: 15px;
 	text-decoration: none;
 	float: right;
+	margin-right: -5px;
+	text-indent: -9000px;
+	background: url(../images/small-icons.png) -40px -95px;
 }
 
 .hanya-manager-body {
@@ -131,7 +160,7 @@
 .hanya-manager-body input[type="text"], .hanya-manager-body input[type="password"], .hanya-manager textarea {
 	width: 98%;
 	border: 1px solid #999;
-	padding: 5px;
+	padding: 1%;
 	border-radius: 3px;
 	font-family: monospace;
 	font-size: 14px;
@@ -144,7 +173,7 @@
 .hanya-manager-body label {
 	display: block;
 	padding: 2px 0;
-	color: #444;
+	color: black;
 }
 
 .hanya-manager-body button, .hanya-manager-body input[type="submit"] {

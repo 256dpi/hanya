@@ -4,7 +4,7 @@
  * .hanya-editor-html -> turn textarea into an editor
  * .hanya-has-command -> link executes data-command
  * .hanya-editable -> container shows edit HanyaWindow on click
- * .hanya-createable -> container show add HanyaWindow on click
+ * .hanya-createable -> link opens HanyaManager with a new definition
  */
 
 /*
@@ -16,19 +16,82 @@ var Hanya = {
 	init: function() {
 		
 		// Interactify Editables
-		$(".hanya-editable").click(function(){
-			data = {
-				definition: $(this).data("definition"),
-				id: $(this).data("id"),
+		$(".hanya-editable").mouseover(function(){
+		  
+		  // Store Root
+		  var editable = $(this);
+		  
+		  // Get Data
+		  var data = {
+				definition: editable.data("definition"),
+				id: editable.data("id"),
 			}
-			HanyaWindow.createFromURL(window.location+"?command=definition_manager",data,"800px");
+		  
+		  // Delete other Toolbars
+		  $("hanya-definition-toolbar").remove();
+		    
+	    // Create Toolbar
+	    var toolbar = $("<ul>").addClass("hanya-definition-toolbar").width(editable.outerWidth()).height(editable.outerHeight());
+	    toolbar.css("left",editable.position().left-2).css("top",editable.position().top-2);
+      
+      // Edit Button
+      $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-edit").click(function(){
+  			HanyaWindow.createFromURL(window.location+"?command=definition_manager",data,"800px");
+      }).appendTo(toolbar);
+      
+      // Delete Button
+      if(editable.data("is-destroyable")) {
+        $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-delete").click(function(){
+          if(confirm("OK?")) {
+            $.post(window.location.href+"?command=definition_remove",data,function(ret) {
+        			if(ret == "ok") {
+        			  editable.fadeOut(500);
+        			  toolbar.fadeOut(500,function(){
+        			    editable.remove();
+        			    toolbar.remove();
+        			  });
+        			}
+        		});
+          }
+        }).appendTo(toolbar);
+      }
+      
+      // Ordering Buttons
+      if(editable.data("is-orderable")) {
+        
+        // Order Up
+        $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-orderup").click(function(){
+    			$.post(window.location.href+"?command=definition_orderup",data,function(ret) {
+      			if(ret == "ok") {
+      			  window.location.reload();
+      			}
+      		});
+        }).appendTo(toolbar);
+        
+        // Order Down
+        $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-orderdown").click(function(){
+    			$.post(window.location.href+"?command=definition_orderdown",data,function(ret) {
+      			if(ret == "ok") {
+      			  window.location.reload();
+      			}
+      		});
+        }).appendTo(toolbar);
+      }
+      
+      // Remove Function
+      toolbar.mouseleave(function(){
+        toolbar.remove();
+      });
+      
+      // Add Toolbar to Body
+	    toolbar.appendTo("body");
+		    
 		});
 		
 		// Interactify Createables
 		$(".hanya-createable").click(function(){
 			data = {
 				definition: $(this).data("definition"),
-				id: $(this).data("id")
 			}
 			HanyaWindow.createFromURL(window.location+"?command=definition_manager",data,"800px");
 		});
@@ -149,25 +212,6 @@ var HanyaWindow = {
 		$(".hanya-row-html br").remove();
 		
 	}
-}
-
-/*
- * Class with Function for Handling Definitions
- */
-
-var HanyaDefinition = {
-	
-	// Delete an Entry
-	deleteEntry: function() {
-		var def = $("#hanya-input-definition").first().val();
-		var id = $("#hanya-input-id").first().val();
-		$.post(window.location.href+"?command=definition_remove",{"definition":def,"id":id},function(data) {
-			if(data == "ok") {
-				window.location.reload();
-			}
-		});
-	}
-	
 }
 
 // Start the Hanya Processing

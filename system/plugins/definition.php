@@ -30,9 +30,6 @@ class Definition_Plugin extends Plugin {
 		echo HTML::div_open(null,"hanya-manager-head");
 		echo HTML::span(I18n::_("definition.".$definition.".edit_entry"));
 		echo HTML::anchor("javascript:HanyaWindow.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
-		if($entry->id) {
-			echo HTML::anchor("javascript:HanyaDefinition.deleteEntry()",I18n::_("system.definition.delete"),array("class"=>"hanya-manager-head-delete"));
-		}
 		echo HTML::div_close();
 		
 		// Open Body
@@ -64,8 +61,8 @@ class Definition_Plugin extends Plugin {
 					case "boolean" : {
 						echo HTML::label($name,$label);
 						echo HTML::div_open(null,"radiogroup");
-						echo HTML::radio($name,1,($entry->$field==1)?array("checked"=>"checked"):array()).I18n::_("definition.".$definition.".field_".$field."_true");
-						echo HTML::radio($name,0,($entry->$field==0)?array("checked"=>"checked"):array()).I18n::_("definition.".$definition.".field_".$field."_false");
+						echo HTML::radio($name,1,I18n::_("definition.".$definition.".field_".$field."_true"),($entry->$field==1)?array("checked"=>"checked"):array());
+						echo HTML::radio($name,0,I18n::_("definition.".$definition.".field_".$field."_false"),($entry->$field==0)?array("checked"=>"checked"):array());
 						echo HTML::div_close();
 						break;
 					}
@@ -142,6 +139,16 @@ class Definition_Plugin extends Plugin {
 			$entry = $entry->create();
 		}
 		
+		// Do Ordering
+		if($class::$orderable) {
+			$last_entry = ORM::for_table($definition)->select("ordering")->order_by_desc("ordering")->limit(1)->find_one();
+			if($last_entry) {
+				$entry->ordering = $last_entry->ordering+1;
+			} else {
+				$entry->ordering = 1;
+			}
+		}
+		
 		// Append Data
 		foreach($data as $field => $value) {
 			$entry->$field = stripslashes($value);
@@ -176,6 +183,70 @@ class Definition_Plugin extends Plugin {
 		// Check Entry
 		if($entry->id) {
 			$entry->delete();
+			echo "ok";
+		} else {
+			echo "Entry not found!";
+		}
+		
+		// End
+		exit;
+	}
+	
+	// Delete an Entry
+	public static function on_definition_orderup() {
+		
+		// Check Admin
+		self::_check_admin();
+
+		// Get Data
+		$definition = Request::post("definition");
+		$class = ucfirst($definition)."_Definition";
+		$id = Request::post("id","int");
+		$entry = ORM::for_table($definition)->find_one($id);
+		
+		// Check Entry
+		if($entry && $class::$orderable) {
+			if($entry->ordering > 1) {
+				// Order Down Element on Position
+				$upper = ORM::for_table($definition)->where("ordering",$entry->ordering-1)->find_one();
+				$upper->ordering = $entry->ordering;
+				$upper->save();
+				// Order Up Element
+				$entry->ordering = $entry->ordering-1;
+				$entry->save();
+			}
+			echo "ok";
+		} else {
+			echo "Entry not found!";
+		}
+		
+		// End
+		exit;
+	}
+	
+	// Delete an Entry
+	public static function on_definition_orderdown() {
+		
+		// Check Admin
+		self::_check_admin();
+
+		// Get Data
+		$definition = Request::post("definition");
+		$class = ucfirst($definition)."_Definition";
+		$id = Request::post("id","int");
+		$entry = ORM::for_table($definition)->find_one($id);
+		
+		// Check Entry
+		if($entry && $class::$orderable) {
+			if($entry->ordering < ORM::for_table($definition)->select("ordering")->order_by_desc("ordering")->find_one()->ordering) {
+				// Order Down Element on Position
+				$downer = ORM::for_table($definition)->where("ordering",$entry->ordering+1)->find_one();
+				$downer->ordering = $entry->ordering;
+				$downer->save();
+				// Order Up Element
+				$entry->ordering = $entry->ordering+1;
+				$entry->save();
+			}
 			echo "ok";
 		} else {
 			echo "Entry not found!";
