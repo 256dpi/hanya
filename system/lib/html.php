@@ -88,11 +88,11 @@ class HTML {
 	}
 	
 	// Radio Button
-	public static function radio($name,$value=null,$attributes=array()) {
+	public static function radio($name,$value=null,$label=null,$attributes=array()) {
 		$attributes = array_merge(array("type"=>"radio","name"=>$name,"value"=>$value),$attributes);
 		$ret = self::tag("input","semi",$attributes);
 		if($label) {
-			$ret = self::label($name,$label).$ret;
+			$ret = self::label($name,$ret.$label);
 		}
 		return $ret;
 	}
