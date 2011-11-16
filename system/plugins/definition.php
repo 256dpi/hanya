@@ -24,6 +24,9 @@ class Definition_Plugin extends Plugin {
 		// Load Entry if isnt is a update
 		if($id > 0) {
 			$entry = $entry->find_one($id);
+		} else {
+			// Call Definitions Constructor
+			$entry = $class::create($entry,Request::post("argument","string"));
 		}
 		
 		// Open Manager

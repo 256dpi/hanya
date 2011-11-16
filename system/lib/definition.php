@@ -26,6 +26,11 @@ abstract class Definition {
 		"validation" => array(),
 	);
 	
+	// Definition Constructor Method (invoked by {new(example|argument)})
+	static function create($entry,$argument) {
+		return $entry;
+	}
+	
 	// Definition Load Method (invoked by [example()])
 	static function load($definition,$arguments) {
 		$table = ORM::for_table($definition);

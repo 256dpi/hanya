@@ -92,6 +92,7 @@ var Hanya = {
 		$(".hanya-createable").click(function(){
 			data = {
 				definition: $(this).data("definition"),
+				argument: $(this).data("argument")
 			}
 			HanyaWindow.createFromURL(window.location+"?command=definition_manager",data,"800px");
 		});
