@@ -21,7 +21,7 @@ class Toolbar_Tag {
 		if($error) {
 			
 			// Open Errors Bar
-			$html .= HTML::div(null,"hanya-errorbar",$error);
+			$html .= HTML::div(null,"hanya-errorbar","&rarr; ".$error);
 		}
 		
 		// Check for Admin
