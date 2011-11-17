@@ -1,4 +1,5 @@
 .DS_Store
+tree/page.html
 user/system.revision
 user/db.sq3
 user/definitions/*.php
