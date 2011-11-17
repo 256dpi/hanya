@@ -5,3 +5,5 @@ user/definitions/*.php
 user/plugins/*.php
 user/i18n/*.php
 user/tags/*.php
+uploads/images/*.jpg
+uploads/documents/*.pdf

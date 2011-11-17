@@ -41,8 +41,8 @@ class Request {
 	}
 	
 	// Get File from FILES
-	public static function file($key) {
-		return self::_load($_FILES,$key,"array");
+	public static function file($key,$subarray=null) {
+		return self::_load($_FILES,$key,"array",$subarray);
 	}
 	
 	// Get Variable from GET

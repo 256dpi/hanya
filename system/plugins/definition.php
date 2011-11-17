@@ -26,7 +26,7 @@ class Definition_Plugin extends Plugin {
 			$entry = $entry->find_one($id);
 		} else {
 			// Call Definitions Constructor
-			$entry = $class::create($entry,Request::post("argument","string"));
+			$entry = $class::create($entry->create(),Request::post("argument","string"));
 		}
 		
 		// Open Manager
@@ -37,7 +37,7 @@ class Definition_Plugin extends Plugin {
 		
 		// Open Body
 		echo HTML::div_open(null,"hanya-manager-body");
-		echo HTML::form_open(Registry::get("request.referer")."?command=definition_update");
+		echo HTML::form_open(Registry::get("request.referer")."?command=definition_update","post",array("enctype"=>"multipart/form-data"));
 		echo HTML::hidden("definition",$definition,array("id"=>"hanya-input-definition"));
 		echo HTML::hidden("id",$id,array("id"=>"hanya-input-id"));
 		
@@ -50,12 +50,14 @@ class Definition_Plugin extends Plugin {
 			// Merge Config with defaults
 			$config = array_merge($class::$default_config,$config);
 			
+			// Get Field Name
+			$name = $definition."[".$field."]";
+			
 			// Check for Visibility
 			if(!$config["hidden"]) {
 				
 				// Get Label and Name
 				$label = ($config["label"])?I18n::_("definition.".$definition.".field_".$field):null;
-				$name = $definition."[".$field."]";
 				
 				// Switch Field Type
 				switch($config["as"]) {
@@ -103,10 +105,18 @@ class Definition_Plugin extends Plugin {
 						foreach($files["."] as $file) {
 							$data[$file] = $file;
 						}
-						echo HTML::select($name,$label,HTML::options($data,$entry->$field)).HTML::br();
+						if($config["upload"]) {
+							$upload = " / ".HTML::file($definition."[".$field."_upload]");
+						} else {
+							$upload = "";
+						}
+						echo HTML::select($name,$label,HTML::options($data,$entry->$field)).$upload.HTML::br();
 						break;
 					}
 				}
+			} else {
+				// Render Hidden Field
+				echo HTML::hidden($name,$entry->$field);
 			}
 			
 			// Close Row
@@ -142,19 +152,42 @@ class Definition_Plugin extends Plugin {
 			$entry = $entry->create();
 		}
 		
+		// Append Data
+		foreach($data as $field => $value) {
+			$entry->$field = stripslashes($value);
+		}
+		
+		// Check For Special Fields
+		foreach($class::$blueprint as $field => $config) {
+			switch($config["as"]) {
+				case "file" : {
+					if($config["upload"] && $_FILES[$definition]["size"][$field."_upload"] > 0) {
+						$filename = $_FILES[$definition]["name"][$field."_upload"];
+						$tmpfile = $_FILES[$definition]["tmp_name"][$field."_upload"];
+						$newfile = Registry::get("system.path")."uploads/".$config["folder"]."/".$filename;
+						Disk::copy($tmpfile,$newfile);
+						$entry->$field = $filename;
+						break;
+					}
+					unset($data[$field."_upload"]);
+				}
+			}
+		}
+		
 		// Do Ordering
 		if($class::$orderable) {
-			$last_entry = ORM::for_table($definition)->select("ordering")->order_by_desc("ordering")->limit(1)->find_one();
+			$last_entry = ORM::for_table($definition)->select("ordering")->order_by_desc("ordering");
+			foreach($class::$groups as $group) {
+				if($entry->$group) {
+					$last_entry = $last_entry->where($group,$entry->$group);
+				}
+			}
+			$last_entry = $last_entry->limit(1)->find_one();
 			if($last_entry) {
 				$entry->ordering = $last_entry->ordering+1;
 			} else {
 				$entry->ordering = 1;
 			}
-		}
-		
-		// Append Data
-		foreach($data as $field => $value) {
-			$entry->$field = stripslashes($value);
 		}
 		
 		// Validate and Save
@@ -182,6 +215,25 @@ class Definition_Plugin extends Plugin {
 		$class = ucfirst($definition)."_Definition";
 		$id = Request::post("id","int");
 		$entry = ORM::for_table($definition)->find_one($id);
+		
+		// Check Ordering
+		if($class::$orderable) {
+			
+			// Get Affected Rows
+			$rows = ORM::for_table($definition)->where_gt("ordering",$entry->ordering);
+			foreach($class::$groups as $group) {
+				if($entry->$group) {
+					$rows = $rows->where($group,$entry->$group);
+				}
+			}
+			
+			// Order Up
+			foreach($rows->find_many() as $row) {
+				$row->ordering--;
+				$row->save();
+			}
+			
+		}
 		
 		// Check Entry
 		if($entry->id) {
@@ -211,7 +263,13 @@ class Definition_Plugin extends Plugin {
 		if($entry && $class::$orderable) {
 			if($entry->ordering > 1) {
 				// Order Down Element on Position
-				$upper = ORM::for_table($definition)->where("ordering",$entry->ordering-1)->find_one();
+				$upper = ORM::for_table($definition)->where("ordering",$entry->ordering-1);
+				foreach($class::$groups as $group) {
+					if($entry->$group) {
+						$upper = $upper->where($group,$entry->$group);
+					}
+				}
+				$upper = $upper->find_one();
 				$upper->ordering = $entry->ordering;
 				$upper->save();
 				// Order Up Element
@@ -243,7 +301,13 @@ class Definition_Plugin extends Plugin {
 		if($entry && $class::$orderable) {
 			if($entry->ordering < ORM::for_table($definition)->select("ordering")->order_by_desc("ordering")->find_one()->ordering) {
 				// Order Down Element on Position
-				$downer = ORM::for_table($definition)->where("ordering",$entry->ordering+1)->find_one();
+				$downer = ORM::for_table($definition)->where("ordering",$entry->ordering+1);
+				foreach($class::$groups as $group) {
+					if($entry->$group) {
+						$downer = $downer->where($group,$entry->$group);
+					}
+				}
+				$downer = $downer->find_one();
 				$downer->ordering = $entry->ordering;
 				$downer->save();
 				// Order Up Element

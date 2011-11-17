@@ -126,11 +126,8 @@ class Filemanager_Plugin extends Plugin {
 		if($current_directory && $file) {
 			
 			// Copy File
-			Disk::copy($file["tmp_name"],$current_directory."/".Helper::filename($file["name"]));
-			
+			Disk::copy($file["tmp_name"],$current_directory."/".Helper::filename($file["name"]));	
 		}
-		
-		//var_dump($current_directory,$file);
 		
 		// End
 		URL::redirect_to_referer();

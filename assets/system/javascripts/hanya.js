@@ -16,7 +16,7 @@ var Hanya = {
 	init: function() {
 		
 		// Interactify Editables
-		$(".hanya-editable").mouseover(function(){
+		$(".hanya-editable").mouseenter(function(){
 		  
 		  // Store Root
 		  var editable = $(this);
@@ -25,14 +25,11 @@ var Hanya = {
 		  var data = {
 				definition: editable.data("definition"),
 				id: editable.data("id"),
-			}
-		  
-		  // Delete other Toolbars
-		  $("hanya-definition-toolbar").remove();
+			}		
 		    
 	    // Create Toolbar
-	    var toolbar = $("<ul>").addClass("hanya-definition-toolbar").width(editable.outerWidth()).height(editable.outerHeight());
-	    toolbar.css("left",editable.position().left-2).css("top",editable.position().top-2);
+	    var toolbar = $("<ul>").addClass("hanya-definition-toolbar");
+	    toolbar.css("left",editable.position().left).css("top",editable.position().top);
       
       // Edit Button
       $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-edit").click(function(){
@@ -79,12 +76,12 @@ var Hanya = {
       }
       
       // Remove Function
-      toolbar.mouseleave(function(){
+      editable.mouseleave(function(){
         toolbar.remove();
       });
       
       // Add Toolbar to Body
-	    toolbar.appendTo("body");
+	    toolbar.appendTo(editable);
 		    
 		});
 		

@@ -15,6 +15,7 @@ abstract class Definition {
 	// The Definition Settings
 	public static $orderable = true;
 	public static $destroyable = true;
+	public static $groups = array();
 	
 	// The Definition Blueprint
 	public static $blueprint = array();
