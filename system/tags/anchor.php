@@ -20,7 +20,9 @@ class Anchor_Tag {
 		}
 		$options = array();
 		if($actual_path == $attributes[1]) {
-			$options["class"] = $attributes[2];
+			$options["class"] = "link-current";
+		} else if (strpos($actual_path,$attributes[1]) == 0) {
+			$options["class"] = "link-active";
 		}
 		return HTML::anchor($url,$attributes[0],$options);
 	}
