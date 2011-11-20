@@ -73,7 +73,6 @@
 .hanya-createable {
   cursor: pointer;
   position: relative;
-  z-index: 100;
 }
 
 .hanya-definition-toolbar {
