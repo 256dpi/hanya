@@ -147,8 +147,10 @@ class Definition_Plugin extends Plugin {
 		
 		// Check for new Entry
 		if($id > 0) {
+			$is_new = false;
 			$entry = $entry->find_one($id);
 		} else {
+			$is_new = true;
 			$entry = $entry->create();
 		}
 		
@@ -175,7 +177,7 @@ class Definition_Plugin extends Plugin {
 		}
 		
 		// Do Ordering
-		if($class::$orderable) {
+		if($class::$orderable && $is_new) {
 			$last_entry = ORM::for_table($definition)->select("ordering")->order_by_desc("ordering");
 			foreach($class::$groups as $group) {
 				if($entry->$group) {
