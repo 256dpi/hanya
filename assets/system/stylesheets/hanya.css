@@ -163,6 +163,10 @@
 	padding: 4px 0px;
 }
 
+.hanya-manager-hidden-row {
+  display: none;
+}
+
 .hanya-manager-body input[type="text"], .hanya-manager-body input[type="password"], .hanya-manager textarea {
 	width: 98%;
 	border: 1px solid #999;

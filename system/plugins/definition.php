@@ -44,9 +44,6 @@ class Definition_Plugin extends Plugin {
 		// Print Form Elements
 		foreach($class::$blueprint as $field => $config) {
 			
-			// Open Row
-			echo HTML::div_open(null,"hanya-manager-body-row hanya-row-".$config["as"]);
-			
 			// Merge Config with defaults
 			$config = array_merge($class::$default_config,$config);
 			
@@ -55,6 +52,9 @@ class Definition_Plugin extends Plugin {
 			
 			// Check for Visibility
 			if(!$config["hidden"]) {
+				
+				// Open Row
+				echo HTML::div_open(null,"hanya-manager-body-row hanya-row-".$config["as"]);
 				
 				// Get Label and Name
 				$label = ($config["label"])?I18n::_("definition.".$definition.".field_".$field):null;
@@ -115,6 +115,10 @@ class Definition_Plugin extends Plugin {
 					}
 				}
 			} else {
+				
+				// Open Row
+				echo HTML::div_open(null,"hanya-manager-hidden-row");
+				
 				// Render Hidden Field
 				echo HTML::hidden($name,$entry->$field);
 			}
