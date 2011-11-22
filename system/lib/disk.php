@@ -88,6 +88,56 @@ class Disk {
 		}
 	}
 	
+	// Get an Array of All Files in a directory
+	public static function get_all_files($array,$tree="") {
+		
+		// Get Return
+		$ret = array();
+		
+		// Loop
+		foreach($array as $folder => $content) {
+			
+			// Check for Current
+			if($folder != ".") {
+				$ret = array_merge($ret,self::get_all_files($content,$tree.$folder."/"));
+			}
+			
+			// Add To Array
+			else {
+				foreach($content as $file) {
+					$ret[] = $tree.$file;
+				}
+			}
+			
+		}
+		
+		// Return
+		return $ret;
+		
+	}
+	
+	// Get an Array of All Directories in a directory
+	public static function get_all_directories($array,$tree="") {
+		
+		// Get Return
+		$ret = array();
+		
+		// Loop
+		foreach($array as $folder => $content) {
+			
+			// Only Directories
+			if($folder != ".") {
+				$ret[] = $tree.$folder;
+				$ret = array_merge($ret,self::get_all_directories($content,$tree.$folder."/"));
+			}
+			
+		}
+		
+		// Return
+		return $ret;
+		
+	}
+	
 	// Get Content of a File
 	public static function read_file($file) {
 		if(self::has_file($file)) {

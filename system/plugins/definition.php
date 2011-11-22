@@ -101,16 +101,22 @@ class Definition_Plugin extends Plugin {
 						if($config["blank"]) {
 							$data = array(""=>"---");
 						}
-						$files = Disk::read_directory("uploads/".$config["folder"]);
-						foreach($files["."] as $file) {
+						$content = Disk::read_directory("uploads/".$config["folder"]);
+						$files = Disk::get_all_files($content);
+						$directories = array("/"=>"/");
+						foreach(Disk::get_all_directories($content) as $dir) {
+							$directories["/".$dir] = "/".$dir;
+						}
+						foreach($files as $file) {
 							$data[$file] = $file;
 						}
 						if($config["upload"]) {
-							$upload = " / ".HTML::file($definition."[".$field."_upload]");
+							$upload = HTML::br().I18n::_("system.definition.upload_file").HTML::file($definition."[".$field."_upload]");
+							$upload .= I18n::_("system.definition.upload_file_to").HTML::select($definition."[".$field."_upload_dir]",null,HTML::options($directories));
 						} else {
 							$upload = "";
 						}
-						echo HTML::select($name,$label,HTML::options($data,$entry->$field)).$upload.HTML::br();
+						echo HTML::label($name,$label).I18n::_("system.definition.select_file").HTML::select($name,null,HTML::options($data,$entry->$field)).$upload.HTML::br();
 						break;
 					}
 				}
@@ -160,17 +166,20 @@ class Definition_Plugin extends Plugin {
 		
 		// Append Data
 		foreach($data as $field => $value) {
-			$entry->$field = stripslashes($value);
+			if(array_key_exists($field,$class::$blueprint)) {
+				$entry->$field = stripslashes($value);
+			}
 		}
 		
 		// Check For Special Fields
 		foreach($class::$blueprint as $field => $config) {
 			switch($config["as"]) {
 				case "file" : {
-					if($config["upload"] && $_FILES[$definition]["size"][$field."_upload"] > 0) {
+					$target_dir = Registry::get("system.path")."uploads/".$config["folder"].$data[$field."_upload_dir"];
+					if($config["upload"] && $_FILES[$definition]["size"][$field."_upload"] > 0 && Disk::has_directory($target_dir)) {
 						$filename = $_FILES[$definition]["name"][$field."_upload"];
 						$tmpfile = $_FILES[$definition]["tmp_name"][$field."_upload"];
-						$newfile = Registry::get("system.path")."uploads/".$config["folder"]."/".$filename;
+						$newfile = $target_dir."/".$filename;
 						Disk::copy($tmpfile,$newfile);
 						$entry->$field = $filename;
 						break;
