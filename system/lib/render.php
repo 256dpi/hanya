@@ -141,9 +141,9 @@ class Render {
 	
 	// Process Definitions
 	private static function _process_definitions($output) {
-		while(preg_match('!\[(-*)([a-z]+)\((.*)\)\](.*)\[/\1\2\]!Us',$output,$match)) {
-			$attributes = explode("|",$match[3]);
-			$output = str_replace($match[0],self::_execute_definition($match[2],$attributes,$match[4],$match[1]),$output);
+		while(preg_match('!\[(\!*)(-*)([a-z]+)\((.*)\)\](.*)\[/\2\3\]!Us',$output,$match)) {
+			$attributes = explode("|",$match[4]);
+			$output = str_replace($match[0],self::_execute_definition($match[3],$attributes,$match[5],$match[2],$match[1]=="!"),$output);
 		}
 		return $output;
 	}
@@ -169,7 +169,7 @@ class Render {
 	}
 	
 	// Execute Definition	
-	private static function _execute_definition($definition,$attributes,$sub,$childness) {
+	private static function _execute_definition($definition,$attributes,$sub,$childness,$no_edit) {
 		
 		// Get Class
 		$class = ucfirst($definition)."_Definition";
@@ -208,7 +208,6 @@ class Render {
 						}
 					}
 				}
-				
 			}
 			
 			// Process Variables
@@ -224,7 +223,11 @@ class Render {
 				$options["data-level"] = strlen($childness);
 				
 				// Render HTML
-				$output .= HTML::div(null,"hanya-editable",$data,$options);
+				if($no_edit) {
+					$output .= $data;
+				} else {
+					$output .= HTML::div(null,"hanya-editable",$data,$options);
+				}
 				
 			} else {
 				
