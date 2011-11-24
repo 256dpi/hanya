@@ -161,8 +161,12 @@ class Hanya {
 			Registry::set("request.referer",Registry::get("base.url"));
 		}
 		
-		// Set Request Path
-		Registry::set("request.path",Request::path());
+		// Set Request Path & Remove Leading Slash
+		$path = Request::path();
+		if(substr($path,0,1) == "/") {
+			$path = substr($path,1);
+		}
+		Registry::set("request.path",$path);
 		
 		// Set Language Settings
 		I18n::initialize(Registry::get("i18n.languages"));
