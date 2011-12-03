@@ -38,6 +38,25 @@ class Database_Plugin extends Plugin {
 		exit;
 	}
 	
+	public static function on_database_delete_table() {
+		
+		// Check Admin
+		self::_check_admin();
+		
+		// Get Current Table
+		$current_table = Request::get("table");
+		
+		// Check Table
+		if($current_table) {
+			
+			// Drop Table
+			ORM::get_db()->exec("DROP TABLE ".$current_table);
+		}
+		
+		// Render Normal View
+		Url::redirect_to_referer();
+	}
+	
 	// Display Tables
 	public static function tables($current_table) {
 		

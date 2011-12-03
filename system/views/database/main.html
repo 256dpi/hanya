@@ -58,6 +58,15 @@
 				text-align: left;
 			}
 			
+			#actions {
+				margin-top: 10px;
+				margin-left: 10px;
+			}
+			
+			#actions a {
+				color: black;
+			}
+			
 		</style>
 		<script type="text/javascript" charset="utf-8">
 		
@@ -109,6 +118,9 @@
 							<? endforeach; ?>
 						</tbody>
 					</table>
+				</div>
+				<div id="actions">
+					<a href="<?=URL::_("?command=database_delete_table&table=".$current_table)?>"><?=I18n::_("system.database.delete_table")?></a>
 				</div>
 			</div>
 		</div>
