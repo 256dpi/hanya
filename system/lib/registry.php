@@ -57,12 +57,12 @@ class Registry {
 	}
 	
 	// Get All Values
-	public function all() {
+	public statix function all() {
 		return self::$_data;
 	}
 	
 	// Append String to a Value
-	public function append($key,$value) {
+	public static function append($key,$value) {
 		self::set($key,self::get($key).$value);
 	}
 	
