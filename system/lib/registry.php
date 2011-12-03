@@ -57,7 +57,7 @@ class Registry {
 	}
 	
 	// Get All Values
-	public statix function all() {
+	public static function all() {
 		return self::$_data;
 	}
 	
