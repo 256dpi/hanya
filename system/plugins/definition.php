@@ -26,7 +26,7 @@ class Definition_Plugin extends Plugin {
 			$entry = $entry->find_one($id);
 		} else {
 			// Call Definitions Constructor
-			$entry = $class::create($entry->create(),Request::post("argument","string"));
+			$entry = Hanya::call_static($class,"create",array($entry->create(),Request::post("argument","string"));
 		}
 		
 		// Open Manager
@@ -42,10 +42,10 @@ class Definition_Plugin extends Plugin {
 		echo HTML::hidden("id",$id,array("id"=>"hanya-input-id"));
 		
 		// Print Form Elements
-		foreach($class::$blueprint as $field => $config) {
+		foreach(Hanya::call_static($class,"get_blueprint") as $field => $config) {
 			
 			// Merge Config with defaults
-			$config = array_merge($class::$default_config,$config);
+			$config = array_merge(Hanya::call_static($class,"get_default_config"),$config);
 			
 			// Get Field Name
 			$name = $definition."[".$field."]";
@@ -166,13 +166,13 @@ class Definition_Plugin extends Plugin {
 		
 		// Append Data
 		foreach($data as $field => $value) {
-			if(array_key_exists($field,$class::$blueprint)) {
+			if(array_key_exists($field,Hanya::call_static($class,"get_blueprint"))) {
 				$entry->$field = stripslashes($value);
 			}
 		}
 		
 		// Check For Special Fields
-		foreach($class::$blueprint as $field => $config) {
+		foreach(Hanya::call_static($class,"get_blueprint") as $field => $config) {
 			switch($config["as"]) {
 				case "file" : {
 					$target_dir = Registry::get("system.path")."uploads/".$config["folder"].$data[$field."_upload_dir"];
@@ -190,9 +190,9 @@ class Definition_Plugin extends Plugin {
 		}
 		
 		// Do Ordering
-		if($class::$orderable && $is_new) {
+		if(Hanya::call_static($class,"is_orderable") && $is_new) {
 			$last_entry = ORM::for_table($definition)->select("ordering")->order_by_desc("ordering");
-			foreach($class::$groups as $group) {
+			foreach(Hanya::call_static($class,"get_groups") as $group) {
 				if($entry->$group) {
 					$last_entry = $last_entry->where($group,$entry->$group);
 				}
@@ -206,14 +206,14 @@ class Definition_Plugin extends Plugin {
 		}
 		
 		// Validate and Save
-		if(self::_validate($entry,$class::$blueprint,$class::$default_config)) {
+		if(self::_validate($entry,Hanya::call_static($class,"get_blueprint"),Hanya::call_static($class,"get_default_config"))) {
 			$entry->save();
 		} else {
 			die("Validation failed");
 		}
 		
 		// Dispatch before_update Event
-		$entry = $class::before_update($entry);
+		$entry = Hanya::call_static($class,"before_update",array($entry));
 		
 		// Redirect
 		Url::redirect_to_referer();
@@ -232,11 +232,11 @@ class Definition_Plugin extends Plugin {
 		$entry = ORM::for_table($definition)->find_one($id);
 		
 		// Check Ordering
-		if($class::$orderable) {
+		if(Hanya::call_static($class,"is_orderable")) {
 			
 			// Get Affected Rows
 			$rows = ORM::for_table($definition)->where_gt("ordering",$entry->ordering);
-			foreach($class::$groups as $group) {
+			foreach(Hanya::call_static($class,"get_groups") as $group) {
 				if($entry->$group) {
 					$rows = $rows->where($group,$entry->$group);
 				}
@@ -275,11 +275,11 @@ class Definition_Plugin extends Plugin {
 		$entry = ORM::for_table($definition)->find_one($id);
 		
 		// Check Entry
-		if($entry && $class::$orderable) {
+		if($entry && Hanya::call_static($class,"is_orderable")) {
 			if($entry->ordering > 1) {
 				// Order Down Element on Position
 				$upper = ORM::for_table($definition)->where("ordering",$entry->ordering-1);
-				foreach($class::$groups as $group) {
+				foreach(Hanya::call_static($class,"get_groups") as $group) {
 					if($entry->$group) {
 						$upper = $upper->where($group,$entry->$group);
 					}
@@ -313,11 +313,11 @@ class Definition_Plugin extends Plugin {
 		$entry = ORM::for_table($definition)->find_one($id);
 		
 		// Check Entry
-		if($entry && $class::$orderable) {
+		if($entry && Hanya::call_static($class,"is_orderable")) {
 			if($entry->ordering < ORM::for_table($definition)->select("ordering")->order_by_desc("ordering")->find_one()->ordering) {
 				// Order Down Element on Position
 				$downer = ORM::for_table($definition)->where("ordering",$entry->ordering+1);
-				foreach($class::$groups as $group) {
+				foreach(Hanya::call_static($class,"get_groups") as $group) {
 					if($entry->$group) {
 						$downer = $downer->where($group,$entry->$group);
 					}

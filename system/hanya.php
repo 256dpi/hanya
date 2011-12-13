@@ -18,6 +18,11 @@ class Hanya {
 	// Expressions for Dynamic Points
 	private static $_dynamic_points = array();
 	
+	// Static Class Loading Workaround
+	public static function call_static($class,$function,$attributes) {
+		return call_user_func_array($class."::".$function,$attributes);
+	}
+	
 	// Autoloader
 	public static function autoload($class) {
 		
@@ -220,7 +225,7 @@ class Hanya {
 					$class = ucfirst($table)."_Definition";
 					
 					// Check for Managing Flag
-					if($class::$managed) {
+					if(Hanya::call_static($class,"is_managed")) {
 					
 						// Get Creation Code
 						switch(Registry::get("db.driver")) {

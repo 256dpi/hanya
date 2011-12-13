@@ -49,12 +49,12 @@ class Sqlite {
 		$sql = "CREATE TABLE ".$table." ( id INTEGER PRIMARY KEY AUTOINCREMENT";
 		
 		// Check for Orderable
-		if($class::$orderable) {
+		if(Hanya::call_static($class,"is_orderable")) {
 			$sql .= ", ordering INTEGER";
 		}
 		
 		// Add Fields
-		foreach($class::$blueprint as $field => $def) {
+		foreach(Hanya::call_static($class,"get_blueprint") as $field => $def) {
 			switch($def["as"]) {
 				case "reference":
 				case "number":

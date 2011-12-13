@@ -25,12 +25,12 @@ class Mysql {
 		$sql = "CREATE TABLE `".$table."` ( `id` int(11) unsigned NOT NULL AUTO_INCREMENT";
 		
 		// Check for Orderable
-		if($class::$orderable) {
+		if(Hanya::call_static($class,"is_orderable")) {
 			$sql .= ", `ordering` int(11) unsigned DEFAULT NULL";
 		}
 		
 		// Add Fields
-		foreach($class::$blueprint as $field => $def) {
+		foreach(Hanya::call_static($class,"get_blueprint") as $field => $def) {
 			switch($def["as"]) {
 				case "boolean": $sql .= ", `".$field."` boolean DEFAULT NULL"; break;
 				case "reference":
