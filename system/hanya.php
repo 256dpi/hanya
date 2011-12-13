@@ -19,7 +19,7 @@ class Hanya {
 	private static $_dynamic_points = array();
 	
 	// Static Class Loading Workaround
-	public static function call_static($class,$function,$attributes) {
+	public static function call_static($class,$function,$attributes=array()) {
 		return call_user_func_array($class."::".$function,$attributes);
 	}
 	

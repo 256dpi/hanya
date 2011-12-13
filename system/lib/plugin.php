@@ -38,7 +38,7 @@ abstract class Plugin {
 			$classname = ucfirst($plugin)."_Plugin";
 			if(class_exists($classname)) {
 				if(method_exists($classname,$event)) {
-					Hanya::call_static($classname,$event,$options);
+					Hanya::call_static($classname,$event,array($options));
 				}
 			} else {
 				die("Hanya: Plugin '".$plugin."' defines no Class '".$classname."!");
