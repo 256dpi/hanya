@@ -26,7 +26,7 @@ class Definition_Plugin extends Plugin {
 			$entry = $entry->find_one($id);
 		} else {
 			// Call Definitions Constructor
-			$entry = Hanya::call_static($class,"create",array($entry->create(),Request::post("argument","string")));
+			$entry = Hanya::call_static($class,"create",array($entry->create(),Request::post("argument","string"));
 		}
 		
 		// Open Manager
