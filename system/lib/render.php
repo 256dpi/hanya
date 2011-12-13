@@ -162,7 +162,7 @@ class Render {
 	private static function _execute_tag($tag,$attributes) {
 		$classname = ucfirst($tag)."_Tag";
 		if(method_exists($classname,"call")) {
-			return $classname::call($attributes);
+			return Hanya::call_static($classname,"call",array($attributes));
 		} else {
 			die("Hanya: Tag '".$tag."' is not defined!");
 		}
@@ -175,7 +175,7 @@ class Render {
 		$class = ucfirst($definition)."_Definition";
 		
 		// Invoke Definition's Load Method
-		$items = $class::load($definition,$attributes);
+		$items = Hanya::call_static($class,"load",array($definition,$attributes));
 		
 		// Set Output
 		$output = "";
@@ -184,10 +184,10 @@ class Render {
 		foreach($items as $item) {
 			
 			// If Managed Invovke Magic Functions
-			if($class::$managed) {
+			if(Hanya::call_static($class,"is_managed")) {
 				
 				// Process Special Fields
-				foreach($class::$blueprint as $field => $config) {
+				foreach(Hanya::call_static($class,"get_blueprint") as $field => $config) {
 					switch($config["as"]) {
 						case "boolean": {
 							if($item[$field]) {
@@ -214,12 +214,12 @@ class Render {
 			$data = self::process_variables($definition,$item,$sub);
 			
 			// Check for Login
-			if(Memory::get("edit_page") && $class::$managed) {
+			if(Memory::get("edit_page") && Hanya::call_static($class,"is_managed")) {
 				
 				// Get Options
 				$options = array("data-id"=>$item["id"],"data-definition"=>$definition);
-				$options["data-is-orderable"] = $class::$orderable?"true":"false";
-				$options["data-is-destroyable"] = $class::$destroyable?"true":"false";
+				$options["data-is-orderable"] = Hanya::call_static($class,"is_orderable")?"true":"false";
+				$options["data-is-destroyable"] = Hanya::call_static($class,"is_destroyable")?"true":"false";
 				$options["data-level"] = strlen($childness);
 				
 				// Render HTML
