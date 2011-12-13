@@ -20,7 +20,7 @@ abstract class Plugin {
 	protected static function _delegate($for,$action) {
 		$method = "action_".$action;
 		if(method_exists($for,$method)) {
-			Hanya::call_static($for,$method);
+			$for::$method();
 		}
 	}
 	
@@ -38,7 +38,7 @@ abstract class Plugin {
 			$classname = ucfirst($plugin)."_Plugin";
 			if(class_exists($classname)) {
 				if(method_exists($classname,$event)) {
-					Hanya::call_static($classname,$event,$options);
+					$classname::$event($options);
 				}
 			} else {
 				die("Hanya: Plugin '".$plugin."' defines no Class '".$classname."!");

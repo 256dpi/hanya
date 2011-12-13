@@ -47,30 +47,4 @@ abstract class Definition {
 	// Before Destroy Event
 	static public function before_destroy() { return true; }
 	
-	/* GETTER */
-	
-	static public function is_managed() {
-		return self::$managed;
-	}
-	
-	static public function is_orderable() {
-		return self::$orderable;
-	}
-	
-	static public function is_destroyable() {
-		return self::$destroyable;
-	}
-	
-	static public function get_blueprint() {
-		return self::$blueprint;
-	}
-	
-	static public function get_default_config() {
-		return self::$default_config;
-	}
-	
-	static public function get_groups() {
-		return self::$groups;
-	}
-	
 }
