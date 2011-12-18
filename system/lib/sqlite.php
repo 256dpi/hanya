@@ -43,18 +43,18 @@ class Sqlite {
 	}
 	
 	// Generate Creation Code
-	public static function generate_create($table,$class) {
+	public static function generate_create($table,$obj) {
 		
 		// Begin
 		$sql = "CREATE TABLE ".$table." ( id INTEGER PRIMARY KEY AUTOINCREMENT";
 		
 		// Check for Orderable
-		if(Hanya::call_static($class,"is_orderable")) {
+		if($obj->orderable) {
 			$sql .= ", ordering INTEGER";
 		}
 		
 		// Add Fields
-		foreach(Hanya::call_static($class,"get_blueprint") as $field => $def) {
+		foreach($obj->blueprint as $field => $def) {
 			switch($def["as"]) {
 				case "reference":
 				case "number":

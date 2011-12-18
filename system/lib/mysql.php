@@ -19,18 +19,18 @@ class Mysql {
 	}
 
 	// Generate Creation Code
-	public static function generate_create($table,$class) {
+	public static function generate_create($table,$obj) {
 		
 		// Begin
 		$sql = "CREATE TABLE `".$table."` ( `id` int(11) unsigned NOT NULL AUTO_INCREMENT";
 		
 		// Check for Orderable
-		if(Hanya::call_static($class,"is_orderable")) {
+		if($obj->orderable) {
 			$sql .= ", `ordering` int(11) unsigned DEFAULT NULL";
 		}
 		
 		// Add Fields
-		foreach(Hanya::call_static($class,"get_blueprint") as $field => $def) {
+		foreach($obj->blueprint as $field => $def) {
 			switch($def["as"]) {
 				case "boolean": $sql .= ", `".$field."` boolean DEFAULT NULL"; break;
 				case "reference":

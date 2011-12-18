@@ -223,14 +223,15 @@ class Hanya {
 					
 					// Get Class
 					$class = ucfirst($table)."_Definition";
+					$obj = new $class();
 					
 					// Check for Managing Flag
-					if(Hanya::call_static($class,"is_managed")) {
+					if($obj->managed) {
 					
 						// Get Creation Code
 						switch(Registry::get("db.driver")) {
-							case "sql": $sql = Mysql::generate_create($table,$class); break;
-							case "sqlite": $sql = Sqlite::generate_create($table,$class); break;
+							case "sql": $sql = Mysql::generate_create($table,$obj); break;
+							case "sqlite": $sql = Sqlite::generate_create($table,$obj); break;
 						}
 						
 						// Execute Code

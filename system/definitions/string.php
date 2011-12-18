@@ -9,7 +9,7 @@
 
 class String_Definition extends Definition {
 	
-	public static $blueprint = array(
+	public $blueprint = array(
 		"key" => array("as"=>"string","hidden"=>true,"validation"=>array("not_empty"=>null,"match"=>"!^[a-z0-9-_]+$!")),
 		"value" => array("as"=>"string","label"=>false)
 	);
