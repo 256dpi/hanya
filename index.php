@@ -18,7 +18,7 @@ Hanya::run(array(
 	"i18n.default" => "en",
 	"auth.users" => array("admin"=>"admin"),
 	"mail.sender" => "sender@example.com",
-	"mail.forms" => array(),
+	"mail.forms" => array()
 ));
 
 /*
@@ -27,20 +27,21 @@ Hanya::run(array(
 
 	[Mysql Settings]
 	"db.driver" => "mysql"
-	"db.location" => "mysql:dbname=hanya;unix_socket=/tmp/mysql.sock",
-	"db.user" => "root",
-	"db.password" => "toor",
+	"db.location" => "mysql:dbname=hanya;unix_socket=/tmp/mysql.sock"
+	"db.user" => "root"
+	"db.password" => "toor"
 	
 	[Path & URL Settings]
-	"base.path" => "override",
-	"base.url" => "override",
+	"base.path" => "override"
+	"base.url" => "override"
 	
 	[System Settings]
-	"system.automatic_db_setup" => false,
+	"system.automatic_db_setup" => false
+	"system.debug" => false
 	
 	[Mail Settings]
-	mail.sender = "hanya@example.com",
-	mail.forms = array("form_id"=>array("reciever"=>"mail@example.com","subject"=>"The Subject")),
+	mail.sender = "hanya@example.com"
+	mail.forms = array("form_id"=>array("reciever"=>"mail@example.com","subject"=>"The Subject"))
 
 	### DYNAMIC POINTS
 

@@ -23,6 +23,12 @@ class Hanya {
 		return call_user_func_array($class."::".$function,$attributes);
 	}
 	
+	// Enable Debug for this Session
+	public static function enable_debugging() {
+	  ini_set("display_errors","1");
+	  ini_set("error_reporting","2147483647");
+	}
+	
 	// Autoloader
 	public static function autoload($class) {
 		
@@ -141,10 +147,16 @@ class Hanya {
 			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
 			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master",
 			"meta.template" => "default",
+			"system.debug" => false,
 		));
 		
 		// Load Config
 		Registry::load($config);
+		
+		// Check for Debugging
+		if(Registry::get("system.debug")) {
+		  self::enable_debugging();
+		}
 		
 		// Autmatic Base Path
 		if(!Registry::has("base.path")) {
