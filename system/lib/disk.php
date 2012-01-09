@@ -209,6 +209,13 @@ class Disk {
 		}
 	}
 	
+	// Remove Directory Secure
+	public static function remove_directory_secure($dir) {
+		if(self::has_directory($dir)) {
+			return rmdir($dir);
+		}
+	}
+	
 	// Remove File
 	public static function remove_file($file) {
 		if(self::has_file($file) && self::writeable($file)) {
