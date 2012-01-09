@@ -122,7 +122,7 @@ class Filemanager_Plugin extends Plugin {
 	  $dir = Request::get("directory");
 	  
 	  // Try to Remove Directory
-	  Disk::remove_directory_secure($dir))
+	  Disk::remove_directory_secure($dir);
 	  	  
 	  // End
 	  URL::redirect_to_referer();
