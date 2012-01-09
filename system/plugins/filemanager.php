@@ -12,14 +12,14 @@ class Filemanager_Plugin extends Plugin {
 	/* EVENTS */
 	
 	// Main View
-	public static function on_filemanager() {
+	public static function on_filemanager($new=false) {
 		
 		// Check Admin
 		self::_check_admin();
 		
 		// Get Data
 		$current_directory = Request::get("directory");
-		if (!$current_directory) {
+		if (!$current_directory || !Disk::has_directory($current_directory)) {
 			$current_directory = "uploads";
 		}
 		
@@ -110,6 +110,26 @@ class Filemanager_Plugin extends Plugin {
 		
 		// End
 		exit;
+	}
+	
+	// Delete directory
+	public static function on_filemanager_delete_directory() {
+	  
+	  // Check Admin
+	  self::_check_admin();
+	  
+	  // Get Dir
+	  $dir = Request::get("directory");
+	  
+	  // Try to Remove Directory
+	  if(Disk::remove_directory($dir)) {
+	    //echo "ok";
+	  } else {
+	    //echo "error";
+	  }
+	  
+	  // End
+	  URL::redirect_to_referer();
 	}
 	
 	// Upload a File

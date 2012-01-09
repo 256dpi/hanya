@@ -190,6 +190,12 @@
 				
 			});
 			
+			function deleteDirectory(dir) {
+				if(confirm('<?=I18n::_("system.filemanager.remove_directory")?>')) {
+					window.location = dir;
+				}
+			}
+			
 		</script>
   </head>
   <body id="hanya-admin">
@@ -219,7 +225,7 @@
 							<? endforeach; ?>
 						</table>
 					<? else: ?>
-						<p><?=I18n::_("system.filemanager.empty_directory")?></p>
+						<p><?=I18n::_("system.filemanager.empty_directory")?> / <?=HTML::button(I18n::_("system.filemanager.delete_directory"),"deleteDirectory('".URL::_("?command=filemanager_delete_directory&directory=".$current_directory)."')")?></a></p>
 					<? endif; ?>
 				</div>
 				<hr/>
