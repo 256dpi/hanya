@@ -35,6 +35,9 @@ class Mailer_Plugin extends Plugin {
 		$message = Disk::read_file("elements/mails/".$template.".html");
 		$message = Render::process_variables("mail",$vars,$message);
 		
+		// Set Session
+		Memory::set("mail.sent",true);
+		
 		// Send Mail & Redirect
 		Mail::send($reciever,$subject,$message);
 		URL::redirect_to_referer();
