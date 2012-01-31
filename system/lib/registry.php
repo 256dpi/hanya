@@ -23,7 +23,7 @@ class Registry {
 				$data[$key] = $value;
 			}
 		}
-		self::$_data = array_merge(self::$_data,$data);
+		self::$_data = array_merge_recursive(self::$_data,$data);
 	}
 	
 	// Set Value by Key
