@@ -143,6 +143,8 @@ class Hanya {
 		
 		// Load Default System Settings
 		Registry::load(array(
+    	"db.user" => "",
+    	"db.password" => "",
 			"system.automatic_db_setup" => true,
 			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
 			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master",

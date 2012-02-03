@@ -12,8 +12,6 @@ require("system/hanya.php");
 Hanya::run(array(
 	"db.driver" => "sqlite",
 	"db.location" => "sqlite:user/db.sq3",
-	"db.user" => "",
-	"db.password" => "",
 	"i18n.languages" => array("en"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "en",
 	"auth.users" => array("admin"=>"admin"),
@@ -25,7 +23,7 @@ Hanya::run(array(
 
 	### SETTINGS
 
-	[Mysql Settings]
+	[mySQL Settings]
 	"db.driver" => "mysql"
 	"db.location" => "mysql:dbname=hanya;unix_socket=/tmp/mysql.sock"
 	"db.user" => "root"
