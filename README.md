@@ -115,9 +115,28 @@ Hanya will create not existing tables automatically if they are needed. You can 
 	
 The configuration options for the mailing system are covered in their section.
 
+## Meta Information
+
+Sometimes you need a information about your page in the layout to render as example the `<title>..</title>` tag. With meta informations you can describe these variables in your page and use them later in your layout:
+
+	//---
+	title = "My page title"
+	subtitle = "Another important title"
+	//--
+	
+Now use them in your layout or partial:
+
+	...
+	<title>$meta(title)</title>
+	...
+	<h2>$meta(subtitle)</h2>
+	...
+
 ## Tags
 
-The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag. There is a bunch of system tags:
+The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag which gets proccessed on each request.
+
+There is a bunch of other system tags:
 
 ### Basic Tags
 
@@ -125,7 +144,7 @@ The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag. There
 
 * `{toolbar()}` will output the Hanya login button or if logged in the Hanya admin toolbar.
 
-* `{anchor(title|url)` is turning to `<a href="url">title</a>`. Additionally it will add a _link-current_ css class if the url matches the current request url or it will add a _link-active_ class if the url matches a part of the url (from the beginning).
+* `{anchor(title|url)` is turning into `<a href="url">title</a>`. Additionally it will add a _link-current_ css class if the url matches the current request url or it will add a _link-active_ class if the url matches a part of the url (from the beginning).
 
 * `{link(path)}` will return the path to a page.
 
@@ -149,7 +168,7 @@ The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag. There
 
 * `{text(id)}` loads editable text from the database.
 
-* `{string(id)}` laods an editable string from the database.
+* `{string(id)}` loads an editable string from the database.
 
 * `{new(definition|arguments...)}` renders a link to create a new definition object. This will be covered later.
 
