@@ -10,7 +10,7 @@ At the moment Hanya needs at least PHP 5.3 to be installed, i'm refactoring it t
 
 1. Download the repository as [archive](https://github.com/256dpi/Hanya/zipball/master) and extract it in your working directory.
 
-2. Edit the _RewriteBase_ parameter in the _.htaccess_ file to fit your server or local configuration.
+2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your server or local configuration.
 
 3. Set the rights of the _system_ directory and _user/db.sq3_ to _0777_. The _db.sq3_ file gets created after the first request to the system.
 
@@ -54,11 +54,11 @@ A default template will look like this:
 	
 All the unusual markup is Hanya System Markup:
 
-* The `$meta(title)` variable will replace it self with the value set in the meta informa1tion of the page.
+* The `$meta(title)` variable will replace it self with the value set in the meta information of the page.
 
 * The `{head()}` tag renders system css and js includes to make the system working properly. _jQuery_ is included as default.
 
-* With `{asset(style.css)}` you have an shortcut to files in the _assets_ directory.
+* With `{asset(style.css)}` you have a shortcut to files in the _assets_ directory.
 
 * One of the most important tags is the `{toolbar()}` tag. It will render the login button and after login the hanya admin toolbar.
 
@@ -97,9 +97,9 @@ Hanya has a builtin _I18n_ translation system, but at the moment you can run the
 	"i18n.languages" => array("de"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "de",
 	
-An englisch and german translation is built in for all system messages. Check the _Translation_ section to read about creating your own translations.
+An english and german translation is built in for all system messages. Check the _Translation_ section to read about creating your own translations.
 
-To give your customers action the admin toolbar add their credentials:
+To give your customers access to the admin toolbar, add their credentials:
 
 	"auth.users" => array("admin"=>"admin"),
 	
@@ -109,11 +109,79 @@ If you want to run the system in debug mode issue this configuration:
 
 	"system.debug" => false
 	
-Hanya will create not existing tables în database automatically if they are needed. You can disable this beahvior:
+Hanya will create not existing tables automatically if they are needed. You can disable this beahvior:
 
 	"system.automatic_db_setup" => false
 	
 The configuration options for the mailing system are covered in their section.
+
+## Tags
+
+The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag. There is a bunch of system tags:
+
+### Basic Tags
+
+* `{head()}` will render the system css and javascript includes.
+
+* `{toolbar()}` will output the Hanya login button or if logged in the Hanya admin toolbar.
+
+* `{anchor(title|url)` is turning to `<a href="url">title</a>`. Additionally it will add a _link-current_ css class if the url matches the current request url or it will add a _link-active_ class if the url matches a part of the url (from the beginning).
+
+* `{link(path)}` will return the path to a page.
+
+* `{asset(path)}` will return the path to this asset.
+
+* `{upload(path)}` will return the path to this upload.
+
+### Helper Tags
+
+* `{attach(block|mode|(path/html))}` lets you add html markup or load a file into an block, which can be render later with the block tag. To append html markup to an block use: `{attach(block(my-block|html|<p>some html markup</p>))}`. If you want to append the content of a partial use: `{attach(my-block|file|my-partial)}`. This will append the content of _elements/partials/my-partial.html_.
+
+* `{block(name)}` renders the given block at this position. The content of your page ist se to the _content_ block.
+
+* `{include(partial)}` loads and renders a partial like _elements/partials/partial.html_
+
+* `{if(a|b|true|false)}` compares the first two arguments. If the comparison is true the third argument will be rendered otherwise the fourth argument or nothing.
+
+### Dynamic Tags
+
+* `{html(id)}` loads editable html markup from the database.
+
+* `{text(id)}` loads editable text from the database.
+
+* `{string(id)}` laods an editable string from the database.
+
+* `{new(definition|arguments...)}` renders a link to create a new definition object. This will be covered later.
+
+## Definitions
+
+...
+
+## Dynamic Points
+
+...
+
+## Mailing
+
+...
+
+## Plugins
+
+...
+
+## Admin Toolbar
+
+...
+
+## Updating
+
+...
+
+## Translations
+
+...
+
+## System Workflow
 
 ## 3rd Party Software
 
