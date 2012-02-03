@@ -172,19 +172,15 @@ There is a bunch of other system tags:
 
 * `{new(definition|arguments...)}` renders a link to create a new definition object. This will be covered later.
 
-## Definitions
-
-...
-
 ## Dynamic Points
 
 ...
 
-## Mailing
+## Definitions
 
 ...
 
-## Plugins
+## Mailing
 
 ...
 
@@ -200,7 +196,13 @@ There is a bunch of other system tags:
 
 ...
 
+## Plugins
+
+...
+
 ## System Workflow
+
+...
 
 ## 3rd Party Software
 
@@ -214,7 +216,7 @@ There is a bunch of other system tags:
 
 ##License
 
-Hanya is released under the MIT Licesne
+Hanya is released under the MIT License
 
 Copyright (c) 2011 Joël Gähwiler
 
