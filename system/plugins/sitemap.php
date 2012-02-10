@@ -16,7 +16,7 @@ class Sitemap_Plugin extends Plugin {
 		$segments = Registry::get("request.segments");
 		
 		// Check for sitemap.xml
-		if($segments[0] == "sitemap.xml") {
+		if($segments[0] == "sitemap.xml" && Registry::get("system.sitemap_generation",true)) {
 			
 			// Set Header
 			HTTP::content_type("text/xml");
