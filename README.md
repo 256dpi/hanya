@@ -115,6 +115,10 @@ Hanya will create not existing tables automatically if they are needed. You can 
 	
 The configuration options for the mailing system are covered in their section.
 
+Hanya has a builtin sitemap generator which creates a sitemap.xml depending on your tree directory structure. To turn it off issue:
+
+	"system.sitemap_generation" => false
+
 ## Meta Information
 
 Sometimes you need a information about your page in the layout to render as example the `<title>..</title>` tag. With meta informations you can describe these variables in your page and use them later in your layout:
@@ -172,6 +176,38 @@ There is a bunch of other system tags:
 
 * `{new(definition|arguments...)}` renders a link to create a new definition object. This will be covered later.
 
+## Conditions
+
+With Conditions you can check variables of existence and truness. The following meta information is set in a page file:
+
+	...
+	subnavigation = false
+	...
+	
+Check it in your layout:
+
+	...
+	[?($meta(subnavigation))]
+		<div id="subnavigation">
+			...
+		</div>
+	[?:]
+		... (else part)
+	[/?]
+	...
+	
+Important is when you nest conditions add an minus for each level of nesting before the question mark:
+
+	...
+	[?($meta(condition1)))]
+		...
+	[?:]
+		[-?($meta(condition2)))]
+			...
+		[-?:]
+	[/?]
+	...
+
 ## Dynamic Points
 
 To this point hanya has a static routing where request will be mapped to its physical files. To get more dynamicness _Dynamic Points_ will break that pattern and give you a handy function to create dynamic urls. You will need this functionalty only with the _Definition System_ but i will explain it first. Issue the following url pattern:
@@ -203,8 +239,6 @@ The _Definition System_ is the greates part of the whole Hanya story it let you 
 In the example above we created a dynamic point for our news, now we want to create a definition for that:
 
 Create _user/definitions/news.php_ with the following content:
-
-	<?php
 
 	class News_Definition extends Definition {
 
@@ -247,9 +281,9 @@ To render our news item in the page we need to overload the _load_ method of the
 	
 If we pass the argument _item-by-slug_ and the slug we get our item, else all items from the table are returned.
 
-### If Loop
+### All in One
 
-The render of an news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we need an if loop to check for the `$new(slug)` variables availability. We extend the example from above with this code:
+The rendering of a news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we use a condition to check for the `$new(slug)` variables availability. We extend the example from above with this code:
 
 	[?($news(slug))]
 		[news(item-by-slug|$news(slug))]
@@ -266,11 +300,132 @@ The render of an news item is also set in the _tree/news.html_ page file. So we 
 		{new(news)}
 	[/?]
 	
-The if loop will check our _slug_ variable and if it exists it will render the first part of the loop. If the variable is null the other part gets renderd.
+The condition will check our _slug_ variable and if it exists it will render the first part of the loop. If the variable is null the other part gets renderd.
+
+### Field Types
+
+Use this field types to make your definitions fancy:
+
+	"string" => array("as"=>"string")
+	"text" => array("as"=>"text")
+	"html" => array("as"=>"html")
+	"textile" => array("as"=>"textile") // textile editor not supported yet!
+	"boolean" => array("as"=>"boolean")
+	"number" => array("as"=>"number")
+	"time" => array("as"=>"time")
+	"date" => array("as"=>"date")
+	"selection" => array("as"=>"selection","options"=>array(""=>"None","opt1"=>"Option 1","opt2"=>"Option 2","opt3"=>"Option 3"))
+	"reference" => array("as"=>"reference","definition"=>"my-definition","field"=>"value")
+	"file" => array("as"=>"file","folder"=>".","blank"=>true,"upload"=>true) // will add a name_path magic variable too
+	
+### Ordering
+
+All definitions have a _ordering_ field as default to let the user order them with up and down arrows. You can disable ordering with:
+
+	public $orderable = false;
+	
+As default the ordering will treat all items if a table in a group. If you have as example news in categories and you want a ordering structure for each category. So you need to set the _groups_ variable:
+
+	public $groups = array("category");
+	
+### Advanced Overloading
+
+You can also overload the _create_ function of your definition. Check this sample definition:
+
+	class Image_Definition extends Definition {
+
+		public $groups = array("owner");
+
+		public $blueprint = array(
+			"title" => array("as"=>"string"),
+			"file" => array("as"=>"file","blank"=>false,"folder"=>"images","upload"=>true),
+			"owner" => array("as"=>"string","hidden"=>true)
+		);
+
+		public function create($entry,$argument) {
+			$entry->owner = $argument;
+			return $entry;
+		}
+
+		public function load($definition,$arguments) {
+			$table = ORM::for_table($definition)->order_by_asc("ordering")->where("owner",$arguments[0]);
+			return Helper::each_as_array($table->find_many());
+		}
+
+	}
+	
+You can pass arguments to the create function by adding them to the _new_ tag:
+
+	{new(image|my-owner-a)}
+	
+### Events
+
+To make your definitions more complex you can use the events methods to add more logic to your definitions:
+
+	public function before_create($entry) {
+		$entry->field = "override value";
+		return $entry;
+	}
+	
+	public function before_update($entry) {
+		$entry->field = "override value";
+		return $entry;
+	}
+	
+	public function before_destroy() {
+		return true;
+	}
+	
+### Specials
+
+There are some more options you can set in your _definition_ class:
+
+	// is definition managed by hanya? (renders edit functionality)
+	public $managed = true;
+	
+	// is object destroyable?
+	public $destroyable = true;
+	
+	// the default config for each field (if you have a hundred of string fields)
+	public $default_config = array(
+		"hidden" => false,
+		"label" => true,
+		"validation" => array(), // validation is not supported at the moment
+	);
+	
+### Translation
+
+By creating your first definition you will see that you have to create your own translation files for field labels and buttons in the admin interface. Check the Translation section for moren information.
 
 ## Mailing
 
-...
+Hanya has a integrated mailing system. You can easiy create contact or ordering forms in html and create a template for the email. You have to specify your forms in the _index.php_:
+
+	mail.sender = "hanya@example.com",
+	mail.forms = array(
+		"contact" => array("reciever"=>"mail@example.com","subject"=>"The Subject")
+	)
+	
+Then create a form on a page:
+
+	<form action="?command=mailer" method="post">
+	  <input type="hidden" name="form" value="contact" />
+	  <label for="mail[name]">Name</label>
+	  <input name="mail[name]" />
+	  <label for="mail[subject]">Subject</label>
+	  <input name="mail[subject]" />
+	  <label for="mail[message]">Message</label>
+	  <textarea name="mail[message]"></textarea>
+	  <input type="submit" value="Send" />
+	</form>
+	
+Create your mail template _elements/mails/contact.html_:
+
+	<h1>Contact Request from <strong>$mail(name)</strong></h1>
+	<h2>Subject: $mail(subject)</h2>
+	<p>$mail(message)</p>
+	
+I think if you read the previous sections, you will understand the exmaples. ;)
 
 ## Admin Toolbar
 
@@ -282,15 +437,24 @@ The if loop will check our _slug_ variable and if it exists it will render the f
 
 ## Translations
 
-...
+* System Translation
+* Definition Translation
 
-## Plugins
+## Extending the System
 
-...
+### Tags
+
+### Plugins
 
 ## System Workflow
 
 ...
+
+## Constants
+
+For benchmaring there are two constants which you can use:
+
+	<p> Generation Time: #{HANYA_GENERATION_TIME} - Memory Peak: #{HANYA_MEMORY_PEAK}</p>
 
 ## 3rd Party Software
 
