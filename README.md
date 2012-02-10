@@ -307,7 +307,7 @@ Use this field types to make your definitions fancy:
 	"number" => array("as"=>"number")
 	"time" => array("as"=>"time")
 	"date" => array("as"=>"date")
-	"selection" => array("as"=>"selection","options"=>array(""=>"None","opt1"=>"Option 1","opt2"=>"Option 2","opt3"=>"Option 3"))
+	"selection" => array("as"=>"selection","options"=>array(""=>"None","opt1"=>"Option 1","opt2"=>"Option 2"))
 	"reference" => array("as"=>"reference","definition"=>"my-definition","field"=>"value")
 	"file" => array("as"=>"file","folder"=>".","blank"=>true,"upload"=>true) // will add a name_path magic variable too
 	
