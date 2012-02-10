@@ -196,7 +196,77 @@ Hanya renders the page of the first argument even if there is no remaining url. 
 
 ## Definitions
 
-...
+The _Definition System_ is the greates part of the whole Hanya story it let you create models (definitions) of objects which can loaded and rendered in your pages. The best thing is that all content can be edited by your customer in the page itself. The only thing you have to carry about is your definition, the rest will be handled by Hanya.
+
+### Basics
+
+In the example above we created a dynamic point for our news, now we want to create a definition for that:
+
+Create _user/definitions/news.php_ with the following content:
+
+	<?php
+
+	class News_Definition extends Definition {
+
+		public $blueprint = array(
+			"title" => array("as"=>"string"),
+			"slug" => array("as"=>"string"),
+			"intro" => array("as"=>"text"),
+			"full" => array("as"=>"html"),
+		);
+
+	}
+	
+This class explains your definitions blueprint to Hanya. On the next request Hanya will create a table with fields to store the data. Now we want to render a list of news in our _tree/news.html_:
+
+	<h1>Actual News</h1>
+	[news()]
+		<h2>$news(title)</h2>
+		<p>$news(intro)</h2>
+		<p><a href="{link(news/$news(slug))}">Read more</a></p>
+	[/news]
+	{new(news)}
+
+The defined partial will be render for each item in your news table and creates a list of your news with a link to its item. The `{new(news)}` tag will render a button which will be render in "page editing" mode to let the user create a new news object. The admin functionalities will be covered later in this documentation.
+
+### Overloading
+
+To render our news item in the page we need to overload the _load_ method of the definition to load only one item by a slug:
+
+	public function load($definition,$arguments) {
+		if(count($arguments == 2 && $arguments[0] == "item-by-slug")) {
+			// Return Item
+			$table = ORM::for_table($definition)->where("slug",$arguments[1]);
+			return Helper::each_as_array($table->find_many());
+		} else {
+			// Return List
+			$table = ORM::for_table($definition)->order_by_asc("ordering");
+			return Helper::each_as_array($table->find_many());
+		}
+	}
+	
+If we pass the argument _item-by-slug_ and the slug we get our item, else all items from the table are returned.
+
+### If Loop
+
+The render of an news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we need an if loop to check for the `$new(slug)` variables availability. We extend the example from above with this code:
+
+	[?($news(slug))]
+		[news(item-by-slug|$news(slug))]
+			<h1>$news(title)</h1>
+			$news(full)
+		[/news]
+	[?:]
+		<h1>Actual News</h1>
+		[news()]
+			<h2>$news(title)</h2>
+			<p>$news(intro)</h2>
+			<p><a href="{link(news/$news(slug))}">Read more</a></p>
+		[/news]
+		{new(news)}
+	[/?]
+	
+The if loop will check our _slug_ variable and if it exists it will render the first part of the loop. If the variable is null the other part gets renderd.
 
 ## Mailing
 
