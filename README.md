@@ -174,7 +174,25 @@ There is a bunch of other system tags:
 
 ## Dynamic Points
 
-...
+To this point hanya has a static routing where request will be mapped to its physical files. To get more dynamicness _Dynamic Points_ will break that pattern and give you a handy function to create dynamic urls. You will need this functionalty only with the _Definition System_ but i will explain it first. Issue the following url pattern:
+
+	http://www.domain.com/news/a-nice-looking-slug-for-my-news
+	
+The simplest way ist to create a _tree/news/a-nice-looking-slug-for-my-news.html_ file with the content for your news. But i will be more cool to have the news stored in a DB to push them into a template an render it. The best way is to tell Hanya your dynamic url patterns as dynamic points. Add the following statements to the _index.php_ above the `Hanya::run(...` statement:
+
+	Hanya::dynamic_point("news","(/<slug>)");
+	
+This statement tells hanya to search for _news_ (first argument) at the beginning of your url and use the remainig url after the _/_ as a variable (second argument). The request will be automatically mapped to the _tree/news.html_ (first argument). In this file you get a new magical variable for the slug:
+
+	<p>You requested the news: $dynamic(slug)</p>
+	
+Use this variable in combination with the _Definition System_.
+
+You can also add more difficult patterns:
+
+	Hanya::dynamic_point("company/news","(/<category>(/<slug>(/<part>)))");
+
+Hanya renders the page of the first argument even if there is no remaining url. The vaule all variables will be _NULL_.
 
 ## Definitions
 
