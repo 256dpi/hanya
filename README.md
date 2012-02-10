@@ -318,6 +318,8 @@ Use this field types to make your definitions fancy:
 	"reference" => array("as"=>"reference","definition"=>"my-definition","field"=>"value")
 	"file" => array("as"=>"file","folder"=>".","blank"=>true,"upload"=>true) // will add a name_path magic variable too
 	
+If you add, remove or alter fields in the blueprint, Hanya will not push the changes to the table at this time. You have to delete the table or edit it with your favorite SQLite or mySQL Utility.
+	
 ### Ordering
 
 All definitions have a _ordering_ field as default to let the user order them with up and down arrows. You can disable ordering with:
@@ -444,7 +446,47 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 ### Tags
 
+Adding your own tags to the System is verry simple. Create a file _user/tags/mytag.php_ and programm your logic:
+
+	class Mytag_Tag {
+
+		public static function call($arguments) {
+			return "My own Tag with an argument: ".$arguments[0];
+		}
+
+	}
+	
+Now you can use it wherever you like:
+
+	{mytag(An argument)}
+	
+Check the system tags in _system/tags_ for inspiration for your own tags.
+
 ### Plugins
+
+Writing your own plugin is also simple as writing your own tag. Create a file _user/plugins/example.php_:
+
+	class Example_Plugin extends Plugin {
+		
+		// this event will be fired after hanya has started up
+		public static function after_initialize() {
+			...
+		}
+		
+		// this event will be fired before the request gets handled
+		public static function before_execution() {
+			...
+		}
+
+		// this function is called on a "?command=example_do_stuff" request
+		public static function on_example_to_stuff() {
+			echo "Yeah my plugin will handle the whole request";
+			exit;
+		}
+
+	}
+	
+Check the _system/lib_ directory to get familiar with the Hanya API and check _system/plugins_ for examples of the system plugins. You can also create views like the most of the system plugins use it.
 
 ## System Workflow
 
