@@ -2,18 +2,15 @@
 
 **A rapid and lightweight engine for small websites**
 
-__Hanya brings simple html to the next level.__
+**Hanya brings simple html to the next level.**
 
 At the moment Hanya needs at least PHP 5.3 to be installed, i'm refactoring it to work with PHP 5.2.
 
 ## Installation
 
 1. Download the repository as [archive](https://github.com/256dpi/Hanya/zipball/master) and extract it in your working directory.
-
 2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your server or local configuration.
-
 3. Set the rights of the _system_ directory and _user/db.sq3_ to _0777_. The _db.sq3_ file gets created after the first request to the system.
-
 4. Alter the default configuration in the _index.php_.
 
 If you encountering problems check the _Configuration_ section to run Hanya in debuge mode.
@@ -55,13 +52,9 @@ A default template will look like this:
 All the unusual markup is Hanya System Markup:
 
 * The `$meta(title)` variable will replace it self with the value set in the meta information of the page.
-
 * The `{head()}` tag renders system css and js includes to make the system working properly. _jQuery_ is included as default.
-
 * With `{asset(style.css)}` you have a shortcut to files in the _assets_ directory.
-
 * One of the most important tags is the `{toolbar()}` tag. It will render the login button and after login the hanya admin toolbar.
-
 * At the position of `{block(content)}` your page markup will magically apear.
 
 As you will see the Hanya system gives you handy variables and tag markup to enhance your boring html sites.
@@ -431,11 +424,15 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 ## Admin Toolbar
 
-...
+### Show & Edit
 
-## Updating
+### Filemanager
 
-...
+### Sourceeditor
+
+### Database Manager
+
+### Updater
 
 ## Translations
 
@@ -488,24 +485,31 @@ Writing your own plugin is also simple as writing your own tag. Create a file _u
 	
 Check the _system/lib_ directory to get familiar with the Hanya API and check _system/plugins_ for examples of the system plugins. You can also create views like the most of the system plugins use it.
 
-## System Workflow
-
-...
-
 ## Constants
 
 For benchmaring there are two constants which you can use:
 
 	<p> Generation Time: #{HANYA_GENERATION_TIME} - Memory Peak: #{HANYA_MEMORY_PEAK}</p>
+	
+## Wishlist
+
+* PHP 5.2 Support (ini string parse problem)
+* Multi language support
+* jQuery time- and datepicker for time and date fields in manager
+* Database backup functionality
+* editable/extendable sitemap.xml
+* validation for object manager
+* menu tag for automatic menu generation
+* enhanced editor for creating links and adding images
+* full inline editing
+* edit child objects in parent manager
+* migrations for definitions
 
 ## 3rd Party Software
 
 * ORM Class idiorm by j4mie (http://github.com/j4mie/idiorm/)
-
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
-
 * Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
-
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
 
 ##License
