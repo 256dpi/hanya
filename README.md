@@ -228,7 +228,7 @@ You can also add more difficult patterns:
 
 	Hanya::dynamic_point("company/news","(/<category>(/<slug>(/<part>)))");
 
-Hanya renders the page of the first argument even if there is no remaining url. The vaule all variables will be _NULL_.
+Hanya renders the page of the first argument even if there is no remaining url. The default vaule all variables will be _NULL_.
 
 ## Definitions
 
