@@ -2,27 +2,25 @@
 
 **A rapid and lightweight engine for small websites**
 
-**Hanya brings simple html to the next level.**
-
-At the moment Hanya needs at least PHP 5.3 to be installed, i'm refactoring it to work with PHP 5.2.
+_At the moment hanya needs at least PHP 5.3 to be installed, i'm refactoring it to work with PHP 5.2._
 
 ## Installation
 
-1. Download the repository as [archive](https://github.com/256dpi/Hanya/zipball/master) and extract it in your working directory.
-2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your server or local configuration.
+1. Download the repository as [archive](https://github.com/256dpi/hanya/zipball/master) and extract it in your working directory.
+2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your remote or local configuration.
 3. Set the rights of the _system_ directory and _user/db.sq3_ to _0777_. The _db.sq3_ file gets created after the first request to the system.
 4. Alter the default configuration in the _index.php_.
 
-If you encountering problems check the _Configuration_ section to run Hanya in debuge mode.
+If you encountering problems check the _Configuration_ section to run hanya in debuge mode.
 
 ## Basic Usage
 
-The main feature of Hanya is the simple request router. Each request will be mapped to an physical html file in the _tree_ directory which holds the content of this page.
+The main feature of hanya is the simple request router. Each request will be mapped to an physical html file in the _tree_ directory which holds the content of the page.
 
-	"http://www.domain.com/directory/page" = "tree/directory/page.html"
+	http://www.domain.com/directory/page => tree/directory/page.html
 	
 In these html files you can place your code for the page. At default each page will be wrapped with the _elements/templates/default.html_ template.
-To alter this behavior you can add meta informations to the top of the page file:
+To alter this behavior you can add a _template_ variable to the meta informations on top of the page file:
 
 	//--
 	title = "My Page Title"
@@ -31,9 +29,9 @@ To alter this behavior you can add meta informations to the top of the page file
 	<p>content of my page</p>
 	...
 	
-The _template_ meta information will tell Hanya to load the _elements/templates/another.html_ to wrap the page.
+The _template_ variable will tell hanya to load the _elements/templates/another.html_ to wrap the page. You hear more about meta informations later.
 
-A default template will look like this:
+The default html5 template will look like this:
 
 	<!doctype html>
 	<html>
@@ -49,24 +47,24 @@ A default template will look like this:
 	  </body>
 	</html>
 	
-All the unusual markup is Hanya System Markup:
+In the example above you will find many unusual markup. This Markup is hanya related an will processed at each request.
 
 * The `$meta(title)` variable will replace it self with the value set in the meta information of the page.
 * The `{head()}` tag renders system css and js includes to make the system working properly. _jQuery_ is included as default.
 * With `{asset(style.css)}` you have a shortcut to files in the _assets_ directory.
 * One of the most important tags is the `{toolbar()}` tag. It will render the login button and after login the hanya admin toolbar.
-* At the position of `{block(content)}` your page markup will magically apear.
+* At the position of `{block(content)}` your page will be injected.
 
-As you will see the Hanya system gives you handy variables and tag markup to enhance your boring html sites.
+As you will see the hanya system gives you handy variables and tag markup to enhance your boring html sites.
 
 ## Directory Structure
 
-The working directory of your Hanya installation consists of the following directories:
+The working directory of your hanya installation consists of the following directories:
 
-* **assets** (all image, stylsheet and javascript files goes in this directory)
+* **assets** (all image, stylsheet and javascript files goes in this directory, don't touch the system directory!)
 * **elements** (place your mail templates, error pages, partials and layouts in their subdirectories)
 * **system** (don't touch this!)
-* **tree** (your site tree)
+* **tree** (your sites page tree)
 * **uploads** (all upload over the system goes here)
 * **user** (the DB, your definitions, translations, plugins and tags)
 
@@ -74,35 +72,35 @@ The working directory of your Hanya installation consists of the following direc
 
 Hanya is a system that will run out of the box. But some features needs some configuration.
 
-All configuration is set in the _index.php_ file in the `Hanya::run(...)` statement.
+All configuration is set in the _index.php_ file by the `Hanya::run(...)` statement.
 
-At default Hanya creates an SQLite databse in _user/db.sq3_ to store all db related data. For the small sites you are building with Hanya a SQLite db is enough. Furthermore you have on special advantage to an SQL Database. If you upload or download your project, you never again have to dump or load your SQL Database. If you still want to connect to an SQL Server use this configuration:
+At default hanya creates an SQLite database in _user/db.sq3_ to store all db related data. For the small sites you are building with hanya a SQLite DB is enough. Furthermore you have on special advantage to an SQL Database: If you upload or download your project, you never again have to dump or load your mySQL Database. If you still want to connect to an mySQL Server use this configuration:
 
 	"db.driver" => "mysql"
 	"db.location" => "mysql:dbname=hanya;unix_socket=/tmp/mysql.sock"
 	"db.user" => "root"
 	"db.password" => "toor"
 	
-Check the [PHP Manual for PDO connections](http://www.php.net/manual/de/pdo.construct.php) to see available methods.
+Check the [PHP Manual for PDO connections](http://www.php.net/manual/de/pdo.construct.php) to see available configuration for _db.location_.
 
 Hanya has a builtin _I18n_ translation system, but at the moment you can run the system only in one language. I don't knowh if there will be multiple language feature soon. However define your languages (one at the moment) and set it as default.
 
 	"i18n.languages" => array("de"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "de",
 	
-An english and german translation is built in for all system messages. Check the _Translation_ section to read about creating your own translations.
+An english and german translation is built in for all system messages. Check the translation section to read about creating your own translations.
 
 To give your customers access to the admin toolbar, add their credentials:
 
 	"auth.users" => array("admin"=>"admin"),
 	
-Currently there are no roles for users, so it will be enought to create one user.
+Currently there are no roles for users, so it will be enough to create one user.
 
 If you want to run the system in debug mode issue this configuration:
 
 	"system.debug" => false
 	
-Hanya will create not existing tables automatically if they are needed. You can disable this beahvior:
+Hanya will create not existing tables automatically if they are needed. You can disable this behavior:
 
 	"system.automatic_db_setup" => false
 	
@@ -131,7 +129,7 @@ Now use them in your layout or partial:
 
 ## Tags
 
-The Hanya System Markup in curly braces like `{toolbar()}` is a Hanya Tag which gets proccessed on each request.
+The hanya system markup in curly braces like `{toolbar()}` is a hanya tag which gets proccessed on each request.
 
 There is a bunch of other system tags:
 
@@ -139,15 +137,19 @@ There is a bunch of other system tags:
 
 * `{head()}` will render the system css and javascript includes.
 
-* `{toolbar()}` will output the Hanya login button or if logged in the Hanya admin toolbar.
+* `{toolbar()}` will output the hanya login button or if logged in the hanya admin toolbar.
 
 * `{anchor(title|url)` is turning into `<a href="url">title</a>`. Additionally it will add a _link-current_ css class if the url matches the current request url or it will add a _link-active_ class if the url matches a part of the url (from the beginning).
 
-* `{link(path)}` will return the path to a page.
+### Path Shortcuts
 
-* `{asset(path)}` will return the path to this asset.
+The `{head()}` tag also renders `<base path="">` with the url to the working directory. So all other paths can be relative to this directory.
 
-* `{upload(path)}` will return the path to this upload.
+* `{link(path)}` will return the relative path to a page.
+
+* `{asset(path)}` will return the relative path to an asset.
+
+* `{upload(path)}` will return the relative path to an upload.
 
 ### Helper Tags
 
@@ -171,7 +173,7 @@ There is a bunch of other system tags:
 
 ## Conditions
 
-With Conditions you can check variables of existence and truness. The following meta information is set in a page file:
+With Conditions you can check variables of existence and truness. The following meta variable is set in a page file:
 
 	...
 	subnavigation = false
@@ -193,21 +195,21 @@ Important is when you nest conditions add an minus for each level of nesting bef
 
 	...
 	[?($meta(condition1)))]
-		...
-	[?:]
 		[-?($meta(condition2)))]
-			...
-		[-?:]
+			[--?($meta(condition3)))]
+				...
+			[/--?]
+		[/-?]
 	[/?]
 	...
 
 ## Dynamic Points
 
-To this point hanya has a static routing where request will be mapped to its physical files. To get more dynamicness _Dynamic Points_ will break that pattern and give you a handy function to create dynamic urls. You will need this functionalty only with the _Definition System_ but i will explain it first. Issue the following url pattern:
+To this point hanya has a static routing where request will be mapped to its physical files. To get more dynamicness dynamic points will break that pattern and give you a handy function to create dynamic urls. You will need this functionalty only with the definitions but i will explain it first. Issue the following url pattern:
 
-	http://www.domain.com/news/a-nice-looking-slug-for-my-news
+	http://www.domain.com/news/a-nice-looking-slug-for-my-news => http://www.domain.com/news(/:slug)
 	
-The simplest way ist to create a _tree/news/a-nice-looking-slug-for-my-news.html_ file with the content for your news. But i will be more cool to have the news stored in a DB to push them into a template an render it. The best way is to tell Hanya your dynamic url patterns as dynamic points. Add the following statements to the _index.php_ above the `Hanya::run(...` statement:
+The simplest way is to create a _tree/news/a-nice-looking-slug-for-my-news.html_ file with the content for your news. But i will be more cool to have the news stored in a DB to push them into a template an render it. The best way is to tell hanya your dynamic url patterns as dynamic points. Add the following statements to the _index.php_ above the `hanya::run(...` statement:
 
 	Hanya::dynamic_point("news","(/<slug>)");
 	
@@ -215,17 +217,17 @@ This statement tells hanya to search for _news_ (first argument) at the beginnin
 
 	<p>You requested the news: $dynamic(slug)</p>
 	
-Use this variable in combination with the _Definition System_.
+Use this variable in combination with definitions.
 
 You can also add more difficult patterns:
 
 	Hanya::dynamic_point("company/news","(/<category>(/<slug>(/<part>)))");
 
-Hanya renders the page of the first argument even if there is no remaining url. The default vaule all variables will be _NULL_.
+hanya renders the page of the first argument even if there is no remaining url. The default vaule of all variables will be _NULL_.
 
 ## Definitions
 
-The _Definition System_ is the greates part of the whole Hanya story it let you create models (definitions) of objects which can loaded and rendered in your pages. The best thing is that all content can be edited by your customer in the page itself. The only thing you have to carry about is your definition, the rest will be handled by Hanya.
+The definition system is the greatest part of the whole hanya story it let you create models (definitions) of objects which can loaded and rendered in your pages. The best thing is that all content can be edited by your customer in the page itself. The only thing you have to carry about is your definition class, the rest will be handled by hanya.
 
 ### Basics
 
@@ -244,7 +246,7 @@ Create _user/definitions/news.php_ with the following content:
 
 	}
 	
-This class explains your definitions blueprint to Hanya. On the next request Hanya will create a table with fields to store the data. Now we want to render a list of news in our _tree/news.html_:
+This class explains your definitions blueprint to hanya. On the next request hanya will automatically create a table with fields to store the data. Now we want to render a list of news in our _tree/news.html_:
 
 	<h1>Actual News</h1>
 	[news()]
@@ -254,7 +256,7 @@ This class explains your definitions blueprint to Hanya. On the next request Han
 	[/news]
 	{new(news)}
 
-The defined partial will be render for each item in your news table and creates a list of your news with a link to its item. The `{new(news)}` tag will render a button which will be render in "page editing" mode to let the user create a new news object. The admin functionalities will be covered later in this documentation.
+The defined partial will be render for each item in your news table and creates a list of your news with a link to its item. The `{new(news)}` tag will render a button which will appear in "page editing" mode to let the user create a new news object. The admin functionalities will be covered later in this documentation.
 
 ### Overloading
 
@@ -276,7 +278,7 @@ If we pass the argument _item-by-slug_ and the slug we get our item, else all it
 
 ### All in One
 
-The rendering of a news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we use a condition to check for the `$new(slug)` variables availability. We extend the example from above with this code:
+The rendering of a news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we use a condition to check for the `$news(slug)` variable availability. We extend the example from above by that code:
 
 	[?($news(slug))]
 		[news(item-by-slug|$news(slug))]
@@ -293,11 +295,13 @@ The rendering of a news item is also set in the _tree/news.html_ page file. So w
 		{new(news)}
 	[/?]
 	
-The condition will check our _slug_ variable and if it exists it will render the first part of the loop. If the variable is null the other part gets renderd.
+The condition will check our _slug_ variable and if it exists it will render the first part of the condition. If the variable is null the other part gets rendered.
+
+Now you see how easy it is to create simple definitions of content, and give your html sites little bit dynamicness.
 
 ### Field Types
 
-Use this field types to make your definitions fancy:
+Use this field types to make your definitions more exclusive:
 
 	"string" => array("as"=>"string")
 	"text" => array("as"=>"text")
@@ -311,7 +315,7 @@ Use this field types to make your definitions fancy:
 	"reference" => array("as"=>"reference","definition"=>"my-definition","field"=>"value")
 	"file" => array("as"=>"file","folder"=>".","blank"=>true,"upload"=>true) // will add a name_path magic variable too
 	
-If you add, remove or alter fields in the blueprint, Hanya will not push the changes to the table at this time. You have to delete the table or edit it with your favorite SQLite or mySQL Utility.
+If you add, remove or alter fields in the blueprint, hanya will not push the changes to the table at this time. You have to delete the table or edit it with your favorite SQLite or mySQL Utility.
 	
 ### Ordering
 
@@ -321,7 +325,7 @@ All definitions have a _ordering_ field as default to let the user order them wi
 	
 As default the ordering will treat all items if a table in a group. If you have as example news in categories and you want a ordering structure for each category. So you need to set the _groups_ variable:
 
-	public $groups = array("category");
+	public $groups = array("category"); // multiple groups are possible
 	
 ### Advanced Overloading
 
@@ -355,7 +359,7 @@ You can pass arguments to the create function by adding them to the _new_ tag:
 	
 ### Events
 
-To make your definitions more complex you can use the events methods to add more logic to your definitions:
+To make your definitions more complex you can overload the events methods to add more logic to your definitions:
 
 	public function before_create($entry) {
 		$entry->field = "override value";
@@ -390,11 +394,13 @@ There are some more options you can set in your _definition_ class:
 	
 ### Translation
 
-By creating your first definition you will see that you have to create your own translation files for field labels and buttons in the admin interface. Check the Translation section for moren information.
+By creating your first definition you will see that you have to create your own translation files for field labels and buttons in the admin interface. Check the Translation section for more information.
 
 ## Mailing
 
-Hanya has a integrated mailing system. You can easiy create contact or ordering forms in html and create a template for the email. You have to specify your forms in the _index.php_:
+Hanya has an integrated mailing system. You can easiy create contact or ordering forms in html and create a template for the email.
+
+First you have to specify your forms in the _index.php_:
 
 	mail.sender = "hanya@example.com",
 	mail.forms = array(
@@ -424,26 +430,74 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 ## Admin Toolbar
 
+...
+
 ### Show & Edit
+
+...
 
 ### Filemanager
 
+...
+
 ### Sourceeditor
+
+...
 
 ### Database Manager
 
+...
+
 ### Updater
+
+...
 
 ## Translations
 
-* System Translation
-* Definition Translation
+Translation files reside in two directories. The shipped system translations resides in _system/i18n_ while you can add your own translations to _user/i18n_.
+
+If you want to translate the system messages into another language copy _system/i18n/system.en.ini_ as example to _user/i18n/system.es.ini_ for spanish. Then you can translate the messages to your language:
+
+	; Hanya User Language File (ES)
+
+	[admin]
+	login = "Login"
+	username = "Nombre de usario"
+	password = "El password"
+	logout = "Logout"
+	edit = "Editar página"
+	...
+
+When you create definitions you have to provide messages for the active language. Create a new translation file _user/i18n/definition.en.ini_:
+
+	; User Definition File [EN]
+
+	[example]
+	new_entry = "New Example"
+	edit_entry = "Edit Example"
+	field_string = "String"
+	field_text = "Text"
+	field_html = "HTML"
+	field_textile = "Textile"
+	field_boolean = "Boolean"
+	field_boolean_true = "True"
+	field_boolean_false = "False"
+	field_number = "Number"
+	field_time = "Time"
+	field_date = "Date"
+	field_selection = "Selection"
+	field_reference = "Reference"
+	field_file = "File"
+	
+If hanya don't find a translation for a message i will print a key like _de.definition.example.field_text_.
+
+Notice that hanya will first load all system translation files and then merge it with your user files. So you can override system messages in your user files.
 
 ## Extending the System
 
 ### Tags
 
-Adding your own tags to the System is verry simple. Create a file _user/tags/mytag.php_ and programm your logic:
+Adding your own tags to the system is verry simple. Create a file _user/tags/mytag.php_ and programm your logic:
 
 	class Mytag_Tag {
 
@@ -461,7 +515,7 @@ Check the system tags in _system/tags_ for inspiration for your own tags.
 
 ### Plugins
 
-Writing your own plugin is also simple as writing your own tag. Create a file _user/plugins/example.php_:
+Writing your own plugin is also simple as writing your own tag. Create a file _user/plugins/example.php_ with:
 
 	class Example_Plugin extends Plugin {
 		
@@ -483,13 +537,13 @@ Writing your own plugin is also simple as writing your own tag. Create a file _u
 
 	}
 	
-Check the _system/lib_ directory to get familiar with the Hanya API and check _system/plugins_ for examples of the system plugins. You can also create views like the most of the system plugins use it.
+Check the _system/lib_ directory to get familiar with the hanya API and check _system/plugins_ for examples of the system plugins. You can also create views like the most of the system plugins use it.
 
 ## Constants
 
-For benchmaring there are two constants which you can use:
+For benchmarking there are two constants which you can use:
 
-	<p> Generation Time: #{HANYA_GENERATION_TIME} - Memory Peak: #{HANYA_MEMORY_PEAK}</p>
+	<p>#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}</p>
 	
 ## Wishlist
 
@@ -511,6 +565,7 @@ For benchmaring there are two constants which you can use:
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
 * Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
+* jQuery (...)
 
 ##License
 
