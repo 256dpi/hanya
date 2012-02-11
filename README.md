@@ -215,7 +215,7 @@ The simplest way is to create a _tree/news/a-nice-looking-slug-for-my-news.html_
 	
 This statement tells hanya to search for _news_ (first argument) at the beginning of your url and use the remainig url after the _/_ as a variable (second argument). The request will be automatically mapped to the _tree/news.html_ (first argument). In this file you get a new magical variable for the slug:
 
-	<p>You requested the news: $dynamic(slug)</p>
+	<p>You requested the news: $request(slug)</p>
 	
 Use this variable in combination with definitions.
 
@@ -263,7 +263,7 @@ The defined partial will be render for each item in your news table and creates 
 To render our news item in the page we need to overload the _load_ method of the definition to load only one item by a slug:
 
 	public function load($definition,$arguments) {
-		if(count($arguments == 2 && $arguments[0] == "item-by-slug")) {
+		if(count($arguments) == 2 && $arguments[0] == "item-by-slug") {
 			// Return Item
 			$table = ORM::for_table($definition)->where("slug",$arguments[1]);
 			return Helper::each_as_array($table->find_many());
@@ -280,8 +280,8 @@ If we pass the argument _item-by-slug_ and the slug we get our item, else all it
 
 The rendering of a news item is also set in the _tree/news.html_ page file. So we need to check if there is an slug added to the url to view the item or when not view the news list. To cover this issue we use a condition to check for the `$news(slug)` variable availability. We extend the example from above by that code:
 
-	[?($news(slug))]
-		[news(item-by-slug|$news(slug))]
+	[?($request(slug))]
+		[news(item-by-slug|$request(slug))]
 			<h1>$news(title)</h1>
 			$news(full)
 		[/news]
@@ -432,15 +432,31 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 Hanya has no standard backend like the big CMS systems. Hanya tries to integrate all the administratives tasks into your site with an admin toolbar.
 
-To get the toolbar you have to login into the system. Enter your credentials defined in the _index.php_.
+Hover over the left top edge to get the hidden link to the login form:
 
 ![Sample page with login button](http://public.256dpi.ch/github/hanya/doc1.png)
 
+To get the toolbar you have to login into the system. Enter your credentials defined in the _index.php_:
+
+![Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
+
 After the login is accepted you will get this admin toolbar if you included the `{toolbar()}` tag in your layout or page:
 
-Format: ![Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
+![Sample page with hanya toolbar](http://public.256dpi.ch/github/hanya/doc3.png)
 
 ### Show & Edit
+
+With the first button in the toolbar you can switch between edit and show mode. In edit mode every editable definition gets surrounded by a grey line. If you hover over this container you get controls to edit, order up, order down or remove the definition (if destroyable). Here you will see the `{html(id)}` tag in action which is also a definition:
+
+![Editable definition](http://public.256dpi.ch/github/hanya/doc4.png)
+
+When you click the edit button you get a form with all your fields: (only one for the html definition)
+
+![HTML definition form](http://public.256dpi.ch/github/hanya/doc5.png)
+
+The news definition from the example above will look like this:
+
+
 
 ...
 
