@@ -456,8 +456,6 @@ When you click the edit button you get a form with all your fields: (only one fo
 
 The news definition from the example above will look like this:
 
-
-
 ...
 
 ### Filemanager
