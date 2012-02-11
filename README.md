@@ -489,19 +489,29 @@ The Form will look like this: (i removed the translation to show you the transla
 
 ### Filemanager
 
-...
+The Filemanager allow you to manage the files uploaded to the _uploads_ directory. You can remove files, create folders and upload new files:
+
+![The Filemanager](http://public.256dpi.ch/github/hanya/doc8.png)
 
 ### Sourceeditor
 
-...
+To edit your _tree_ and _elements_ online use the builtin sourceeditor. You have to set the permitions to _0777_ for the _tree_ and _elements_ direcotry and its existing contents.
+
+![The Sourceeditor](http://public.256dpi.ch/github/hanya/doc9.png)
 
 ### Database Manager
 
-...
+Check your tables and empty them with the Database Manager:
+
+![The Database Manager](http://public.256dpi.ch/github/hanya/doc10.png)
 
 ### Updater
 
-...
+Hanya has a simple integrated update system. The update system is linked to the github repository. Hanya has no version, so you can update your installation to every commit made to the repository. Click on the Update tab to check for updates:
+
+![The Database Manager](http://public.256dpi.ch/github/hanya/doc10.png)
+
+Review the updates first to get noties about big changes.
 
 ## Translations
 
