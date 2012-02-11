@@ -430,7 +430,15 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 ## Admin Toolbar
 
-...
+Hanya has no standard backend like the big CMS systems. Hanya tries to integrate all the administratives tasks into your site with an admin toolbar.
+
+To get the toolbar you have to login into the system. Enter your credentials defined in the _index.php_.
+
+[Sample page with login button](http://public.256dpi.ch/github/hanya/doc1.png)
+
+After the login is accepted you will get this admin toolbar if you included the `{toolbar()}` tag in your layout or page:
+
+[Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
 
 ### Show & Edit
 
@@ -565,7 +573,7 @@ For benchmarking there are two constants which you can use:
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
 * Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
-* jQuery (...)
+* jQuery JavaScript Library v1.6.2 (http://jquery.com/)
 
 ##License
 
