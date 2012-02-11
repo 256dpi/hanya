@@ -434,11 +434,11 @@ Hanya has no standard backend like the big CMS systems. Hanya tries to integrate
 
 To get the toolbar you have to login into the system. Enter your credentials defined in the _index.php_.
 
-[Sample page with login button](http://public.256dpi.ch/github/hanya/doc1.png)
+![Sample page with login button](http://public.256dpi.ch/github/hanya/doc1.png)
 
 After the login is accepted you will get this admin toolbar if you included the `{toolbar()}` tag in your layout or page:
 
-[Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
+Format: ![Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
 
 ### Show & Edit
 
