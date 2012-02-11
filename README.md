@@ -299,6 +299,25 @@ The condition will check our _slug_ variable and if it exists it will render the
 
 Now you see how easy it is to create simple definitions of content, and give your html sites little bit dynamicness.
 
+### Nesting
+
+You can nest definition blocks to follow references. Consider a _category_ definition which has many _news_. Don't forget to add a _reference_ field to the _news_ definition:
+
+	...
+	<h1>Actual news by category</h1>
+	[category()]
+		<h2>$category(name)</h2>
+		<ul>
+			[news(in-category-by-slug|$category(slug))]
+				<li><a href="{link(news/$category(slug)/$news(slug))}">$news(title)</a></li>
+			[/news]
+		</ul>
+	[/category]
+	{new(news)}
+	...
+	
+To setup this situation you have to create _category_ definition with a _name_ and _slug_ field. Add to the _news_ definition a _reference_ field and overload the load function to load news by a category slug. Use conditions to check the url for a category slug an then again for news slug. If not provided view a list of category, news in a category or the news item.
+
 ### Field Types
 
 Use this field types to make your definitions more exclusive:
@@ -392,6 +411,12 @@ There are some more options you can set in your _definition_ class:
 		"validation" => array(), // validation is not supported at the moment
 	);
 	
+If you want to prohibit edition of a definition for a block only, add a exclamation mark before the definition name:
+
+	...
+	[!news()]
+	...
+	
 ### Translation
 
 By creating your first definition you will see that you have to create your own translation files for field labels and buttons in the admin interface. Check the Translation section for more information.
@@ -456,7 +481,11 @@ When you click the edit button you get a form with all your fields: (only one fo
 
 The news definition from the example above will look like this:
 
-...
+![News definition example in edit mode](http://public.256dpi.ch/github/hanya/doc6.png)
+
+The Form will look like this: (i removed the translation to show you the translation-less output with keys)
+
+![News definition example form](http://public.256dpi.ch/github/hanya/doc7.png)
 
 ### Filemanager
 
