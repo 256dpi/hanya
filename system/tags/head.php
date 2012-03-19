@@ -15,7 +15,10 @@ class Head_Tag {
 		$html = '<base href="'.Registry::get("base.url").'" />';
 		
 		// Stylesheets
-		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css"));
+		if(Memory::get("logged_in")) {
+		  $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css"));
+		}
+		
 		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/hanya.css"));
 		
 		// Load jQuery and Hanya JS
