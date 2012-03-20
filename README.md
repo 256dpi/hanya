@@ -161,6 +161,8 @@ The `{head()}` tag also renders `<base path="">` with the url to the working dir
 
 * `{if(a|b|true|false)}` compares the first two arguments. If the comparison is true the third argument will be rendered otherwise the fourth argument or nothing.
 
+* `{system(command)}` will execute pre defined system commands.
+
 ### Dynamic Tags
 
 * `{html(id)}` loads editable html markup from the database.
@@ -450,6 +452,15 @@ Create your mail template _elements/mails/contact.html_:
 	<h1>Contact Request from <strong>$mail(name)</strong></h1>
 	<h2>Subject: $mail(subject)</h2>
 	<p>$mail(message)</p>
+	
+To inform the user if the mail has been submitted use:
+
+	[?($system(mail-sent))]
+		<p class="info">You'r mail has been sent to our helpdesk!</p>
+		{system(reset-mail-sent)}
+	[/?]
+	
+Remove the `{system(reset-mail-sent)}` if you want to print the information more than once.
 	
 I think if you read the previous sections, you will understand the exmaples. ;)
 
