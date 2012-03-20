@@ -619,6 +619,8 @@ For benchmarking there are two constants which you can use:
 	
 ## Wishlist
 
+* ! Check full system structure for write permissions before update
+* ! refactor admin interface (html5, css3)
 * PHP 5.2 Support (ini string parse problem)
 * Multi language support
 * jQuery time- and datepicker for time and date fields in manager
@@ -637,7 +639,7 @@ For benchmarking there are two constants which you can use:
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
 * Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
-* jQuery JavaScript Library v1.6.2 (http://jquery.com/)
+* jQuery JavaScript Library (http://jquery.com/)
 
 ##License
 
