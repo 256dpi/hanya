@@ -98,7 +98,7 @@ Currently there are no roles for users, so it will be enough to create one user.
 
 If you want to run the system in debug mode issue this configuration:
 
-	"system.debug" => false
+	"system.debug" => true
 	
 Hanya will create not existing tables automatically if they are needed. You can disable this behavior:
 
@@ -427,8 +427,8 @@ Hanya has an integrated mailing system. You can easiy create contact or ordering
 
 First you have to specify your forms in the _index.php_:
 
-	mail.sender = "hanya@example.com",
-	mail.forms = array(
+	"mail.sender" => "hanya@example.com",
+	"mail.forms" => array(
 		"contact" => array("reciever"=>"mail@example.com","subject"=>"The Subject")
 	)
 	
