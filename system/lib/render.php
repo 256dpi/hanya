@@ -65,6 +65,9 @@ class Render {
 		// Process "request" Variables
 		$output = self::process_variables("request",Registry::get("request.variables"),$output);
 		
+		// Process "system" Variables
+		$output = self::process_variables("system",array("mail-sent"=>Memory::get("mail.sent")),$output);
+		
 		// Process Definitions
 		$output = self::_process_definitions($output);
 		
