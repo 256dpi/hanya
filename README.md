@@ -135,7 +135,7 @@ There is a bunch of other system tags:
 
 ### Basic Tags
 
-* `{head()}` will render the system css and javascript includes.
+* `{head()}` will render the system css and javascript includes. A reset CSS is automatically incluced. If you are more in love with the normalize.css, issue `{head(normalize)}`.
 
 * `{toolbar()}` will output the hanya login button or if logged in the hanya admin toolbar.
 

@@ -17,8 +17,15 @@ class Head_Tag {
 		// Stylesheets
 		if(Memory::get("logged_in")) {
 		  $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css"));
+		} else {
+		  switch($attributes[0]) {
+		    case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css"));
+		    default:
+		    case "reset": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
+		  }
 		}
 		
+		// System CSS
 		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/hanya.css"));
 		
 		// Load jQuery and Hanya JS
