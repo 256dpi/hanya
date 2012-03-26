@@ -15,14 +15,10 @@ class Head_Tag {
 		$html = '<base href="'.Registry::get("base.url").'" />';
 		
 		// Stylesheets
-		if(Memory::get("logged_in")) {
-		  $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css"));
-		} else {
-		  switch($attributes[0]) {
-		    case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css"));
-		    default:
-		    case "reset": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
-		  }
+	  switch($attributes[0]) {
+		  case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css")); break;
+		  default:
+		  case "reset": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
 		}
 		
 		// System CSS
