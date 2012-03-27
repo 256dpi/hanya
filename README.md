@@ -151,6 +151,8 @@ The `{head()}` tag also renders `<base path="">` with the url to the working dir
 
 * `{upload(path)}` will return the relative path to an upload.
 
+* `{less(path)}` will return the command querry to preprocess a less stylsheet. (Use like `{asset(...)}`)
+
 ### Helper Tags
 
 * `{attach(block|mode|(path/html))}` lets you add html markup or load a file into an block, which can be render later with the block tag. To append html markup to an block use: `{attach(block(my-block|html|<p>some html markup</p>))}`. If you want to append the content of a partial use: `{attach(my-block|file|my-partial)}`. This will append the content of _elements/partials/my-partial.html_.
@@ -621,6 +623,7 @@ For benchmarking there are two constants which you can use:
 
 * ! Check full system structure for write permissions before update
 * ! refactor admin interface (html5, css3)
+* Allow extension for json or xml tree files?
 * PHP 5.2 Support (ini string parse problem)
 * Multi language support
 * jQuery time- and datepicker for time and date fields in manager

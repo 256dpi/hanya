@@ -17,8 +17,8 @@ class Head_Tag {
 		// Stylesheets
 	  switch($attributes[0]) {
 		  case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css")); break;
-		  default:
-		  case "reset": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
+		  case "reset":
+		  default: $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
 		}
 		
 		// System CSS

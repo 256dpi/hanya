@@ -180,15 +180,22 @@ class Hanya {
 			Registry::set("request.referer",Registry::get("base.url"));
 		}
 		
+		// Set Language Settings
+		I18n::initialize(Registry::get("i18n.languages"));
+		
+		// Get Modigied
+		if(isset($_SERVER["HTTP_IF_MODIFIED_SINCE"])) {
+		  Registry::set("request.if_modified_since",strtotime($_SERVER["HTTP_IF_MODIFIED_SINCE"]));
+		} else {
+		  Registry::set("request.if_modified_since",false);
+		}
+		
 		// Set Request Path & Remove Leading Slash
 		$path = Request::path();
 		if(substr($path,0,1) == "/") {
 			$path = substr($path,1);
 		}
 		Registry::set("request.path",$path);
-		
-		// Set Language Settings
-		I18n::initialize(Registry::get("i18n.languages"));
 		
 		// Configure Database
 		ORM::configure(Registry::get("db.location"));
