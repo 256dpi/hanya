@@ -640,9 +640,10 @@ For benchmarking there are two constants which you can use:
 
 * ORM Class idiorm by j4mie (http://github.com/j4mie/idiorm/)
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
-* Filetype Icons by teambox (https://github.com/teambox/Free-file-icons/tree/master/16px)
+* Filetype Icons by teambox (https://github.com/teambox/Free-file-icons)
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
 * jQuery JavaScript Library (http://jquery.com/)
+* Less Compiler (https://github.com/leafo/lessphp)
 
 ##License
 
