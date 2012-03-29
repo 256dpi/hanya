@@ -2,46 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hanya: <?=I18n::_("system.filemanager.title")?></title>
+    <title><?=I18n::_("system.filemanager.title")?></title>
 		{head()}
-		<link rel="stylesheet" href="assets/system/stylesheets/hanya.admin.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="{less(system/stylesheets/hanya.backend.less)}" type="text/css" media="screen">
 		<style type="text/css" media="screen">
 		
-			.wrapper .hint {
-				margin-top: 10px;
-				color: #888;
-			}
-		
-			#navigator {
-				background-color: white;
-				padding: 15px 20px;
-				border: 1px solid #ddd;
-			}
-
-			#navigator ul ul li {
-				padding-left: 10px;
-			}
-
-			#navigator li a {
-				display: block;
-				background: url(assets/system/images/directory-closed.png) 0 center no-repeat;
-				padding: 3px;
-				padding-left: 20px;
-				vertical-align: middle;
-			}
-
-			#navigator li#open > a {
-				background-image: url(assets/system/images/directory-open.png	);
-				font-weight: bold;
-			}
-
-			#navigator a {
-				margin: 5px 0;
-				height: 16px;
-				color: inherit;
-				text-decoration: none;
-				font-weight: inherit;
-			}
+			/*
 
 			#files {
 				border: 1px solid #ddd;
@@ -138,26 +104,33 @@
 				padding: 6px;
 			}
 			
-			#upload-file input {
-			}
+			*/
 			
 		</style>
 		<script type="text/javascript" charset="utf-8">
-			
+		
 			// On Startup
 			$(document).ready(function(){
 				
-				// Delete Content of Inoput on Focus
-				$("#create-directory input").focus(function(){
-					$(this).val("");
+				// Navigator Interactivity
+				$(".filetree li span").click(function(){
+					window.location = "?command=filemanager&directory="+$(this).data("path");
 				});
 				
-				// Rever to Normal on Blur
-				$("#create-directory input").blur(function(){
-					if($(this).val() == "") {
-						$(this).val('<?=I18n::_("system.filemanager.new_directory")?>');
-					}
-				});
+				// Resize Event
+				$(window).resize(doResize);
+				doResize();
+				
+			});
+			
+			// Resize Handler
+			function doResize() {
+				$(".sidebar, .container-sided").height(0);
+				$(".sidebar, .container-sided").height($(document).height()-$(".hanya-toolbar").outerHeight()-$("#hanya-admin h1").outerHeight());
+			}
+			
+			// On Startup
+			/*$(document).ready(function(){
 				
 				// Add Click Handler
 				$("#files tr").click(function(){
@@ -194,64 +167,61 @@
 				if(confirm('<?=I18n::_("system.filemanager.remove_directory")?>')) {
 					window.location = dir;
 				}
-			}
+			}*/
 			
 		</script>
   </head>
   <body id="hanya-admin">
-		<div class="hanya-toolbar" >
-			<div class="hanya-toolbar-left" >
-				<?=HTML::anchor(".",I18n::_("system.admin.back_to_site"))?>
+		{toolbar()}
+		<h1>
+			<span class="title"><?=I18n::_("system.filemanager.title")?></span>
+		</h1>
+		<div class="sidebar">
+			<h2><?=I18n::_("system.filemanager.uploads")?></h2>
+			<div class="filetree">
+				<?=Filemanager_Plugin::tree($current_directory)?>
 			</div>
 		</div>
-		<h1><?=I18n::_("system.filemanager.title")?> (<?=$current_directory?>)</h1>
-		<div class="wrapper">
-			<div class="w1">
-				<div id="navigator">
-					<?=Filemanager_Plugin::directorys($current_directory)?>
-				</div>
+		<div class="container-sided">
+			<!--div id="files">
+				<? if(count($content["."])): ?>
+					<table>
+						<? foreach($content["."] as $file) : ?>
+							<tr data-item="<?=$current_directory."/".$file?>">
+								<td width="1"><?=HTML::image(Url::_("assets/system/images/filetypes/".Disk::extension($file).".png"))?></td>
+								<td><span class="directory"><?=$current_directory?>/</span><?=$file?></td>
+								<td class="right"><?=Disk::filesize($current_directory."/".$file)?></td>
+								<td width="1"><img class="delete" src="assets/system/images/cross.png" /></td>
+							</tr>
+						<? endforeach; ?>
+					</table>
+				<? else: ?>
+					<p><?=I18n::_("system.filemanager.empty_directory")?> / <?=HTML::button(I18n::_("system.filemanager.delete_directory"),"deleteDirectory('".URL::_("?command=filemanager_delete_directory&directory=".$current_directory)."')")?></a></p>
+				<? endif; ?>
 			</div>
-			<div class="w2">
-				<div id="files">
-					<? if(count($content["."])): ?>
-						<table>
-							<? foreach($content["."] as $file) : ?>
-								<tr data-item="<?=$current_directory."/".$file?>">
-									<td width="1"><?=HTML::image(Url::_("assets/system/images/filetypes/".Disk::extension($file).".png"))?></td>
-									<td><span class="directory"><?=$current_directory?>/</span><?=$file?></td>
-									<td class="right"><?=Disk::filesize($current_directory."/".$file)?></td>
-									<td width="1"><img class="delete" src="assets/system/images/cross.png" /></td>
-								</tr>
-							<? endforeach; ?>
-						</table>
-					<? else: ?>
-						<p><?=I18n::_("system.filemanager.empty_directory")?> / <?=HTML::button(I18n::_("system.filemanager.delete_directory"),"deleteDirectory('".URL::_("?command=filemanager_delete_directory&directory=".$current_directory)."')")?></a></p>
-					<? endif; ?>
-				</div>
-				<hr/>
-				<h2><?=I18n::_("system.filemanager.upload_file")?></h2>
-				<div id="upload-file">
-					<form action="<?=URL::_("?command=filemanager_upload_file")?>" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
-						<input type="file" name="new_file" />
-					</form>
-				</div>
-				<p class="hint"><?=I18n::_("system.filemanager.upload_file_hint")?></p>
-				<hr/>
-				<h2><?=I18n::_("system.filemanager.create_directory")?></h2>
-				<div id="create-directory">
-					<form action="<?=URL::_("?command=filemanager_create_directory")?>" method="post">
-						<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
-						<input type="text" name="new_directory" value="<?=I18n::_("system.filemanager.new_directory")?>" />
-					</form>
-				</div>
-				<p class="hint"><?=I18n::_("system.filemanager.create_directory_hint")?></p>
+			<hr/>
+			<h2><?=I18n::_("system.filemanager.upload_file")?></h2>
+			<div id="upload-file">
+				<form action="<?=URL::_("?command=filemanager_upload_file")?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
+					<input type="file" name="new_file" />
+				</form>
 			</div>
-			<div class="w1-last">
-				<div id="viewer">
-					<p><?=I18n::_("system.filemanager.no_file_selected")?></p>
-				</div>
+			<p class="hint"><?=I18n::_("system.filemanager.upload_file_hint")?></p>
+			<hr/>
+			<h2><?=I18n::_("system.filemanager.create_directory")?></h2>
+			<div id="create-directory">
+				<form action="<?=URL::_("?command=filemanager_create_directory")?>" method="post">
+					<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
+					<input type="text" name="new_directory" value="<?=I18n::_("system.filemanager.new_directory")?>" />
+				</form>
 			</div>
+			<p class="hint"><?=I18n::_("system.filemanager.create_directory_hint")?></p>
+		</div>
+		<div class="w1-last">
+			<div id="viewer">
+				<p><?=I18n::_("system.filemanager.no_file_selected")?></p>
+			</div-->
 		</div>
   </body>
 </html>

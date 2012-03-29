@@ -623,8 +623,8 @@ These Constants are used in the Hanya Admin Toolbar.
 	
 ## Wishlist
 
-* ! Use new GitHub API (v3)
-* ! Check full system structure for write permissions before update
+* ! Implent new Disk Class from struktur
+* ! Test Update Functionality
 * ! refactor admin interface (html5, css3)
 * More Database Interactions (use definitions configurations)
 * Allow extension for json or xml tree files?

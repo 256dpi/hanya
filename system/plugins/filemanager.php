@@ -27,6 +27,7 @@ class Filemanager_Plugin extends Plugin {
 		$content = Disk::read_directory($current_directory);
 		
 		// Render View
+		Registry::set("toolbar.alternate",true);
 		echo Render::file("system/views/filemanager/main.html",array("current_directory"=>$current_directory,"content"=>$content));
 		
 		// End
@@ -151,52 +152,37 @@ class Filemanager_Plugin extends Plugin {
 	
 	/* METHODS */
 	
-	// Render a List from a Directory
-	public static function directorys($current_directory) {
-		
-		// Return
-		$return = '<ul>';
-		$id = ($current_directory=="uploads")?"open":"";
-		$return .= '<li id="'.$id.'">'.HTML::anchor(Url::_("?command=filemanager&directory=uploads"),"uploads");
-		
-		// Get Directories
-		$return .= self::_level(Disk::read_directory("uploads"),"uploads",$current_directory);		
-		
-		// End
-		return $return."</li></ul>";
-		
+	// Display Tree
+	public static function tree($current_directory,$directory="uploads") {
+	  
+	  // Begin
+	  $return = "<ul>";
+	  $id = ($current_directory == $directory)?"open":"";
+	  $return .= '<li id="'.$id.'"class="directory-icon"><span class="entry" data-path="'.$directory.'">'.$directory.'</span>'.self::_tree($current_directory,$directory)."</li>";
+	  $return .= "</ul>";
+	  return $return;
+	  
 	}
 	
-	// Render a Level
-	private static function _level($array,$path,$current_directory) {
+	// Display Tree
+	protected static function _tree($current_directory,$directory="uploads") {
 		
-		// Check for Subdirectorys
-		if(count($array) > 1) {
+		// Get Data
+		$data = Disk::read_directory($directory);
 		
-			// Begin
-			$return = "<ul>";
-
-			// Get directorys
-			foreach($array as $directory => $files) {
-				if($directory != ".") {
-
-					// Add Current Directory
-					$id = ($current_directory==$path."/".$directory)?"open":"";
-					$return .= '<li id="'.$id.'">'.HTML::anchor(Url::_("?command=filemanager&directory=".$path."/".$directory),$directory);
-
-					// Add Subdirectories
-					$return .= self::_level($files,$path."/".$directory,$current_directory);
-				}
+		// Begin
+		$return = "<ul>";
+		
+		// Render Folders
+		foreach($data as $dir => $files) {
+			if($dir != ".") {
+			  $id = ($current_directory == $directory."/".$dir)?"open":"";
+				$return .= '<li id="'.$id.'"class="directory-icon"><span class="entry" data-path="'.$directory."/".$dir.'">'.$dir.'</span>'.self::_tree($current_directory,$directory."/".$dir)."</li>";
 			}
-
-			// End
-			return $return."</li></ul>";
-			
 		}
 		
 		// End
-		return "";
-		
+		return $return."</ul>";
 	}
 	
 }
