@@ -38,21 +38,15 @@ class Updater_Plugin extends Plugin {
 		exit;
 	}
 	
-	
-	
-	
-	
-	
-	
 	// Get Latest Changes
 	public static function on_updater_review() {
 		
 		// Get Data
-		$revision = self::_revision();
-		$data = json_decode(URL::load(Registry::get("system.review_url")));
+		$markdown = new Markdown();
+		$changelog = $markdown->transform(URL::load("https://raw.github.com/256dpi/hanya/master/CHANGELOG.md"));
 		
 		// Render View
-		echo render::file("system/views/updater/review.html",array("data"=>$data,"revision"=>$revision));
+		echo render::file("system/views/updater/review.html",compact("changelog"));
 		
 		// End
 		exit;

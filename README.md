@@ -649,7 +649,11 @@ These Constants are used in the Hanya Admin Toolbar.
 * jQuery JavaScript Library (http://jquery.com/)
 * Less Compiler (https://github.com/leafo/lessphp)
 
-##License
+## Notes
+
+Issue to `git push --tags` to create new tag version.
+
+## License
 
 Hanya is released under the MIT License
 

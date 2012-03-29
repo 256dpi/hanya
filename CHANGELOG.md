@@ -1,3 +1,3 @@
-# v0.1 - beta
+### 0.1
 
 * unstable version for testing purposes

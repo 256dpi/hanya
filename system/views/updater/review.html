@@ -1,10 +1,2 @@
 <h2><?=I18n::_("system.updater.latest_changes")?></h2>
-<ul>
-<? foreach($data->commits as $commit): ?>
-	<li>
-		<span><strong><?=$commit->message?></strong> (<?=$commit->committer->name?>:<?=substr($commit->id,0,7)?>)</span>
-		<? if(substr($commit->id,0,7) == $revision): ?>
-			<span style="color:green;">&larr; actual revision</span>
-		<? endif; ?>
-	</li>
-<? endforeach; ?>
+<?=$changelog?>
