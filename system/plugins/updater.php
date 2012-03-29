@@ -25,6 +25,9 @@ class Updater_Plugin extends Plugin {
 	
 	// Get Version
 	public static function on_updater_check() {
+	  
+		// Check Admin
+		self::_check_admin();
 		
 		// Get Versions
 		$local_version = self::_local_version();
@@ -40,13 +43,16 @@ class Updater_Plugin extends Plugin {
 	
 	// Get Latest Changes
 	public static function on_updater_review() {
+	  
+		// Check Admin
+		self::_check_admin();
 		
 		// Get Data
 		$markdown = new Markdown();
 		$changelog = $markdown->transform(URL::load("https://raw.github.com/256dpi/hanya/master/CHANGELOG.md"));
 		
 		// Render View
-		echo "<h2>".I18n::_("system.updater.changelog")."</h2>".$changelog;
+		echo HTML::header(2,I18n::_("system.updater.changelog")).$changelog;
 		
 		// End
 		exit;
@@ -58,10 +64,10 @@ class Updater_Plugin extends Plugin {
 		// Check Admin
 		self::_check_admin();
 				
-		// Get Data
-		$revision = self::_revision();
-		$remote_revision = self::_remote_revision();
-		$has_update = ($revision != $remote_revision);
+		// Get Versions
+		$local_version = self::_local_version();
+		$remote_version = self::_remote_version();
+		$has_update = ($local_version < $remote_version);
 		
 		// Has no Update?
 		if(!$has_update) {
@@ -70,12 +76,13 @@ class Updater_Plugin extends Plugin {
 		}
 			
 		// Info
-		echo HTML::paragraph(I18n::_("system.updater.load_update",array("url"=>Registry::get("system.update_url"))));
+		echo HTML::paragraph(I18n::_("system.updater.load_update",compact("remote_version")));
 		
 		// Load Actual Version
 		$tempfile = Disk::clean_path(sys_get_temp_dir()."/hanya_update.zip");
 		$tempdir = Disk::clean_path(sys_get_temp_dir()."/hanya_update/");
-		$data = Url::load(Registry::get("system.update_url"));
+		$tags = json_decode(Url::load("https://api.github.com/repos/256dpi/hanya/tags"));
+		$data = Url::load($tags[0]->zipball_url);
 		Disk::create_file($tempfile,$data);
 		
 		// Check Download
@@ -101,14 +108,9 @@ class Updater_Plugin extends Plugin {
 		$output = Disk::unzip($tempfile,$tempdir);
 		
 		// Get Revision
-		$update = "256dpi-Hanya-".$remote_revision;
-		echo HTML::paragraph(I18n::_("system.updater.install_revision",array("revision"=>$update)));
-		
-		// Check Revision
-		if(Disk::has_directory($update)) {
-			echo HTML::paragraph(I18n::_("system.updater.revision_not_found",array("error"=>$output)),array("class"=>"error"));
-			exit;
-		}
+		$update = Disk::get_all_directories(Disk::read_directory($tempdir));
+		$update = $update[0];
+		echo HTML::paragraph(I18n::_("system.updater.install_update",compact("update")));
 		
 		// Set Folders
 		$tmp_system_dir = $tempdir.$update."/system";
@@ -129,8 +131,8 @@ class Updater_Plugin extends Plugin {
 		Disk::copy($tmp_public_system_dir,$real_public_system_dir);
 		
 		// Write File
-		Disk::remove_file("user/system.revision");
-		Disk::create_file("user/system.revision",$remote_revision);
+		Disk::remove_file("user/system.version");
+		Disk::create_file("user/system.version",$remote_version);
 		
 		// Info
 		echo HTML::paragraph(I18n::_("system.updater.complete"));
@@ -142,30 +144,30 @@ class Updater_Plugin extends Plugin {
 	// Check Directory for Write Permission recursively
 	private static function _check_directory($dir) {
 		$error = false;
-		foreach(Disk::read_directory($dir) as $folder => $files) {
-			if($folder == ".") {
-				foreach($files as $file) {
-					if(!Disk::writeable($dir."/".$file)) {
-						echo HTML::paragraph(I18n::_("system.updater.set_permission",array("path"=>$dir."/".$file)),array("class"=>"error"));
-						$error = true;
-					}
-				}
-			} else {
-				if(!Disk::writeable($dir."/".$folder)) {
-					echo HTML::paragraph(I18n::_("system.updater.set_permission",array("path"=>$dir."/".$folder)),array("class"=>"error"));
-					$error = true;
-				}
-			}
+		if(!Disk::writeable($dir)) {
+			echo HTML::paragraph(I18n::_("system.updater.set_permission",array("path"=>$dir)),array("class"=>"error"));
+			$error = true;
+		} else {
+		  foreach(Disk::read_directory($dir) as $folder => $files) {
+  			if($folder == ".") {
+  				foreach($files as $file) {
+  					if(!Disk::writeable($dir."/".$file)) {
+  						echo HTML::paragraph(I18n::_("system.updater.set_permission",array("path"=>$dir."/".$file)),array("class"=>"error"));
+  						$error = true;
+  					}
+  				}
+  			} else {
+  				if(!Disk::writeable($dir."/".$folder)) {
+  					echo HTML::paragraph(I18n::_("system.updater.set_permission",array("path"=>$dir."/".$folder)),array("class"=>"error"));
+  					$error = true;
+  				}
+  			}
+  		}
 		}
 		if($error) {
 			exit;
 		}
 	}
-	
-	
-	
-	
-	
 	
 	// Get Installed version
 	private static function _local_version() {
