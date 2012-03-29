@@ -46,7 +46,7 @@ class Updater_Plugin extends Plugin {
 		$changelog = $markdown->transform(URL::load("https://raw.github.com/256dpi/hanya/master/CHANGELOG.md"));
 		
 		// Render View
-		echo render::file("system/views/updater/review.html",compact("changelog"));
+		echo "<h2>".I18n::_("system.updater.changelog")."</h2>".$changelog;
 		
 		// End
 		exit;
