@@ -10,9 +10,6 @@
 			// On Startup
 			$(document).ready(function(){
 				
-				// Get Version
-				$("#version").load("?command=updater_check");
-				
 				// Hide Output
 				$("#output, #output-title").hide();
 				
@@ -63,7 +60,16 @@
 			<div class="updater">
 				<h2><?=I18n::_("system.updater.check_for_version")?></h2>
 				<div id="version">
-					<p><?=I18n::_("system.updater.checking")?></p>
+					<? if($has_update): ?>
+						<p>
+							<span><?=I18n::_("system.updater.has_update",array("from_version"=>$local_version,"to_version"=>$remote_version))?></span>
+							<a href="javascript:update();"><?=I18n::_("system.updater.do_update")?></a> or
+							<a href="javascript:review();"><?=I18n::_("system.updater.do_review")?></a> - 
+							<a href="http://www.github.com/256dpi/Hanya" target="_blank"><?=I18n::_("system.updater.github")?></a>
+						</p>
+					<? else: ?>
+						<p><?=I18n::_("system.updater.no_update")?></p>
+					<? endif; ?>
 				</div>
 				<div id="output">
 					<p><?=I18n::_("system.updater.no_output")?></p>

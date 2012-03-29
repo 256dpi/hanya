@@ -15,27 +15,14 @@ class Updater_Plugin extends Plugin {
 		// Check Admin
 		self::_check_admin();
 		
-		// Render View
-		Registry::set("toolbar.alternate",true);
-		echo Render::file("system/views/updater/main.html",array());
-		
-		// End
-		exit;
-	}
-	
-	// Get Version
-	public static function on_updater_check() {
-	  
-		// Check Admin
-		self::_check_admin();
-		
 		// Get Versions
 		$local_version = self::_local_version();
 		$remote_version = self::_remote_version();
 		$has_update = ($local_version < $remote_version);
 		
 		// Render View
-		echo Render::file("system/views/updater/check.html",compact("local_version","remote_version","has_update"));
+		Registry::set("toolbar.alternate",true);
+		echo Render::file("system/views/updater/main.html",compact("local_version","remote_version","has_update"));
 		
 		// End
 		exit;
