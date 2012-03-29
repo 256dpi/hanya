@@ -7,6 +7,7 @@
 	position: fixed;
 	top: 0;
 	right: 0;
+	z-index: 1000;
 	text-align: right;
 }
 
@@ -25,10 +26,11 @@
   font-family: "Helvetica", Arial, sans-serif;
   font-size: 14px;
 	background-color: black;
-	padding: 10px 15px;
-	padding-top: 12px;
+	padding: 12px 15px;
+	padding-top: 13px;
 	color: white;
 	overflow: hidden;
+	height: 16px;
 }
 
 .hanya-toolbar a, .hanya-toolbar span {
@@ -40,7 +42,7 @@
 	text-decoration: none;
 }
 
-.hanya-toolbar .hanya-system-information {
+.hanya-toolbar .hanya-toolbar-info {
   color: #666;
 }
 
@@ -56,6 +58,10 @@
 
 .hanya-toolbar-right {
 	text-align: right;
+}
+
+.hanya-errorbar {
+  background-color: darkred;
 }
 
 /* INLINE OBJETS */

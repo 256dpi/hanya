@@ -29,8 +29,10 @@ class Head_Tag {
 		$html .= HTML::script(Url::_("assets/system/javascripts/hanya.js"));
 			
 		// Load jQuery Extensions
-		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"));		
-		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));		
+		if(Memory::get("edit_page") || Memory::get("logged_in")) {
+		  $html .= HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"));		
+  		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));
+		}
 		
 		// Return
 		return $html;

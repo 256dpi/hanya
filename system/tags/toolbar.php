@@ -20,7 +20,7 @@ class Toolbar_Tag {
 		// Check
 		if($error) {
 			
-			// Open Errors Bar
+			// Display Error
 			$html .= HTML::div(null,"hanya-errorbar","&rarr; ".$error);
 		}
 		
@@ -32,21 +32,28 @@ class Toolbar_Tag {
 			
 			// Left Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-left");
-			if(Memory::get("edit_page")) {
-				$html .= HTML::anchor(null,I18n::_("system.admin.show"),array("class"=>"hanya-has-command","data-command"=>"admin_show"));
+			$html .= HTML::span("Hanya",array("class"=>"hanya-toolbar-info"));
+			if(Registry::get("toolbar.alternate")) {
+			  $html .= HTML::anchor(Registry::get("base.url"),I18n::_("system.admin.back_to_site"));
+			} else if(Memory::get("edit_page")) {
+				$html .= HTML::anchor(Registry::get("base.url")."?command=admin_show",I18n::_("system.admin.show"));
 			} else {
-				$html .= HTML::anchor(null,I18n::_("system.admin.edit"),array("class"=>"hanya-has-command","data-command"=>"admin_edit"));
+				$html .= HTML::anchor(Registry::get("base.url")."?command=admin_edit",I18n::_("system.admin.edit"));
 			}
-			$html .= HTML::anchor(null,I18n::_("system.admin.filemanager"),array("class"=>"hanya-has-command","data-command"=>"filemanager"));
 			$html .= HTML::div_close();
 			
 			// Right Buttons
 			$html .= HTML::div_open(null,"hanya-toolbar-right");
-			$html .= HTML::span("#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}",array("class"=>"hanya-system-information"));
-			$html .= HTML::anchor(null,I18n::_("system.admin.database"),array("class"=>"hanya-has-command","data-command"=>"database"));
-			$html .= HTML::anchor(null,I18n::_("system.admin.editor"),array("class"=>"hanya-has-command","data-command"=>"editor"));
-			$html .= HTML::anchor(null,I18n::_("system.admin.update"),array("class"=>"hanya-has-command","data-command"=>"updater"));
-			$html .= HTML::anchor(null,I18n::_("system.admin.logout"),array("class"=>"hanya-has-command","data-command"=>"admin_logout"));
+			if(!Registry::get("toolbar.alternate")) {
+			  $html .= HTML::span("#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}",array("class"=>"hanya-toolbar-info"));
+			}
+			
+			// Commands
+			$html .= HTML::anchor(Registry::get("base.url")."?command=filemanager",I18n::_("system.admin.filemanager"));
+			$html .= HTML::anchor(Registry::get("base.url")."?command=database",I18n::_("system.admin.database"));
+			$html .= HTML::anchor(Registry::get("base.url")."?command=editor",I18n::_("system.admin.editor"));
+			$html .= HTML::anchor(Registry::get("base.url")."?command=updater",I18n::_("system.admin.update"));
+			$html .= HTML::anchor(Registry::get("base.url")."?command=admin_logout",I18n::_("system.admin.logout"));
 			$html .= HTML::div_close();
 			
 			// Close Toolbar
@@ -55,7 +62,7 @@ class Toolbar_Tag {
 		} else {
 			
 			// Add Login Link
-			$html .= HTML::div(null,"hanya-admin-login",HTML::anchor(null,HTML::span(I18n::_("system.admin.login_link")),array("onclick"=>"Hanya.login()")));
+			$html .= HTML::div(null,"hanya-admin-login",HTML::anchor(null,null,array("onclick"=>"Hanya.login()")));
 			
 		}
 		

@@ -16,11 +16,18 @@ class Updater_Plugin extends Plugin {
 		self::_check_admin();
 		
 		// Render View
+		Registry::set("toolbar.alternate",true);
 		echo Render::file("system/views/updater/main.html",array());
 		
 		// End
 		exit;
 	}
+	
+	
+	
+	
+	
+	
 	
 	// Get Version
 	public static function on_updater_check() {

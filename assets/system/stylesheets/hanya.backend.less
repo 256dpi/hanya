@@ -1,0 +1,165 @@
+/* MIXINS */
+
+.gradient(@from,@to) {
+  background: @from;
+  background: -moz-linear-gradient(@from, @to);
+  background: -webkit-gradient(linear, left top, left bottom, @from, @to);
+  background: -webkit-linear-gradient(top, @from, @to);
+  background: -o-linear-gradient(top, @from, @to);
+  background: -ms-linear-gradient(top, @from, @to);
+  background: linear-gradient(top, @from, @to);
+}
+
+/* STYLES */
+
+#hanya-admin {
+  min-width: 1000px;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
+  background-color: #eee;
+  .clear {
+    clear: both;
+  }
+  strong {
+    font-weight: bold;
+  }
+  h1 {
+    padding: 0 20px;
+    height: 64px;
+    .gradient(#fff,#ccc);
+    color: black;
+    border-bottom: 1px solid #999;
+    .title {
+      padding-top: 22px;
+      float: left;
+      font-size: 24px;
+      display: block;
+      font-weight: bold;
+      width: 25%;
+    }
+    .button {
+      margin-top: 18px;
+      display: inline-block;
+      .gradient(#fff,#ddd);
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      color: black;
+      font-size: 14px;
+      padding: 7px 15px;
+      padding-bottom: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #444;
+    }
+    .button.disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+  .sidebar {
+    float: left;
+    width: 25%;
+    background-color: #eee;
+    border-right: 1px solid #bbb;
+    overflow: scroll;
+    h2 {
+      padding: 25px;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #999;
+    }
+    .filetree {
+      padding: 0 25px;
+      ul {
+        li {
+          span.entry {
+            display: block;
+    				padding: 3px 0;
+    				padding-left: 21px;
+    				vertical-align: middle;
+    				margin: 5px 0;
+    				color: inherit;
+    				text-decoration: none;
+    				font-weight: inherit;
+          }
+          ul {
+            padding-left: 20px;
+          }
+        }
+        li:hover {
+          span.delete {
+            display: block;
+            height: 16px;
+            width: 16px;
+            background: url(assets/system/images/cross.png) no-repeat;
+            float: right;
+            cursor: pointer;
+          }
+          span.entry {
+            cursor: pointer;
+          }
+        }
+        li.directory-icon > span.entry {
+  				background: url(assets/system/images/directory-closed.png) 0 1px no-repeat;
+  			}
+  			li.file-icon > span.entry {
+  				background: url(assets/system/images/file.png) 0 1px no-repeat;
+  			}
+  			li.table-icon span.entry {
+  				background: url(assets/system/images/table.png) 0 1px no-repeat;
+  			}
+  			li#open span.entry {
+  				font-weight: bold;
+  			}
+      }
+    }
+  }
+  .container-sided, .table {
+    width: 75%;
+    background-color: white;
+    float: left;
+  }
+  .container {
+    width: 100%;
+    background-color: white;
+    .updater {
+      padding: 20px;
+      h2 {
+        font-size: 18px;
+        font-weight: bold;
+        padding-bottom: 10px;
+      }
+      #version {
+        padding-bottom: 20px;
+      }
+      #output {
+        ul {
+          list-style: disc;
+          padding-left: 30px;
+        }
+      }
+    }
+  }
+  .table {
+    overflow: scroll;
+    table {
+      width: 100%;
+      tr {
+        td {
+				  padding: 10px;
+				  border-top: 1px solid #ddd;
+				  border-right: 1px solid #eee;
+				}
+				th {
+				  padding: 10px;
+  				color: #666;
+  				border-bottom: 1px solid #ddd;
+  				text-align: left;
+  				background-color: #eee;
+  				border-right: 1px solid #ddd;
+				}
+			}
+    }
+  }
+}

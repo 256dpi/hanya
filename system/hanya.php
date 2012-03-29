@@ -146,8 +146,6 @@ class Hanya {
     	"db.user" => "",
     	"db.password" => "",
 			"system.automatic_db_setup" => true,
-			"system.update_url" => "https://github.com/256dpi/Hanya/zipball/master",
-			"system.review_url" => "https://github.com/api/v2/json/commits/list/256dpi/Hanya/master",
 			"meta.template" => "default",
 			"system.debug" => false,
 		));
@@ -196,6 +194,7 @@ class Hanya {
 			$path = substr($path,1);
 		}
 		Registry::set("request.path",$path);
+		Registry::set("request.url",Registry::get("base.url").$path);
 		
 		// Configure Database
 		ORM::configure(Registry::get("db.location"));

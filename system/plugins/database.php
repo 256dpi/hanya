@@ -32,6 +32,7 @@ class Database_Plugin extends Plugin {
 		}
 		
 		// Render View
+		Registry::set("toolbar.alternate",true);
 		echo Render::file("system/views/database/main.html",array("current_table"=>$current_table,"current_structure"=>$current_structure));
 		
 		// End
@@ -72,7 +73,8 @@ class Database_Plugin extends Plugin {
 		// Render Folders
 		foreach($tables as $table) {
 			if($table != "sqlite_sequence") {
-				$return .= '<li class="table"><span data-table="'.$table.'">'.$table."</span></li>";
+			  $id = ($current_table==$table)?"open":"";
+				$return .= '<li id="'.$id.'" class="table-icon"><span class="delete"></span><span class="entry" data-table="'.$table.'">'.$table.'</span></li>';
 			}
 		}
 		

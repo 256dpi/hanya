@@ -619,10 +619,14 @@ For benchmarking there are two constants which you can use:
 
 	<p>#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}</p>
 	
+These Constants are used in the Hanya Admin Toolbar.
+	
 ## Wishlist
 
+* ! Use new GitHub API (v3)
 * ! Check full system structure for write permissions before update
 * ! refactor admin interface (html5, css3)
+* More Database Interactions (use definitions configurations)
 * Allow extension for json or xml tree files?
 * PHP 5.2 Support (ini string parse problem)
 * Multi language support

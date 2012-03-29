@@ -13,7 +13,7 @@ class Less_Plugin extends Plugin {
 	public static function on_less() {
 	  
 	  // Get Param with Protection
-	  $file = str_replace("..","",$_GET["file"]);
+	  $file = str_replace("..","",Request::get("file"));
 	  
 	  // Check Existence
 	  if(!Disk::has_file($file)) {
@@ -34,7 +34,8 @@ class Less_Plugin extends Plugin {
 	  if(Registry::get("request.if_modified_since") && Registry::get("request.if_modified_since") >= $last_mod) {
 	    header("HTTP/1.1 304 Not Modified");
 	  } else {
-	    echo(Disk::read_file($file));
+	    $less = new Less();
+	    echo($less->parse(Disk::read_file($file)));
 	  }
 	  
 	  // Exit

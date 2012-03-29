@@ -2,26 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hanya: <?=I18n::_("system.updater.title")?></title>
+    <title><?=I18n::_("system.updater.title")?></title>
 		{head()}
-		<link rel="stylesheet" href="assets/system/stylesheets/hanya.admin.css" type="text/css" media="screen">
-		<style type="text/css" media="screen">
-		
-			#version, #output {
-				background-color: white;
-				border: 1px solid #ddd;
-				padding: 15px;
-			}
-			
-			#output p {
-				margin: 5px 0;
-			}
-			
-			p.error {
-				color: red;
-			}
-			
-		</style>
+		<link rel="stylesheet" href="{less(system/stylesheets/hanya.backend.less)}" type="text/css" media="screen">
 		<script type="text/javascript" charset="utf-8">
 			
 			// On Startup
@@ -33,7 +16,17 @@
 				// Hide Output
 				$("#output, #output-title").hide();
 				
+				// Resizee Event
+				$(window).resize(doResize);
+				doResize();
+
 			});
+
+			// Resize Handler
+			function doResize() {
+				$(".container").height(0);
+				$(".container").height($(document).height()-$(".hanya-toolbar").outerHeight()-$("#hanya-admin h1").outerHeight());
+			}
 			
 			// Perform Update
 			function update() {
@@ -62,20 +55,16 @@
 		</script>
   </head>
   <body id="hanya-admin">
-		<div class="hanya-toolbar" >
-			<div class="hanya-toolbar-left" >
-				<?=HTML::anchor(".",I18n::_("system.admin.back_to_site"))?>
-			</div>
-		</div>
-		<h1><?=I18n::_("system.updater.title")?></h1>
-		<div class="wrapper">
-			<div class="w4">
+		{toolbar()}
+		<h1>
+			<span class="title"><?=I18n::_("system.updater.title")?></span>
+		</h1>
+		<div class="container">
+			<div class="updater">
 				<h2><?=I18n::_("system.updater.check_for_version")?></h2>
 				<div id="version">
 					<p><?=I18n::_("system.updater.checking")?></p>
 				</div>
-				<hr/>
-				<h2 id="output-title"><?=I18n::_("system.updater.output")?></h2>
 				<div id="output">
 					<p><?=I18n::_("system.updater.no_output")?></p>
 				</div>

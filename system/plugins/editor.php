@@ -17,12 +17,12 @@ class Editor_Plugin extends Plugin {
 		
 		// Get Current File
 		$current_file = Request::get("file");
-		
 		if(!$current_file) {
 			$current_file = "tree/index.html";
 		}
 		
 		// Render View
+		Registry::set("toolbar.alternate",true);
 		echo Render::file("system/views/editor/main.html",array("current_file"=>$current_file));
 		
 		// End
@@ -74,14 +74,16 @@ class Editor_Plugin extends Plugin {
 		// Render Folders
 		foreach($data as $dir => $files) {
 			if($dir != ".") {
-				$return .= '<li class="directory"><span>'.$dir.'</span>'.self::tree($current_file,$directory."/".$dir)."</li>";
+				$return .= '<li class="directory-icon"><span class="entry">'.$dir.'</span>'.self::tree($current_file,$directory."/".$dir)."</li>";
 			}
 		}
 		
 		// Render Files
 		foreach($data["."] as $file) {
-			$id = ($current_file==$directory."/".$file)?"open":"";
-			$return .= '<li id="'.$id.'" class="file"><span data-path="'.$directory."/".$file.'">'.$file.'</span></li>';
+		  if(Disk::extension($file) != "sq3") {
+		    $id = ($current_file==$directory."/".$file)?"open":"";
+  			$return .= '<li id="'.$id.'" class="file-icon"><span class="entry" data-path="'.$directory."/".$file.'">'.$file.'</span></li>';
+		  }
 		}
 		
 		// End
