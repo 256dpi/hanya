@@ -23,26 +23,26 @@ class Updater_Plugin extends Plugin {
 		exit;
 	}
 	
-	
-	
-	
-	
-	
-	
 	// Get Version
 	public static function on_updater_check() {
 		
-		// Get Revisions
-		$revision = self::_revision();
-		$remote_revision = self::_remote_revision();
-		$has_update = ($revision != $remote_revision);
+		// Get Versions
+		$local_version = self::_local_version();
+		$remote_version = self::_remote_version();
+		$has_update = ($local_version < $remote_version);
 		
 		// Render View
-		echo Render::file("system/views/updater/check.html",array("revision"=>$revision,"remote_revision"=>$remote_revision,"has_update"=>$has_update));
+		echo Render::file("system/views/updater/check.html",compact("local_version","remote_version","has_update"));
 		
 		// End
 		exit;
 	}
+	
+	
+	
+	
+	
+	
 	
 	// Get Latest Changes
 	public static function on_updater_review() {
@@ -168,19 +168,24 @@ class Updater_Plugin extends Plugin {
 		}
 	}
 	
+	
+	
+	
+	
+	
 	// Get Installed version
-	private static function _revision() {
-		if(Disk::has_file("user/system.revision")) {
-			return Disk::read_file("user/system.revision");
+	private static function _local_version() {
+		if(Disk::has_file("user/system.version")) {
+			return Disk::read_file("user/system.version");
 		} else {
 			return "0";
 		}
 	}
 	
-	// Get Remote Revision
-	private static function _remote_revision() {
-		$data = json_decode(Url::load(Registry::get("system.review_url")));
-		return substr($data->commits[0]->id,0,7);
+	// Get Remote Version
+	private static function _remote_version() {
+		$data = json_decode(Url::load("https://api.github.com/repos/256dpi/hanya/tags"));
+		return substr($data[0]->name,1);
 	}
 	
 }
