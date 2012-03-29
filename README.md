@@ -520,11 +520,11 @@ Check your tables and empty them with the Database Manager:
 
 ### Updater
 
-Hanya has a simple integrated update system. The update system is linked to the github repository. Hanya has no version, so you can update your installation to every commit made to the repository. Click on the Update tab to check for updates:
+Hanya has a simple integrated update system. The update system is linked to the github repository. The different Hanya versions are managed as git tags. Click on the Update tab to check for updates:
 
 ![The Database Manager](http://public.256dpi.ch/github/hanya/doc10.png)
 
-Review the updates first to get noties about big changes.
+Review the updates first to get notices about big changes.
 
 ## Translations
 
