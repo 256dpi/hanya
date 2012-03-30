@@ -74,8 +74,7 @@ class Updater_Plugin extends Plugin {
 		// Load Actual Version
 		$tempfile = Disk::clean_path(sys_get_temp_dir()."/hanya_update.zip");
 		$tempdir = Disk::clean_path(sys_get_temp_dir()."/hanya_update/");
-		$tags = json_decode(Url::load("https://api.github.com/repos/256dpi/hanya/tags"));
-		$data = Url::load($tags[0]->zipball_url);
+		$data = Url::load(self::_newest_tag()->zipball_url);
 		Disk::create_file($tempfile,$data);
 		
 		// Check Download
@@ -173,8 +172,23 @@ class Updater_Plugin extends Plugin {
 	
 	// Get Remote Version
 	private static function _remote_version() {
-		$data = json_decode(Url::load("https://api.github.com/repos/256dpi/hanya/tags"));
-		return substr($data[0]->name,1);
+	  return self::_newest_tag()->version;
+	}
+	
+	// Get Newest Tag
+	private static function _newest_tag() {
+	  $ver = 0;
+	  $ntag = false;
+	  $data = json_decode(Url::load("https://api.github.com/repos/256dpi/hanya/tags"));
+	  foreach($data as $tag) {
+	    $v = substr($tag->name,1);
+	    if($v > $ver) {
+	      $ver = $v;
+	      $ntag = $tag;
+	      $ntag->version = $v;
+	    }
+	  }
+	  return $ntag; 
 	}
 	
 }
