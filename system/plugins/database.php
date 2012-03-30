@@ -39,6 +39,7 @@ class Database_Plugin extends Plugin {
 		exit;
 	}
 	
+	// Drop Table from Database
 	public static function on_database_delete_table() {
 		
 		// Check Admin
@@ -52,6 +53,27 @@ class Database_Plugin extends Plugin {
 			
 			// Drop Table
 			ORM::get_db()->exec("DROP TABLE ".$current_table);
+		}
+		
+		// Render Normal View
+		Url::redirect_to_referer();
+	}
+	
+	// Drop Entry from Table
+	public static function on_database_delete_entry() {
+	  
+	  // Check Admin
+		self::_check_admin();
+		
+		// Get Current Table
+		$current_table = Request::get("table");
+		$entry_id = Request::get("id");
+		
+		// Check Table
+		if($current_table && $entry_id) {
+			
+			// Drop Table
+			ORM::get_db()->exec("DELETE FROM".$current_table." WHERE id=".$entry_id);
 		}
 		
 		// Render Normal View
@@ -72,10 +94,8 @@ class Database_Plugin extends Plugin {
 		
 		// Render Folders
 		foreach($tables as $table) {
-			if($table != "sqlite_sequence") {
-			  $id = ($current_table==$table)?"open":"";
-				$return .= '<li id="'.$id.'" class="table-icon"><span class="delete"></span><span class="entry" data-table="'.$table.'">'.$table.'</span></li>';
-			}
+			$id = ($current_table==$table)?"open":"";
+			$return .= '<li data-table="'.$table.'" id="'.$id.'" class="table-icon"><span class="delete"></span><span class="entry">'.$table.'</span></li>';
 		}
 		
 		// End

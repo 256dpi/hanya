@@ -27,7 +27,9 @@ class Sqlite {
 	public static function tables() {
 		$tables = array();
 		foreach(ORM::get_db()->query("SELECT * FROM sqlite_master")->fetchAll() as $table) {
-			$tables[] = $table["tbl_name"];
+		  if($table["tbl_name"] != "sqlite_sequence") {
+		    $tables[] = $table["tbl_name"];
+		  }
 		}
 		return $tables;
 	}

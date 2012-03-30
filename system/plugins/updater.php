@@ -50,6 +50,12 @@ class Updater_Plugin extends Plugin {
 		
 		// Check Admin
 		self::_check_admin();
+		
+		// Check Update
+		if(!Registry::get("system.updateable")) {
+		  echo HTML::paragraph(I18n::_("system.updater.not_updateable"));
+		  exit;
+		}
 				
 		// Get Versions
 		$local_version = self::_local_version();

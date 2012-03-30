@@ -151,15 +151,23 @@
     table {
       width: 100%;
       tr {
+        border-bottom: 1px solid #ddd;
         td {
 				  padding: 10px;
 				  border-top: 1px solid #ddd;
 				  border-right: 1px solid #eee;
+				  vertical-align: middle;
+				  .delete-entry {
+				    display: inline-block;
+				    width: 16px;
+				    height: 16px;
+				    background: url(assets/system/images/cross.png) no-repeat;
+				    cursor: pointer;
+				  }
 				}
 				th {
 				  padding: 10px;
   				color: #666;
-  				border-bottom: 1px solid #ddd;
   				text-align: left;
   				background-color: #eee;
   				border-right: 1px solid #ddd;

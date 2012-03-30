@@ -149,6 +149,7 @@ class Hanya {
 			"meta.template" => "default",
 			"system.debug" => false,
 			"system.sitemap_generation" => true,
+			"system.updateable" => true,
 		));
 		
 		// Load Config
