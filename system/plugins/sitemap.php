@@ -24,21 +24,32 @@ class Sitemap_Plugin extends Plugin {
 			// Echo Header
 			echo '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 			
-			// Read Tree
-			$tree = Disk::read_directory("tree");
-			
-			// Genrate XML Entries
-		  foreach(str_replace(".html","",self::_get_files_from_tree($tree)) as $url) {
-		    if($url != "sitemap.xml") {
-		      echo ('<url><loc>'.Url::_($url).'</loc></url>');
-		    }
-			}
+			// Get Tree Locations
+			echo self::tree_locations();
 			
 			// End
 			echo('</urlset>');
 			exit;
 			
 		}
+	}
+	
+	// Get Locations for Tree
+	public static function tree_locations() {
+	  
+	  // Read Tree
+	  $ret = "";
+		$tree = Disk::read_directory("tree");
+		
+		// Genrate XML Entries
+	  foreach(str_replace(".html","",self::_get_files_from_tree($tree)) as $url) {
+	    if($url != "sitemap.xml") {
+	      $ret .= ('<url><loc>'.Url::_($url).'</loc></url>');
+	    }
+		}
+		
+		// Return
+		return $ret;
 	}
 	
 	// Get Files From Tree Directory

@@ -474,6 +474,19 @@ I think if you read the previous sections, you will understand the exmaples. ;)
 
 ## Sitemap
 
+At default the sitemap will be generated automatically. If you have disabled this feature as described in the _Configuration_ section you have to create the sitemap manually.
+
+Create the file _tree/sitemap.xml_:
+
+	//--
+	template = false
+	--//
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+		{sitemap()}
+	</urlset>
+	
+This file will output the same as the automatic sitemap generation. But now you can add dynamic links depending on your defintions:
+
 ...
 
 ## Admin Toolbar
