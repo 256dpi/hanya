@@ -18,15 +18,6 @@ class Helper {
 		return $ret;
 	}
 	
-	// Get a Tree File from Segments
-	public static function tree_file_from_segments($segments) {
-		if($segments[0] != "") {
-			return "tree/".join($segments,"/").".html";
-		} else {
-			return "tree/index.html";
-		}
-	}
-	
 	// Return a URL Safe Filename
 	public static function filename($string) {
 		$string = strtolower(trim($string));

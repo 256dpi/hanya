@@ -2,7 +2,7 @@
 
 **A rapid and lightweight engine for small websites**
 
-_At the moment hanya needs at least PHP 5.3 to be installed, i'm refactoring it to work with PHP 5.2._
+_Hanya runs best with PHP 5.3, but should run with PHP 5.2 (roughly tested)_
 
 ## Installation
 
@@ -109,6 +109,8 @@ The configuration options for the mailing system are covered in their section.
 Hanya has a builtin sitemap generator which creates a sitemap.xml depending on your tree directory structure. To turn it off issue:
 
 	"system.sitemap_generation" => false
+	
+If you have turned automatic generation off check the _Sitemap_ section for manual generation instructions.
 	
 If you maybe want to disable the inline update feature:
 
@@ -470,6 +472,10 @@ Remove the `{system(reset-mail-sent)}` if you want to print the information more
 	
 I think if you read the previous sections, you will understand the exmaples. ;)
 
+## Sitemap
+
+...
+
 ## Admin Toolbar
 
 Hanya has no standard backend like the big CMS systems. Hanya tries to integrate all the administratives tasks into your site with an admin toolbar.
@@ -627,15 +633,10 @@ These Constants are used in the Hanya Admin Toolbar.
 	
 ## Wishlist
 
-* ! Implent new Disk Class from struktur
-* ! Test Update Functionality
-* ! refactor admin interface (html5, css3)
-* Allow extension for json or xml tree files?
-* PHP 5.2 Support (ini string parse problem)
+* Manual Sitemap Generation {sitemap()} tag to include tree sitemap
 * Multi language support
 * jQuery time- and datepicker for time and date fields in manager
 * Database backup functionality
-* editable/extendable sitemap.xml
 * validation for object manager
 * menu tag for automatic menu generation
 * enhanced editor for creating links and adding images
@@ -645,16 +646,18 @@ These Constants are used in the Hanya Admin Toolbar.
 
 ## 3rd Party Software
 
-* ORM Class idiorm by j4mie (http://github.com/j4mie/idiorm/)
+* ORM Class idiorm by j4mie (http://github.com/j4mie/idiorm)
 * Dynamic Point Function inspired by Kohana Routes (https://github.com/kohana/kohana)
 * Filetype Icons by teambox (https://github.com/teambox/Free-file-icons)
 * Icons from yusukekamiyaman (https://github.com/yusukekamiyamane/fugue-icons)
-* jQuery JavaScript Library (http://jquery.com/)
+* jQuery JavaScript Library (http://jquery.com)
+* jQuery wysiwyg editor (http://premiumsoftware.net/cleditor)
+* CodeMirror Editor (http://codemirror.net)
 * Less Compiler (https://github.com/leafo/lessphp)
 
 ## Notes
 
-Issue to `git push --tags` to create new tag version.
+Issue to `git tag -a v0.1 -m "beta"` and `git push --tags` to create new tag version.
 
 ## License
 

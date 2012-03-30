@@ -16,7 +16,7 @@ class Sitemap_Plugin extends Plugin {
 		$segments = Registry::get("request.segments");
 		
 		// Check for sitemap.xml
-		if($segments[0] == "sitemap.xml" && Registry::get("system.sitemap_generation",true)) {
+		if($segments[0] == "sitemap.xml" && Registry::get("system.sitemap_generation")) {
 			
 			// Set Header
 			HTTP::content_type("text/xml");
@@ -29,7 +29,9 @@ class Sitemap_Plugin extends Plugin {
 			
 			// Genrate XML Entries
 		  foreach(str_replace(".html","",self::_get_files_from_tree($tree)) as $url) {
-				echo ('<url><loc>'.Url::_($url).'</loc></url>');
+		    if($url != "sitemap.xml") {
+		      echo ('<url><loc>'.Url::_($url).'</loc></url>');
+		    }
 			}
 			
 			// End

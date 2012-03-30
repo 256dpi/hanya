@@ -16,5 +16,5 @@ Hanya::run(array(
 	"i18n.default" => "en",
 	"auth.users" => array("admin"=>"admin"),
 	"mail.sender" => "sender@example.com",
-	"mail.forms" => array()
+	"mail.forms" => array(),
 ));

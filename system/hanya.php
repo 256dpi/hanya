@@ -13,6 +13,9 @@ define("HANYA_SCRIPT_START",microtime(true));
 // Register Autoloader
 spl_autoload_register("Hanya::autoload");
 
+// Load Compatibility Functions
+require("lib/compatibility.php");
+
 class Hanya {
 	
 	// Expressions for Dynamic Points
@@ -117,20 +120,36 @@ class Hanya {
 		}
 		
 		// Get Segments
-		Registry::set("request.segments",Request::get_segments($path));
+		$segments = Request::get_segments($path);
+		Registry::set("request.segments",$segments);
 
 		// Dispatch Event
 		Plugin::dispatch("before_execution");
-		
-		// Set Default Content Type
-		HTTP::content_type();
 		
 		// Set Admin Meta Flag
 		Registry::set("meta.is_admin",Memory::get("logged_in"));
 		Registry::set("meta.is_editing",Memory::get("edit_page"));
 		
-		// Get Render
-		$out = Render::page(Helper::tree_file_from_segments(Registry::get("request.segments")));
+		// Get File to Render
+		if($segments[0] != "") {
+		  if(Disk::extension($segments[count($segments)-1])) {
+		    $file = "tree/".join($segments,"/");
+		  } else {
+		    $file = "tree/".join($segments,"/").".html";
+		  }
+		} else {
+			$file =  "tree/index.html";
+		}
+		
+		// Render File
+		$out = Render::page($file);
+		
+		// Set Content Type
+		switch(Disk::extension($file)) {
+		  case "xml": HTTP::content_type("application/xml"); break;
+		  default:
+		  case "html": HTTP::content_type(); break;
+		}
 		
 		// Replace Benchmark Info
 		$time = round((microtime(true)-HANYA_SCRIPT_START)*1000)."ms";

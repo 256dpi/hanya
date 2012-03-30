@@ -14,16 +14,15 @@ class Registry {
 	
 	// Load Array
 	public static function load($array) {
-		$data = array();
+		//$data = array();
 		foreach($array as $key => $value) {
 			if(strpos($key,".")) {
 				$segments = explode(".",$key);
-				$data[$segments[0]][$segments[1]] = $value;
+				self::$_data[$segments[0]][$segments[1]] = $value;
 			} else {
-				$data[$key] = $value;
+				self::$_data[$key] = $value;
 			}
 		}
-		self::$_data = array_merge_recursive(self::$_data,$data);
 	}
 	
 	// Set Value by Key

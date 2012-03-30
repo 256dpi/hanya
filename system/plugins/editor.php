@@ -89,7 +89,7 @@ class Editor_Plugin extends Plugin {
 		
 		// Render Files
 		foreach($data["."] as $file) {
-		  if(Disk::extension($file) != "sq3") {
+		  if(Disk::extension($file) != "sq3" && $file != "system.version") {
 		    $id = ($current_file==$directory."/".$file)?"open":"";
   			$return .= '<li id="'.$id.'" class="file-icon"><span class="entry" data-path="'.$directory."/".$file.'">'.$file.'</span></li>';
 		  }

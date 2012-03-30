@@ -41,14 +41,21 @@ class Render {
 		// Append to Content
 		Registry::set("block.content",$content);
 		
-		// Get Template
-		$template_file = "elements/templates/".Registry::get("meta.template").".html";
-		
-		// Process Template
-		if(Disk::has_file($template_file)) {
-			return self::file($template_file);	
+		// Check for Template
+		if(Registry::get("meta.template")) {
+		  
+		  // Get Template
+  		$template_file = "elements/templates/".Registry::get("meta.template").".html";
+
+  		// Process Template
+  		if(Disk::has_file($template_file)) {
+  			return self::file($template_file);	
+  		} else {
+  			die("Hanya: Template '".$template_file."' does not exists!");
+  		}
+		  
 		} else {
-			die("Hanya: Template '".$template_file."' does not exists!");
+		  return $content;
 		}
 	}
 	
@@ -56,7 +63,11 @@ class Render {
 	public static function file($file,$variables=array()) {
 		
 		// Evaluate Fie
-		$output = Disk::eval_file($file,$variables);
+		if(Disk::extension($file) == "xml") {
+		  $output = Disk::read_file($file);
+		} else {
+		  $output = Disk::eval_file($file,$variables);
+		}
 		
 		// Process the Meta Block And Process Variables
 		$output = self::_process_metablock($output);
@@ -86,7 +97,7 @@ class Render {
 		preg_match_all('!^\/\/--(.*)--\/\/!Us',$output,$match);
 		if(isset($match[1][0])) {
 			Registry::set("meta",array_merge(Registry::get("meta"),parse_ini_string($match[1][0])));
-			$output = str_replace($match[0][0],"",$output);
+			$output = str_replace($match[0][0]."\n","",$output);
 		}
 		return $output;
 	}

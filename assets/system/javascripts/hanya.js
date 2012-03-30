@@ -107,7 +107,7 @@ var Hanya = {
 	
 	// Open Login Hanya	
 	login: function() {
-		HanyaWindow.createFromURL(HanyaWindow.location+"?command=admin_form",{},"300px");
+		HanyaWindow.createFromURL(window.location+"?command=admin_form",{},"300px");
 	}
 	
 }
