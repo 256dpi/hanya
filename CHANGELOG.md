@@ -1,3 +1,3 @@
-### Version 0.1 - Beta
+### Versions 0.1 - 0.2
 
-* unstable version for testing purposes
+* unstable beta versions for testing purposes
