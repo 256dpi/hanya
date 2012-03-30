@@ -6,13 +6,7 @@
 		{head()}
 		<link rel="stylesheet" href="{less(system/stylesheets/hanya.backend.less)}" type="text/css" media="screen">
 		<link rel="stylesheet" href="{asset(system/stylesheets/codemirror.css)}" type="text/css" media="screen">
-		<link rel="stylesheet" href="{asset(system/stylesheets/codemirror.theme.css)}" type="text/css" media="screen">
 		<script src="{asset(system/javascripts/codemirror.js)}" type="text/javascript" charset="utf-8"></script>
-		<script src="{asset(system/javascripts/codemirror.css.js)}" type="text/javascript" charset="utf-8"></script>
-		<script src="{asset(system/javascripts/codemirror.xml.js)}" type="text/javascript" charset="utf-8"></script>
-		<script src="{asset(system/javascripts/codemirror.js.js)}" type="text/javascript" charset="utf-8"></script>
-		<script src="{asset(system/javascripts/codemirror.htmlmixed.js)}" type="text/javascript" charset="utf-8"></script>
-		<script src="{asset(system/javascripts/codemirror.overlay.js)}" type="text/javascript" charset="utf-8"></script>
 		<script src="{asset(system/javascripts/codemirror.hanya.js)}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			
@@ -30,8 +24,8 @@
 				// Load Source & Start Editor
 				$("#codemirror").load("?command=editor_source&file=<?=$current_file?>",{},function(){
 					editor = CodeMirror.fromTextArea(document.getElementById("codemirror"),{
-						mode: "hanyaVar",
-						tabMode: "shift",
+						tabSize: 2,
+						mode: "<?=$mode?>",
 						lineNumbers: true,
 						onChange: function() {
 							$("h1 a.save").removeClass("disabled");
@@ -53,18 +47,20 @@
 			
 			// Save file
 			function save() {
-				$.ajax({
-					url: "?command=editor_save&file=<?=$current_file?>",
-					type: "POST",
-					data: { source: editor.getValue() },
-					success: function(data) {
-						if(data=="ok") {
-							$("h1 a.save").addClass("disabled");
-						} else {
-							alert("An error ocurred while saving.");
+				if(!$("h1 a.save").hasClass("disabled")) {
+					$.ajax({
+						url: "?command=editor_save&file=<?=$current_file?>",
+						type: "POST",
+						data: { source: editor.getValue() },
+						success: function(data) {
+							if(data=="ok") {
+								$("h1 a.save").addClass("disabled");
+							} else {
+								alert("An error ocurred while saving.");
+							}
 						}
-					}
-				})
+					});
+				}
 			}
 			
 		</script>

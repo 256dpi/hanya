@@ -148,6 +148,7 @@ class Hanya {
 			"system.automatic_db_setup" => true,
 			"meta.template" => "default",
 			"system.debug" => false,
+			"system.sitemap_generation" => true,
 		));
 		
 		// Load Config

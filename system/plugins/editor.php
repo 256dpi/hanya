@@ -20,10 +20,19 @@ class Editor_Plugin extends Plugin {
 		if(!$current_file) {
 			$current_file = "tree/index.html";
 		}
+		$ext = Disk::extension($current_file);
+		
+		// Get Mode
+		switch($ext) {
+		  case "php": $mode = "php"; break;
+		  case "ini": $mode = "hanya-prop-var"; break;
+		  case "html":
+		  default: $mode = "hanya-var"; break;
+		}
 		
 		// Render View
 		Registry::set("toolbar.alternate",true);
-		echo Render::file("system/views/editor/main.html",array("current_file"=>$current_file));
+		echo Render::file("system/views/editor/main.html",compact("current_file","mode"));
 		
 		// End
 		exit;

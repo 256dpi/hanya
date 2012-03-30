@@ -1,77 +1,81 @@
-// Highlight Definitions
-CodeMirror.defineMode("hanyaMeta", function(config, parserConfig) {
-  var hanyaMetaOverlay = {
+/* HTML ENHANCEMENTS */
+
+// Highlight Meta
+CodeMirror.defineMode("hanya-meta", function(config, parserConfig) {
+  var hanyaOverlay = {
     token: function(stream, state) {
       if (stream.match("//--") || stream.match("--//")) {
-        return "hanyaMeta";
+        return "hanya-meta";
       }
       while (stream.next() != null && !stream.match("/", false)) {}
       return null;
     }
   };
-  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), hanyaMetaOverlay);
+  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), hanyaOverlay);
 });
 
 // Highlight Definitions
-CodeMirror.defineMode("hanyaDef", function(config, parserConfig) {
-  var hanyaDefOverlay = {
+CodeMirror.defineMode("hanya-def", function(config, parserConfig) {
+  var hanyaOverlay = {
     token: function(stream, state) {
       if (stream.match("[")) {
         while ((ch = stream.next()) != null)
           if (ch == "]" && stream.next() != null) break;
-        return "hanyaDef";
+        return "hanya-def";
       }
       while (stream.next() != null && !stream.match("[", false)) {}
       return null;
     }
   };
-  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaMeta"), hanyaDefOverlay);
+  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanya-meta"), hanyaOverlay);
 });
 
 // Higlight Tags
-CodeMirror.defineMode("hanyaTag", function(config, parserConfig) {
-  var hanyaTagOverlay = {
+CodeMirror.defineMode("hanya-tag", function(config, parserConfig) {
+  var hanyaOverlay = {
     token: function(stream, state) {
       if (stream.match("{")) {
         while ((ch = stream.next()) != null)
           if (ch == ")" && stream.next() == "}") break;
-        return "hanyaTag";
+        return "hanya-tag";
       }
       while (stream.next() != null && !stream.match("{", false)) {}
       return null;
     }
   };
-  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaDef"), hanyaTagOverlay);
-});
-
-// Higlight Replacements
-CodeMirror.defineMode("hanyaRet", function(config, parserConfig) {
-  var hanyaRepOverlay = {
-    token: function(stream, state) {
-      if (stream.match("#")) {
-        while ((ch = stream.next()) != null)
-          if (ch == "}") break;
-        return "hanyaRet";
-      }
-      while (stream.next() != null && !stream.match("{", false)) {}
-      return null;
-    }
-  };
-  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaTag"), hanyaRepOverlay);
+  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanya-def"), hanyaOverlay);
 });
 
 // Higlight Vars
-CodeMirror.defineMode("hanyaVar", function(config, parserConfig) {
-  var hanyaVarOverlay = {
+CodeMirror.defineMode("hanya-var", function(config, parserConfig) {
+  var hanyaOverlay = {
     token: function(stream, state) {
       if (stream.match("$")) {
         while ((ch = stream.next()) != null)
           if (ch == ")") break;
-        return "hanyaVar";
+        return "hanya-var";
       }
       while (stream.next() != null && !stream.match("$", false)) {}
       return null;
     }
   };
-  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanyaRet"), hanyaVarOverlay);
+  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "hanya-tag"), hanyaOverlay);
+});
+
+/* PROPERTIES ENHANCEMENT */
+
+CodeMirror.defineMode("hanya-prop-var", function(config, parserConfig) {
+  var hanyaOverlay = {
+    token: function(stream, state) {
+      var ch;
+      if (stream.match("#{")) {
+        while ((ch = stream.next()) != null)
+          if (ch == "}") break;
+        return "hanya-prop-var";
+      }
+      while (stream.next() != null && !stream.match("#{", false)) {}
+      return null;
+    }
+  };
+  return CodeMirror.overlayParser(CodeMirror.getMode(config, parserConfig.backdrop || "properties"), hanyaOverlay);
 });
