@@ -109,6 +109,10 @@ The configuration options for the mailing system are covered in their section.
 Hanya has a builtin sitemap generator which creates a sitemap.xml depending on your tree directory structure. To turn it off issue:
 
 	"system.sitemap_generation" => false
+	
+If you maybe want to disable the inline update feature:
+
+	"system.updateable" => false
 
 ## Meta Information
 
@@ -626,7 +630,6 @@ These Constants are used in the Hanya Admin Toolbar.
 * ! Implent new Disk Class from struktur
 * ! Test Update Functionality
 * ! refactor admin interface (html5, css3)
-* More Database Interactions (use definitions configurations)
 * Allow extension for json or xml tree files?
 * PHP 5.2 Support (ini string parse problem)
 * Multi language support
