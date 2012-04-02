@@ -53,7 +53,12 @@
 .hanya-toolbar-left, .hanya-toolbar-right {
 	margin: 0;
 	float: left;
-	width: 50%;
+	width: 33%;
+}
+
+.hanya-toolbar-right {
+  float: right;
+  width: 66%;
 }
 
 .hanya-toolbar-right {

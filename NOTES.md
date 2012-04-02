@@ -2,8 +2,7 @@
 
 ## Todo
 
-* Refacotr Admin CSS
-* Check for Security
+...
 
 ## Wishlist
 
