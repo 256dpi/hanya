@@ -36,8 +36,8 @@ class Head_Tag {
   		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));
   		
   		// Tooltips
-  		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
-  		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
+  		//$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
+  		//$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
 		}
 		
 		// Return
