@@ -653,18 +653,6 @@ For benchmarking there are two constants which you can use:
 	<p>#{HANYA_GENERATION_TIME} - #{HANYA_MEMORY_PEAK}</p>
 	
 These Constants are used in the Hanya Admin Toolbar.
-	
-## Wishlist
-
-* Multi language support
-* jQuery time- and datepicker for time and date fields in manager
-* Database backup functionality
-* validation for object manager
-* menu tag for automatic menu generation
-* enhanced editor for creating links and adding images
-* full inline editing
-* edit child objects in parent manager
-* migrations for definitions
 
 ## 3rd Party Software
 
