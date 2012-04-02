@@ -5,6 +5,7 @@
  * .hanya-has-command -> link executes data-command
  * .hanya-editable -> container shows edit HanyaWindow on click
  * .hanya-createable -> link opens HanyaManager with a new definition
+ * .hanya-gain-focus -> get focus after loading in a window
  */
 
 /*
@@ -202,13 +203,19 @@ var HanyaWindow = {
 	enhancements: function() {
 		
 		// Add Editor to Textareas
-		$(".hanya-editor-html").cleditor({
-			width: "99%",
-			heigth: "300px",
-			controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
-		});
-		$(".hanya-row-html br").remove();
+		if($(".hanya-editor-html").size() > 0) {
+		  $(".hanya-editor-html").cleditor({
+  			width: "99%",
+  			heigth: "300px",
+  			controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
+  		});
+  		$(".hanya-row-html br").remove();
+		}
 		
+		// Set Focus
+		if($(".hanya-gain-focus").size() > 0) {
+		  $(".hanya-gain-focus")[0].focus();
+		}
 	}
 }
 

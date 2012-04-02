@@ -487,7 +487,17 @@ Create the file _tree/sitemap.xml_:
 	
 This file will output the same as the automatic sitemap generation. But now you can add dynamic links depending on your defintions:
 
-...
+	//--
+	template = false
+	--//
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+		{sitemap()}
+		[news()]
+			<url>
+				<loc>{link(news/$news(slug))}</loc>
+			</url>
+		[/news]
+	</urlset>
 
 ## Admin Toolbar
 
@@ -646,7 +656,6 @@ These Constants are used in the Hanya Admin Toolbar.
 	
 ## Wishlist
 
-* Manual Sitemap Generation {sitemap()} tag to include tree sitemap
 * Multi language support
 * jQuery time- and datepicker for time and date fields in manager
 * Database backup functionality
@@ -667,10 +676,6 @@ These Constants are used in the Hanya Admin Toolbar.
 * jQuery wysiwyg editor (http://premiumsoftware.net/cleditor)
 * CodeMirror Editor (http://codemirror.net)
 * Less Compiler (https://github.com/leafo/lessphp)
-
-## Notes
-
-Issue to `git tag -a v0.1 -m "beta"` and `git push --tags` to create new tag version.
 
 ## License
 
