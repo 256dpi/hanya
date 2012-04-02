@@ -1,4 +1,4 @@
-# Personal Notes
+# Notes
 
 ## Todo
 
