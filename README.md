@@ -6,7 +6,7 @@ _Hanya runs best with PHP 5.3, but should run with PHP 5.2 (roughly tested)_
 
 ## Installation
 
-1. Download the repository as [archive](https://github.com/256dpi/hanya/zipball/master) and extract it in your working directory.
+1. Download the repository as [archive](https://github.com/256dpi/hanya/tags) and extract it in your working directory.
 2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your remote or local configuration.
 3. Set the rights of the _system_ directory and _user/db.sq3_ to _0777_. The _db.sq3_ file gets created after the first request to the system.
 4. Alter the default configuration in the _index.php_.
