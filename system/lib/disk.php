@@ -54,7 +54,8 @@ class Disk {
 	// Get Extension of a File
 	public static function extension($file) {
 		if(strpos($file,".")) {
-			return end(explode(".",$file));
+		  $array = explode(".",$file);
+			return end($array);
 		} else {
 			return false;
 		}
