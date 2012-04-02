@@ -177,7 +177,7 @@ class Filemanager_Plugin extends Plugin {
 		foreach($data as $dir => $files) {
 			if($dir != ".") {
 			  $id = ($current_directory == $directory."/".$dir)?"open":"";
-				$return .= '<li id="'.$id.'"class="directory-icon"><span class="entry" data-path="'.$directory."/".$dir.'">'.$dir.'</span>'.self::_tree($current_directory,$directory."/".$dir)."</li>";
+				$return .= '<li data-path="'.$directory."/".$dir.'" id="'.$id.'"class="directory-icon"><span class="delete"></span><span class="entry">'.$dir.'</span>'.self::_tree($current_directory,$directory."/".$dir)."</li>";
 			}
 		}
 		

@@ -2,7 +2,8 @@
 
 ## Todo
 
-* Implent Filemanager Functions -> Release 1.0
+* Refacotr Admin CSS
+* Check for Security
 
 ## Wishlist
 

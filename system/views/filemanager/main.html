@@ -5,108 +5,6 @@
     <title><?=I18n::_("system.filemanager.title")?></title>
 		{head()}
 		<link rel="stylesheet" href="{less(system/stylesheets/hanya.backend.less)}" type="text/css" media="screen">
-		<style type="text/css" media="screen">
-		
-			/*
-
-			#files {
-				border: 1px solid #ddd;
-				background-color: white;
-			}
-
-			#files table {
-				width: 100%;
-			}
-
-			#files tr td {
-				border-top: 1px solid #ddd;
-				padding: 15px;
-				vertical-align: middle;
-			}
-			
-			#files tr:first-child td {
-				border: 0;
-			}
-
-			#files tr td span.directory {
-				display: none;
-			}
-
-			#files tr:hover td {
-				background-color: #eee;
-				cursor: pointer;
-			}
-
-			#files tr:hover td span.directory {
-				display: inline;
-			}
-
-			#files .right {
-				text-align: right;
-			} 
-
-			#files .delete {
-				cursor: pointer;
-			}
-
-			#files p {
-				padding: 15px;
-			}
-
-			#viewer {
-				border: 1px solid #ddd;
-				padding: 15px;
-				background-color: white;
-			}
-
-			#viewer img {
-				width: 100%;
-			}
-
-			#viewer table {
-				width: 100%;
-				margin-top: 10px;
-			}
-			
-			#viewer table tr td, #viewer table tr th {
-				padding: 5px;
-				border-top: 1px solid #eee;
-				border-bottom: 1px solid #eee;
-			}
-			
-			#viewer table tr th {
-				color: #666;
-				border-right: 1px solid #ddd;
-				text-align: right;
-			}
-
-			#create-directory {
-				border: 1px solid #ddd;
-				background-color: white;
-			}
-			
-			#create-directory input {
-				width: 98%;
-				border: 0;
-				margin: 0;
-				padding: 6px;
-				font-size: inherit;
-				color: #888;
-			}
-			
-			#create-directory input:focus {
-				color: black;
-			}
-			
-			#upload-file {
-				border: 1px solid #ddd;
-				background-color: #fff;
-				padding: 6px;
-			}
-			
-			*/
-			
-		</style>
 		<script type="text/javascript" charset="utf-8">
 		
 			// On Startup
@@ -114,25 +12,17 @@
 				
 				// Navigator Interactivity
 				$(".filetree li span").click(function(){
-					window.location = "?command=filemanager&directory="+$(this).data("path");
+					window.location = "?command=filemanager&directory="+$(this).parent().data("path");
 				});
 				
-				// Resize Event
-				$(window).resize(doResize);
-				doResize();
+				// Delete Directory
+				$(".filetree li.directory-icon span.delete").click(function(){
+					if(confirm('<?=I18n::_("system.filemanager.remove_directory")?>')) {
+						window.location = "?command=filemanager_delete_directory&directory="+$(this).parent().data("path");
+					}
+				});
 				
-			});
-			
-			// Resize Handler
-			function doResize() {
-				$(".sidebar, .container-sided").height(0);
-				$(".sidebar, .container-sided").height($(document).height()-$(".hanya-toolbar").outerHeight()-$("#hanya-admin h1").outerHeight());
-			}
-			
-			// On Startup
-			/*$(document).ready(function(){
-				
-				// Add Click Handler
+				// Open Items
 				$("#files tr").click(function(){
 					$("#viewer").load("?command=filemanager_item&file="+$(this).data("item"));
 				});
@@ -161,13 +51,17 @@
 					$(this).closest("form").submit();
 				});
 				
+				// Resize Event
+				$(window).resize(doResize);
+				doResize();
+				
 			});
 			
-			function deleteDirectory(dir) {
-				if(confirm('<?=I18n::_("system.filemanager.remove_directory")?>')) {
-					window.location = dir;
-				}
-			}*/
+			// Resize Handler
+			function doResize() {
+				$(".sidebar, .sidebar2, .container-2sided").height(0);
+				$(".sidebar, .sidebar2, .container-2sided").height($(document).height()-$(".hanya-toolbar").outerHeight()-$("#hanya-admin h1").outerHeight());
+			}
 			
 		</script>
   </head>
@@ -177,13 +71,21 @@
 			<span class="title"><?=I18n::_("system.filemanager.title")?></span>
 		</h1>
 		<div class="sidebar">
-			<h2><?=I18n::_("system.filemanager.uploads")?></h2>
+			<h2><?=I18n::_("system.filemanager.filesystem")?></h2>
 			<div class="filetree">
 				<?=Filemanager_Plugin::tree($current_directory)?>
 			</div>
+			<h2><?=I18n::_("system.filemanager.create_directory")?></h2>
+			<div id="create-directory">
+				<form action="<?=URL::_("?command=filemanager_create_directory")?>" method="post">
+					<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
+					<input type="text" name="new_directory" placeholder="<?=I18n::_("system.filemanager.new_directory")?>" />
+					<p class="hint"><?=I18n::_("system.filemanager.create_directory_hint")?></p>
+				</form>
+			</div>
 		</div>
-		<div class="container-sided">
-			<!--div id="files">
+		<div class="container-2sided">
+			<div id="files">
 				<? if(count($content["."])): ?>
 					<table>
 						<? foreach($content["."] as $file) : ?>
@@ -196,32 +98,20 @@
 						<? endforeach; ?>
 					</table>
 				<? else: ?>
-					<p><?=I18n::_("system.filemanager.empty_directory")?> / <?=HTML::button(I18n::_("system.filemanager.delete_directory"),"deleteDirectory('".URL::_("?command=filemanager_delete_directory&directory=".$current_directory)."')")?></a></p>
+					<p><?=I18n::_("system.filemanager.empty_directory")?></p>
 				<? endif; ?>
 			</div>
-			<hr/>
-			<h2><?=I18n::_("system.filemanager.upload_file")?></h2>
 			<div id="upload-file">
+				<h2><?=I18n::_("system.filemanager.upload_file")?></h2>
 				<form action="<?=URL::_("?command=filemanager_upload_file")?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
 					<input type="file" name="new_file" />
+					<p class="hint"><?=I18n::_("system.filemanager.upload_file_hint")?></p>
 				</form>
 			</div>
-			<p class="hint"><?=I18n::_("system.filemanager.upload_file_hint")?></p>
-			<hr/>
-			<h2><?=I18n::_("system.filemanager.create_directory")?></h2>
-			<div id="create-directory">
-				<form action="<?=URL::_("?command=filemanager_create_directory")?>" method="post">
-					<input type="hidden" name="current_directory" value="<?=$current_directory?>" />
-					<input type="text" name="new_directory" value="<?=I18n::_("system.filemanager.new_directory")?>" />
-				</form>
-			</div>
-			<p class="hint"><?=I18n::_("system.filemanager.create_directory_hint")?></p>
 		</div>
-		<div class="w1-last">
-			<div id="viewer">
-				<p><?=I18n::_("system.filemanager.no_file_selected")?></p>
-			</div-->
+		<div class="sidebar2">
+			<div id="viewer"></div>
 		</div>
   </body>
 </html>
