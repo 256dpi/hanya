@@ -30,8 +30,14 @@ class Head_Tag {
 			
 		// Load jQuery Extensions
 		if(Memory::get("edit_page") || Memory::get("logged_in")) {
+		  
+		  // Editor
 		  $html .= HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"));		
   		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));
+  		
+  		// Tooltips
+  		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
+  		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
 		}
 		
 		// Return
