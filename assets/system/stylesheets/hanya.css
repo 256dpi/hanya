@@ -26,11 +26,12 @@
   font-family: "Helvetica", Arial, sans-serif;
   font-size: 14px;
 	background-color: black;
-	padding: 12px 15px;
-	padding-top: 13px;
+	padding: 10px 15px;
+	padding-top: 11px;
 	color: white;
 	overflow: hidden;
 	height: 16px;
+	line-height: normal;
 }
 
 .hanya-toolbar a, .hanya-toolbar span {
@@ -54,6 +55,7 @@
 	margin: 0;
 	float: left;
 	width: 33%;
+	height: 16px;
 }
 
 .hanya-toolbar-right {
