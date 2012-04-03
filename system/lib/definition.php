@@ -34,7 +34,11 @@ abstract class Definition {
 	
 	// Definition Load Method (invoked by [example()])
 	public function load($definition,$arguments) {
-		$table = ORM::for_table($definition);
+	  if($this->orderable) {
+	    $table = ORM::for_table($definition)->order_by_asc("ordering");
+	  } else {
+	    $table = ORM::for_table($definition);
+	  }
 		return Helper::each_as_array($table->find_many());
 	}
 	
