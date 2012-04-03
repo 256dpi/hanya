@@ -89,7 +89,8 @@
 }
 
 .hanya-definition-toolbar {
-  padding: 0px !important;
+  padding: 0 !important;
+  margin: 0 !important;
   width: 120px;
   position: absolute;
   list-style: none !important;

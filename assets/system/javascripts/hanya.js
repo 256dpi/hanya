@@ -30,7 +30,7 @@ var Hanya = {
 		    
 	    // Create Toolbar
 	    var toolbar = $("<ul>").addClass("hanya-definition-toolbar");
-	    toolbar.css("left",editable.position().left).css("top",editable.position().top);
+	    toolbar.css("left",editable.position().left-1).css("top",editable.position().top-25);
       
       // Edit Button
       $("<li>").append($("<span>")).addClass("hanya-definition-toolbar-edit").click(function(){
