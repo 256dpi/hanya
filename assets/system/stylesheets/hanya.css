@@ -150,6 +150,7 @@
 	box-shadow: 0 0 15px #222;
 	overflow: scroll;
 	font-size: 14px;
+	line-height: normal;
 }
 
 .hanya-manager-head {
