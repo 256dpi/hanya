@@ -2,7 +2,8 @@
 
 ## Todo
 
-...
+* Find better HTML editor
+* enhanced editor for creating links and adding images
 
 ## Wishlist
 
@@ -11,7 +12,6 @@
 * Database backup functionality
 * validation for object manager
 * menu tag for automatic menu generation
-* enhanced editor for creating links and adding images
 * full inline editing
 * edit child objects in parent manager
 * migrations for definitions

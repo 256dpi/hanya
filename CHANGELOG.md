@@ -5,6 +5,7 @@
 * added xml tree file support (sitemap.xml)
 * added normalize.css via {head(normalize)}
 * refactored codebase
+* version driven update system
 
 ### Versions 0.1 - 0.2
 
