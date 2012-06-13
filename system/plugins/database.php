@@ -73,7 +73,7 @@ class Database_Plugin extends Plugin {
 		if($current_table && $entry_id) {
 			
 			// Drop Table
-			ORM::get_db()->exec("DELETE FROM".$current_table." WHERE id=".$entry_id);
+			ORM::get_db()->exec("DELETE FROM ".$current_table." WHERE id=".$entry_id);
 		}
 		
 		// Render Normal View

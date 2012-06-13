@@ -25,7 +25,7 @@
 				// Delete Entry
 				$("span.delete-entry").click(function(){
 					if(confirm("<?=I18n::_('system.database.confirm_delete_entry')?>")) {
-						window.location = "?command=database_delete_table&table="+$(this).data("table")+"&id="+$(this).data("id");
+						window.location = "?command=database_delete_entry&table="+$(this).data("table")+"&id="+$(this).data("id");
 					}
 				});
 				
