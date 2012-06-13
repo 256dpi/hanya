@@ -10,6 +10,9 @@
 class If_Tag {
 	
 	public static function call($attributes) {
+	  if($attributes[1] === "true") {
+	    $attributes[1] = true;
+	  }
 		if($attributes[0] == $attributes[1]) {
 			return $attributes[2];
 		} else {
