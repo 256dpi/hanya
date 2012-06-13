@@ -8,7 +8,7 @@ _Hanya runs best with PHP 5.3, but should run with PHP 5.2 (roughly tested)_
 
 1. Download the repository as [archive](https://github.com/256dpi/hanya/tags) and extract it in your working directory.
 2. Edit the `RewriteBase` parameter in the _.htaccess_ file to fit your remote or local configuration.
-3. Set the rights of the _system_ directory and _user/db.sq3_ to _0777_. The _db.sq3_ file gets created after the first request to the system.
+3. Set the rights of the _system_, _uploads_ and _user_ directory to _0777_ recursively.
 4. Alter the default configuration in the _index.php_.
 
 If you encountering problems check the _Configuration_ section to run hanya in debuge mode.
