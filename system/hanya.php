@@ -147,6 +147,7 @@ class Hanya {
 		// Set Content Type
 		switch(Disk::extension($file)) {
 		  case "xml": HTTP::content_type("application/xml"); break;
+		  case "json": HTTP::content_type("application/json"); break;
 		  default:
 		  case "html": HTTP::content_type(); break;
 		}

@@ -509,6 +509,23 @@ This file will output the same as the automatic sitemap generation. But now you 
 		[/news]
 	</urlset>
 
+## XML Feed's and JSON Data
+
+Like the custome Sitemap feature you can create various .xml and .json files to create a simple machine readable API.
+
+	//--
+	template = false
+	--//
+	[
+		[news()]
+			{
+				link: {link(news/$news(slug))},
+				slug: $news(slug),
+				text: $new(text)
+			}
+		[/news]
+	]
+
 ## Admin Toolbar
 
 Hanya has no standard backend like the big CMS systems. Hanya tries to integrate all the administratives tasks into your site with an admin toolbar.
