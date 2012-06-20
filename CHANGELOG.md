@@ -1,3 +1,11 @@
+### Version 1.3
+
+* added privileges to users (change to auth.user array)
+
+### Version 1.1 - 1.2
+
+* some bugfixes
+
 ### Version 1.0
 
 * new admin interface
