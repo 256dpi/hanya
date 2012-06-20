@@ -49,10 +49,14 @@ class Toolbar_Tag {
 			}
 			
 			// Commands
-			$html .= HTML::anchor(Registry::get("base.url")."?command=filemanager",I18n::_("system.admin.filemanager"));
-			$html .= HTML::anchor(Registry::get("base.url")."?command=database",I18n::_("system.admin.database"));
-			$html .= HTML::anchor(Registry::get("base.url")."?command=editor",I18n::_("system.admin.editor"));
-			$html .= HTML::anchor(Registry::get("base.url")."?command=updater",I18n::_("system.admin.update"));
+			if(Helper::user_has_privilege("filemanager_access"))
+				$html .= HTML::anchor(Registry::get("base.url")."?command=filemanager",I18n::_("system.admin.filemanager"));
+			if(Helper::user_has_privilege("database_access"))
+				$html .= HTML::anchor(Registry::get("base.url")."?command=database",I18n::_("system.admin.database"));
+			if(Helper::user_has_privilege("editor_access"))
+				$html .= HTML::anchor(Registry::get("base.url")."?command=editor",I18n::_("system.admin.editor"));
+			if(Helper::user_has_privilege("updater_access"))
+				$html .= HTML::anchor(Registry::get("base.url")."?command=updater",I18n::_("system.admin.update"));
 			$html .= HTML::anchor(Registry::get("base.url")."?command=admin_logout",I18n::_("system.admin.logout"));
 			$html .= HTML::div_close();
 			

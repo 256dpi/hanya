@@ -86,13 +86,13 @@ class Hanya {
 	}
 
 	// Start the Main Hanya Process
-  public static function run($config) {
+  	public static function run($config) {
 	
 		// Initialize Persistent Memory
 		Memory::initialize();
 		
 		// Process Configuration
-	  self::_initialize($config);
+	  	self::_initialize($config);
 	
 		// Dispatch First Event
 		Plugin::dispatch("after_initialize");

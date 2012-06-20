@@ -90,9 +90,19 @@ Hanya has a builtin _I18n_ translation system, but at the moment you can run the
 	
 An english and german translation is built in for all system messages. Check the translation section to read about creating your own translations.
 
-To give your customers access to the admin toolbar, add their credentials:
+To give your customers access to the admin toolbar, add their credentials and set custom privileges:
 
-	"auth.users" => array("admin"=>"admin"),
+	"auth.users" => array(
+		"admin" => array("pass"=>"admin","privileges"=>array("god"))
+	),
+
+There are several privileges distributable:
+
+	* god - you can do what you want
+	* filemanager_access
+	* database_access
+	* editor_access
+	* updater_access
 	
 Currently there are no roles for users, so it will be enough to create one user.
 

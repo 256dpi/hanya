@@ -15,7 +15,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager($new=false) {
 		
 		// Check Admin
-		self::_check_admin();
+		var_dump(self::_check_admin("filemanager_access"));
 		
 		// Get Data
 		$current_directory = Request::get("directory");
@@ -38,7 +38,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager_create_directory() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("filemanager_access");
 		
 		// Get Data
 		$current_directory = Request::post("current_directory");
@@ -63,7 +63,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager_item() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("filemanager_access");
 		
 		// Get File
 		$file = Request::get("file");
@@ -97,7 +97,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager_delete_file() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("filemanager_access");
 		
 		// Get File
 		$file = Request::post("file");
@@ -117,7 +117,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager_delete_directory() {
 	  
 	  // Check Admin
-	  self::_check_admin();
+	  self::_check_admin("filemanager_access");
 	  
 	  // Get Dir
 	  $dir = Request::get("directory");
@@ -133,7 +133,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager_upload_file() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("filemanager_access");
 		
 		// Get Data
 		$current_directory = Request::post("current_directory");

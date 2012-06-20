@@ -14,7 +14,9 @@ Hanya::run(array(
 	"db.location" => "sqlite:user/db.sq3",
 	"i18n.languages" => array("en"=>array("timezone"=>"Europe/Berlin","locale"=>"de_CH")),
 	"i18n.default" => "en",
-	"auth.users" => array("admin"=>"admin"),
+	"auth.users" => array(
+		"admin" => array("pass"=>"admin","privileges"=>array("god"))
+	),
 	"mail.sender" => "sender@example.com",
 	"mail.forms" => array(),
 ));

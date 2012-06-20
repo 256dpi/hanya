@@ -13,7 +13,7 @@ class Database_Plugin extends Plugin {
 	public static function on_database() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("database_access");
 		
 		// Get Current Table
 		$current_table = Request::get("table");
@@ -43,7 +43,7 @@ class Database_Plugin extends Plugin {
 	public static function on_database_delete_table() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("database_access");
 		
 		// Get Current Table
 		$current_table = Request::get("table");
@@ -63,7 +63,7 @@ class Database_Plugin extends Plugin {
 	public static function on_database_delete_entry() {
 	  
 	  // Check Admin
-		self::_check_admin();
+		self::_check_admin("database_access");
 		
 		// Get Current Table
 		$current_table = Request::get("table");

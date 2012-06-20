@@ -25,11 +25,18 @@ abstract class Plugin {
 	}
 	
 	// Check for Admin Login
-	protected static function _check_admin() {
-		if(!Memory::get("logged_in")) {
-			HTTP::forbidden();
-			die(Render::page("elements/errors/403.html"));
+	protected static function _check_admin($privilege=null) {
+		if(Memory::get("logged_in")) {
+			if($privilege !== null) {
+				if(Helper::user_has_privilege($privilege)) {
+					return true;
+				}
+			} else {
+				return true;
+			}
 		}
+		HTTP::forbidden();
+		die(Render::page("elements/errors/403.html"));
 	}
 
 	// Dispatch Event to all Plugins

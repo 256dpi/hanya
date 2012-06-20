@@ -24,5 +24,15 @@ class Helper {
 		$string = preg_replace('/[^a-z0-9_.]/','',$string);
 		return preg_replace('/_+/',"_",$string);
 	}
+
+	// Check Session for User Privilege
+	public static function user_has_privilege($privilege) {
+		if(Memory::get("logged_in")) {
+			$users = Registry::get("auth.users");
+			$privs = $users[Memory::get("logged_in_user")]["privileges"];
+			return (in_array($privilege,$privs) or in_array("god",$privs));
+		}
+		return false;
+	}
 	
 }

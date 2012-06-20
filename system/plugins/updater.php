@@ -13,7 +13,7 @@ class Updater_Plugin extends Plugin {
 	public static function on_updater() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("updater_access");
 		
 		// Get Versions
 		$local_version = self::_local_version();
@@ -32,7 +32,7 @@ class Updater_Plugin extends Plugin {
 	public static function on_updater_review() {
 	  
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("updater_access");
 		
 		// Get Data
 		$markdown = new Markdown();
@@ -49,7 +49,7 @@ class Updater_Plugin extends Plugin {
 	public static function on_updater_update() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("updater_access");
 		
 		// Check Update
 		if(!Registry::get("system.updateable")) {

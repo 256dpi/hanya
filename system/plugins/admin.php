@@ -29,17 +29,24 @@ class Admin_Plugin extends Plugin {
 			
 			// Get Users
 			$users = Registry::get("auth.users");
-			
-			// Check Credentials
-			if(array_key_exists($username,$users) && $users[$username] == $password) {
+
+			// Iterate Users
+			foreach($users as $name => $user) {
+
+				// Check Credentials
+				if($name == $username && $user["pass"] == $password) {
+
+					// Set Memory
+					Memory::set("logged_in",true);
+					Memory::set("edit_page",false);
+					Memory::set("logged_in_user",$name);
 				
-				// Set Memory
-				Memory::set("logged_in",true);
-				Memory::set("edit_page",false);
-				
-				// Redirect to Base
-				Url::redirect_to_referer();
+					// Redirect to Base
+					Url::redirect_to_referer();
+				}
+
 			}
+
 		}
 		
 		// Redirect to Base

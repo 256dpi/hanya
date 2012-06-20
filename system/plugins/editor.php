@@ -13,7 +13,7 @@ class Editor_Plugin extends Plugin {
 	public static function on_editor() {
 		
 		// Check Admin
-		self::_check_admin();
+		self::_check_admin("editor_access");
 		
 		// Get Current File
 		$current_file = Request::get("file");
@@ -40,6 +40,9 @@ class Editor_Plugin extends Plugin {
 	
 	// Get Sourcecode of a File
 	public static function on_editor_source() {
+
+		// Check Admin
+		self::_check_admin("editor_access");
 		
 		// Get File
 		$current_file = Request::get("file");
@@ -53,6 +56,9 @@ class Editor_Plugin extends Plugin {
 	
 	// Save File
 	public static function on_editor_save() {
+
+		// Check Admin
+		self::_check_admin("editor_access");
 		
 		// Get Data
 		$file = Request::get("file");
@@ -73,6 +79,9 @@ class Editor_Plugin extends Plugin {
 	
 	// Display Tree
 	public static function tree($current_file,$directory="tree") {
+
+		// Check Admin
+		self::_check_admin("editor_access");
 		
 		// Get Data
 		$data = Disk::read_directory($directory);
