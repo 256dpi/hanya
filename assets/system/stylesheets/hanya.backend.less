@@ -57,6 +57,7 @@
     }
   }
   .sidebar, .sidebar2 {
+    box-sizing: border-box;
     float: left;
     width: 25%;
     background-color: #eee;
@@ -202,6 +203,10 @@
   }
   #files {
     overflow: scroll;
+    p.warn {
+      padding: 20px;
+      color: red;
+    }
     table {
       width: 100%;
       tr {

@@ -15,7 +15,7 @@ class Filemanager_Plugin extends Plugin {
 	public static function on_filemanager($new=false) {
 		
 		// Check Admin
-		var_dump(self::_check_admin("filemanager_access"));
+		self::_check_admin("filemanager_access");
 		
 		// Get Data
 		$current_directory = Request::get("directory");
