@@ -189,6 +189,8 @@ The `{head()}` tag also renders `<base path="">` with the url to the working dir
 
 * `{string(id)}` loads an editable string from the database.
 
+* `{image(id)}` loads and editable image from the database.
+
 * `{new(definition|arguments...)}` renders a link to create a new definition object. This will be covered later.
 
 ## Conditions

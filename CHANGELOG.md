@@ -1,5 +1,6 @@
 ### Version 1.3
 
+* added primitive definition image
 * added json tree file support
 * added privileges to users (change to auth.user array)
 
