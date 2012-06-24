@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<?=HTML::stylesheet(Url::_("?command=less&file=assets/system/stylesheets/normalize.css"))?>
+		<?=HTML::stylesheet(Url::_("?command=less&file=assets/system/stylesheets/hanya.modal.less"))?>
+		<?=HTML::script(Url::_("assets/system/javascripts/jquery.js"))?>
+		<?=HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"))?>
+  		<?=HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"))?>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				if($(".hanya-editor-html").size() > 0) {
+					$(".hanya-editor-html").cleditor({
+  						width: "99%",
+  						heigth: "300px",
+  						controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
+  					});
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<?=$body?>
+	</body>
+</html>

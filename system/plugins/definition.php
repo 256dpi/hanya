@@ -16,31 +16,24 @@ class Definition_Plugin extends Plugin {
 		self::_check_admin();
 		
 		// Get Data
-		$definition = Request::post("definition");
+		$definition = Request::get("definition");
 		$class = ucfirst($definition)."_Definition";
 		$obj = new $class();
-		$id = Request::post("id","int");
+		$id = Request::get("id","int");
 		$entry = ORM::for_table($definition);
 		
-		// Load Entry if isnt is a update
-		if($id > 0) {
-			$entry = $entry->find_one($id);
-		} else {
-			// Call Definitions Constructor
-			$entry = $obj->create($entry->create(),Request::post("argument","string"));
-		}
+		// Load Entry if isnt is a update or create
+		$entry = ($id>0)?$entry->find_one($id):$obj->create($entry->create(),Request::get("argument","string"));
 		
-		// Open Manager
-		echo HTML::div_open(null,"hanya-manager-head");
-		echo HTML::span(I18n::_("definition.".$definition.".edit_entry"));
-		echo HTML::anchor("javascript:HanyaWindow.remove()",I18n::_("system.manager.close"),array("class"=>"hanya-manager-head-close"));
-		echo HTML::div_close();
+		// Manager
+		$body = HTML::header(1,I18n::_("definition.".$definition.".edit_entry"));
+		$body .= Helper::print_errors();
 		
 		// Open Body
-		echo HTML::div_open(null,"hanya-manager-body");
-		echo HTML::form_open(Registry::get("request.referer")."?command=definition_update","post",array("enctype"=>"multipart/form-data"));
-		echo HTML::hidden("definition",$definition,array("id"=>"hanya-input-definition"));
-		echo HTML::hidden("id",$id,array("id"=>"hanya-input-id"));
+		$body .= HTML::div_open(null,"content");
+		$body .= HTML::form_open(Registry::get("request.referer")."?command=definition_update","post",array("enctype"=>"multipart/form-data"));
+		$body .= HTML::hidden("definition",$definition);
+		$body .= HTML::hidden("id",$id);
 		
 		// Print Form Elements
 		foreach($obj->blueprint as $field => $config) {
@@ -55,7 +48,7 @@ class Definition_Plugin extends Plugin {
 			if(!$config["hidden"]) {
 				
 				// Open Row
-				echo HTML::div_open(null,"hanya-manager-body-row hanya-row-".$config["as"]);
+				$body .= HTML::div_open(null,"row");
 				
 				// Get Label and Name
 				$label = ($config["label"])?I18n::_("definition.".$definition.".field_".$field):null;
@@ -65,26 +58,26 @@ class Definition_Plugin extends Plugin {
 					
 					// Boolean
 					case "boolean" : {
-						echo HTML::label($name,$label);
-						echo HTML::div_open(null,"radiogroup");
-						echo HTML::radio($name,1,I18n::_("definition.".$definition.".field_".$field."_true"),($entry->$field==1)?array("checked"=>"checked"):array());
-						echo HTML::radio($name,0,I18n::_("definition.".$definition.".field_".$field."_false"),($entry->$field==0)?array("checked"=>"checked"):array());
-						echo HTML::div_close();
+						$body .= HTML::label($name,$label);
+						$body .= HTML::div_open(null,"radiogroup");
+						$body .= HTML::radio($name,1,I18n::_("definition.".$definition.".field_".$field."_true"),($entry->$field==1)?array("checked"=>"checked"):array());
+						$body .= HTML::radio($name,0,I18n::_("definition.".$definition.".field_".$field."_false"),($entry->$field==0)?array("checked"=>"checked"):array());
+						$body .= HTML::div_close();
 						break;
 					}
 					
 					// Text Inputs
 					case "number":
-					case "string": echo HTML::text($name,$label,$entry->$field).HTML::br(); break;
+					case "string": $body .= HTML::text($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Textareas
-					case "html": echo HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")).HTML::br(); break;
-					case "text": echo HTML::textarea($name,$label,$entry->$field).HTML::br(); break;
+					case "html": $body .= HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")); break;
+					case "text": $body .= HTML::textarea($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Special
-					case "time": echo HTML::text($name,$label,$entry->$field,array("class"=>"hanya-timepicker")).HTML::br(); break;
-					case "date": echo HTML::text($name,$label,$entry->$field,array("class"=>"hanya-datepicker")).HTML::br(); break;
-					case "selection": echo HTML::select($name,$label,HTML::options($config["options"],$entry->$field)).HTML::br(); break;
+					case "time": $body .= HTML::text($name,$label,$entry->$field,array("class"=>"hanya-timepicker")).HTML::br(); break;
+					case "date": $body .= HTML::text($name,$label,$entry->$field,array("class"=>"hanya-datepicker")).HTML::br(); break;
+					case "selection": $body .= HTML::select($name,$label,HTML::options($config["options"],$entry->$field)).HTML::br(); break;
 					
 					// Reference Select
 					case "reference": {
@@ -92,7 +85,7 @@ class Definition_Plugin extends Plugin {
 						foreach(ORM::for_table($config["definition"])->find_many() as $item) {
 							$data[$item->id] = $item->$config["field"];
 						}
-						echo HTML::select($name,$label,HTML::options($data,$entry->$field)).HTML::br();
+						$body .= HTML::select($name,$label,HTML::options($data,$entry->$field)).HTML::br();
 						break;
 					}
 					
@@ -117,30 +110,31 @@ class Definition_Plugin extends Plugin {
 						} else {
 							$upload = "";
 						}
-						echo HTML::label($name,$label).I18n::_("system.definition.select_file").HTML::select($name,null,HTML::options($data,$entry->$field)).$upload.HTML::br();
+						$body .= HTML::label($name,$label).I18n::_("system.definition.select_file");
+						$body .= HTML::select($name,null,HTML::options($data,$entry->$field)).$upload.HTML::br();
 						break;
 					}
 				}
 			} else {
 				
 				// Open Row
-				echo HTML::div_open(null,"hanya-manager-hidden-row");
+				$body .= HTML::div_open(null,"hidden-row");
 				
 				// Render Hidden Field
-				echo HTML::hidden($name,$entry->$field);
+				$body .= HTML::hidden($name,$entry->$field);
 			}
 			
 			// Close Row
-			echo HTML::div_close();
+			$body .= HTML::div_close();
 		}
 		
 		// Close Manager
-		echo HTML::submit(I18n::_("system.definition.save"));
-		echo HTML::form_close();
-		echo HTML::div_close();
+		$body .= HTML::submit(I18n::_("system.definition.save"));
+		$body .= HTML::form_close();
+		$body .= HTML::div_close();
 		
 		// End
-		exit;
+		echo Render::file("system/views/definition/manager.html",array("body"=>$body)); exit;
 	}
 	
 	// Perform a Creation or Update
@@ -218,7 +212,7 @@ class Definition_Plugin extends Plugin {
 		$entry = $obj->before_update($entry);
 		
 		// Redirect
-		Url::redirect_to_referer();
+		echo Render::file("system/views/shared/close.html"); exit;
 	}
 	
 	// Delete an Entry
