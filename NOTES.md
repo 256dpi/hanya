@@ -2,6 +2,9 @@
 
 ## Todo
 
+* definition manager modal tests
+* new definition toolbar
+
 * Find better HTML editor
 * enhanced editor for creating links and adding images
 
