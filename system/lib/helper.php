@@ -34,5 +34,19 @@ class Helper {
 		}
 		return false;
 	}
+
+	// Pretty Print Errors
+	public static function print_errors() {
+
+		// Get Errors
+		$error = Memory::errors();
+		
+		// Check & Display
+		if($error) {
+			return HTML::div(null,"errors",$error);
+		} else {
+			return "";
+		}
+	}
 	
 }
