@@ -15,10 +15,10 @@ class Head_Tag {
 		$html = '<base href="'.Registry::get("base.url").'" />';
 		
 		// Stylesheets
-	  switch($attributes[0]) {
-		  case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css")); break;
-		  case "reset":
-		  default: $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
+		switch($attributes[0]) {
+			case "normalize": $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/normalize.css")); break;
+			case "reset":
+			default: $html .= HTML::stylesheet(Url::_("assets/system/stylesheets/reset.css")); break;
 		}
 		
 		// System CSS
@@ -30,15 +30,13 @@ class Head_Tag {
 			
 		// Load jQuery Extensions
 		if(Memory::get("edit_page") || Memory::get("logged_in")) {
-		  
-		  // Editor
-		  $html .= HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"));		
-  		$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"));
-  		
-  		// Tooltips
-  		//$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
-  		//$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
+  			//$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
+  			//$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
 		}
+
+		// FancyBox
+  		$html .= HTML::script(Url::_("assets/system/fancybox/jquery.fancybox.js"));
+  		$html .= HTML::stylesheet(Url::_("assets/system/fancybox/jquery.fancybox.css"));
 		
 		// Return
 		return $html;
