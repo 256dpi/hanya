@@ -1,0 +1,89 @@
+body {
+	margin: 0;
+	background-color: #eee;
+}
+
+h1 {
+	margin: 0;
+	background-color: black;
+	color: white;
+	font-size: 16px;
+	font-weight: normal;
+	padding: 10px 15px;
+}
+
+.errors {
+	padding: 10px 15px;
+	background-color: darkred;
+	color: white;
+	font-size: 12px;
+}
+
+.content {
+	padding: 15px;
+}
+
+.row {
+	padding: 4px 0px;
+}
+
+.hidden-row {
+  display: none;
+}
+
+/* Controls */
+
+input[type="text"], input[type="password"], textarea {
+	width: 100%;
+	border: 1px solid #999;
+	padding: 10px;
+	border-radius: 3px;
+	font-family: monospace;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+textarea {
+	height: 100px;
+}
+
+label {
+	display: block;
+	padding: 2px 0;
+	color: black;
+}
+
+input[type="radio"] {
+	margin-right: 5px;
+	margin-left: 15px;
+}
+
+.radiogroup input[type="radio"]:first-child {
+	margin-left: 0;
+}
+
+button, input[type="submit"] {
+	background-color: #eee;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee), color-stop(100%, #ccc));
+	background-image: -webkit-linear-gradient(top, #eee, #ccc);
+	background-image: -moz-linear-gradient(top, #eee, #ccc);
+	background-image: -ms-linear-gradient(top, #eee, #ccc);
+	background-image: -o-linear-gradient(top, #eee, #ccc);
+	background-image: linear-gradient(top, #eee, #ccc);
+	border: 1px solid #bbb;
+	//-webkit-border-radius: 3px;
+	//-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #333;
+	line-height: 1;
+	padding: 8px;
+	text-align: center;
+	text-shadow: 0 1px 0 #eee;
+	min-width: 150px;
+	margin: 0;
+	margin-top: 5px;
+	margin-right: 5px;
+	&.streched {
+		width: 100%;
+	}
+}

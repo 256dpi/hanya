@@ -1,19 +1,30 @@
-<div class="hanya-manager-head">
-	<span><?=I18n::_("system.admin.login")?></span>
-	<a class="hanya-manager-head-close" href="javascript:HanyaWindow.remove()"><?=I18n::_("system.manager.close")?></a>
-</div>
-<div class="hanya-manager-body">
-	<form action="<?=Registry::get("request.referer")?>?command=admin_login" method="POST">
-		<div class="hanya-manager-body-row">
-			<label for="username"><?=I18n::_("system.admin.username")?></label>
-			<input class="hanya-gain-focus" name="username" type="text" />
+<!doctype html>
+<html>
+	<head>
+		<?=HTML::stylesheet(Url::_("?command=less&file=assets/system/stylesheets/normalize.css"))?>
+		<?=HTML::stylesheet(Url::_("?command=less&file=assets/system/stylesheets/hanya.modal.less"))?>
+		<?=HTML::script(Url::_("assets/system/javascripts/jquery.js"))?>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("input[name='username']").focus();
+			});
+		</script>
+	</head>
+	<body>
+		<h1><?=I18n::_("system.admin.title")?></h1>
+		<?=Helper::print_errors()?>
+		<div class="content">
+			<form action="<?=Url::_("?command=admin_login")?>" method="POST">
+				<div class="row">
+					<input name="username" type="text" placeholder="<?=I18n::_("system.admin.username")?>..."/>
+				</div>
+				<div class="row">
+					<input name="password" type="password" placeholder="<?=I18n::_("system.admin.password")?>..." />
+				</div>
+				<div class="row">
+					<input class="streched" type="submit" value="<?=I18n::_("system.admin.login")?>" />
+				</div>
+			</form>
 		</div>
-		<div class="hanya-manager-body-row">
-			<label for="password"><?=I18n::_("system.admin.password")?></label>
-			<input name="password" type="password" />
-		</div>
-		<div class="hanya-manager-body-row">
-			<input type="submit" value="<?=I18n::_("system.admin.login")?>" />
-		</div>
-	</form>
-</div>
+	</body>
+</html>

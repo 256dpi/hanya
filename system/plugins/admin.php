@@ -13,8 +13,7 @@ class Admin_Plugin extends Plugin {
 	public static function on_admin_form() {
 		
 		// Render View
-		echo Render::file("system/views/admin/login.html");
-		exit;
+		echo Render::file("system/views/admin/login.html"); exit;
 	}
 	
 	// Perform Login
@@ -42,7 +41,7 @@ class Admin_Plugin extends Plugin {
 					Memory::set("logged_in_user",$name);
 				
 					// Redirect to Base
-					Url::redirect_to_referer();
+					echo Render::file("system/views/shared/close.html"); exit;
 				}
 
 			}
@@ -51,7 +50,7 @@ class Admin_Plugin extends Plugin {
 		
 		// Redirect to Base
 		Memory::raise(I18n::_("system.admin.error"));
-		Url::redirect_to_referer();
+		echo Render::file("system/views/admin/login.html"); exit;
 	}
 	
 	// Logout
