@@ -2,9 +2,8 @@
 
 ## Todo
 
-* process includes at first
 * Upload Control Styling
-
+* markdown and textile support
 * Find better HTML editor
 * enhanced editor for creating links and adding images
 
@@ -13,7 +12,6 @@
 * jQuery time- and datepicker for time and date fields in manager
 * Database backup functionality
 * validation for object manager
-* menu tag for automatic menu generation
 * full inline editing
 * edit child objects in parent manager
 * migrations for definitions

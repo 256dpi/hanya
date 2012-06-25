@@ -1,3 +1,9 @@
+### Version 1.4
+
+* removed own modal management and added fancybox
+* removed unused plugins for jquery
+* tags with no "$" in attributes are rendered before definitons and conditions to allow {include()} in blocks
+
 ### Version 1.3
 
 * added primitive definition image

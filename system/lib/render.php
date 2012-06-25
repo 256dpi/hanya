@@ -78,6 +78,9 @@ class Render {
 		
 		// Process "system" Variables
 		$output = self::process_variables("system",array("mail-sent"=>Memory::get("mail.sent")),$output);
+
+		// Process Tags
+		$output = self::_process_tags($output);
 		
 		// Process Definitions
 		$output = self::_process_definitions($output);
@@ -85,8 +88,8 @@ class Render {
 		// Process Conditions
 		$output = self::_process_conditions($output);
 		
-		// Process Tags
-		$output = self::_process_tags($output);
+		// Process Tags (force)
+		$output = self::_process_tags($output,true);
 		
 		// End
 		return $output;
@@ -163,11 +166,14 @@ class Render {
 	}
 	
 	// Process Tags
-	private static function _process_tags($output) {
+	private static function _process_tags($output,$force=false) {
 		preg_match_all('!\{([a-z-_]+)\((.*)\)\}!Us',$output,$matches);
 		foreach($matches[1] as $i => $tag) {
-			$attributes = explode("|",$matches[2][$i]);
-			$output = str_replace($matches[0][$i],self::_execute_tag($tag,$attributes),$output);
+			if(strpos($matches[2][$i],"$") === false or $force) {
+				var_dump($force,$tag);
+				$attributes = explode("|",$matches[2][$i]);
+				$output = str_replace($matches[0][$i],self::_execute_tag($tag,$attributes),$output);
+			}
 		}
 		return $output;
 	}
