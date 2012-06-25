@@ -2,6 +2,9 @@
 
 ## Todo
 
+* test mysql connector
+* migrate tables
+* manage definitions in backend as ressources
 * Upload Control Styling
 * Find better HTML editor
 * enhanced editor for creating links and adding images
@@ -17,4 +20,4 @@
 
 ## Tagging
 
-Issue `git tag -a v1.3 -m "release"` and `git push --tags` to create new tag version.
+Issue `git tag -a v1.4 -m "release"` and `git push --tags` to create new tag version.
