@@ -6,6 +6,9 @@
 		<?=HTML::script(Url::_("assets/system/javascripts/jquery.js"))?>
 		<?=HTML::script(Url::_("assets/system/javascripts/jquery.cleditor.js"))?>
   		<?=HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.cleditor.css"))?>
+  		<link rel="stylesheet" href="{asset(system/stylesheets/codemirror.css)}" type="text/css" media="screen">
+		<script src="{asset(system/javascripts/codemirror.js)}" type="text/javascript" charset="utf-8"></script>
+		<script src="{asset(system/javascripts/codemirror.markdown.js)}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				if($(".hanya-editor-html").size() > 0) {
@@ -14,6 +17,26 @@
   						heigth: "300px",
   						controls: "bold italic underline subscript superscript style removeformat bullets numbering | undo redo | rule image link unlink | cut copy paste pastetext source",
   					});
+				}
+				if($(".hanya-editor-markdown").size() > 0) {
+					$(".hanya-editor-markdown").each(function(){
+						CodeMirror.fromTextArea(this, {
+				        	mode: 'markdown',
+				        	lineNumbers: true,
+				        	matchBrackets: true,
+				        	theme: "default"
+				    	});	
+					});
+				}
+				if($(".hanya-editor-textile").size() > 0) {
+					$(".hanya-editor-textile").each(function(){
+						CodeMirror.fromTextArea(this, {
+				        	mode: 'plain',
+				        	lineNumbers: true,
+				        	matchBrackets: true,
+				        	theme: "default"
+				    	});	
+					});
 				}
 			});
 		</script>
