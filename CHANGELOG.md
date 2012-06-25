@@ -1,3 +1,7 @@
+### Version 1.5
+
+* added markdown tag
+
 ### Version 1.4
 
 * added markdown and textile field support
