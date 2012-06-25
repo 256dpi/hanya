@@ -13,10 +13,7 @@
 
 * jQuery time- and datepicker for time and date fields in manager
 * Database backup functionality
-* validation for object manager
-* full inline editing
-* edit child objects in parent manager
-* migrations for definitions
+* validation for definition manager
 
 ## Tagging
 
