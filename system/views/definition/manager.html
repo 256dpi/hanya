@@ -24,7 +24,8 @@
 				        	mode: 'markdown',
 				        	lineNumbers: true,
 				        	matchBrackets: true,
-				        	theme: "default"
+				        	theme: "default",
+				        	lineWrapping: true
 				    	});	
 					});
 				}
@@ -34,12 +35,18 @@
 				        	mode: 'plain',
 				        	lineNumbers: true,
 				        	matchBrackets: true,
-				        	theme: "default"
+				        	theme: "default",
+				        	lineWrapping: true
 				    	});	
 					});
 				}
 			});
 		</script>
+		<style type="text/css">
+			.CodeMirror-scroll {
+				height: 300px;
+			}
+		</style>
 	</head>
 	<body>
 		<?=$body?>
