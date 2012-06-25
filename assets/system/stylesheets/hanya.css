@@ -61,10 +61,7 @@
 .hanya-toolbar-right {
   float: right;
   width: 66%;
-}
-
-.hanya-toolbar-right {
-	text-align: right;
+  text-align: right;
 }
 
 .hanya-errorbar {

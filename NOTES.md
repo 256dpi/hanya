@@ -3,7 +3,7 @@
 ## Todo
 
 * process includes at first
-* definition manager modal tests
+* Upload Control Styling
 * new definition toolbar
 
 * Find better HTML editor
@@ -11,7 +11,6 @@
 
 ## Wishlist
 
-* Multi language support
 * jQuery time- and datepicker for time and date fields in manager
 * Database backup functionality
 * validation for object manager
