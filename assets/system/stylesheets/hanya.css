@@ -12,7 +12,7 @@
 }
 
 .hanya-admin-login a span {
-	display: none;
+	display: none; 
 }
 
 .hanya-admin-login a:hover {
@@ -71,13 +71,13 @@
 /* INLINE OBJETS */
 
 .hanya-editable {
-  outline: 1px solid #ddd;
+  outline: 1px dashed #999;
   padding: 2px;
   margin: 1px 0;
 }
 
 .hanya-editable:hover {
-  outline-color: black;
+  outline: 1px solid #999;
 }
 
 .hanya-createable {
@@ -91,6 +91,8 @@
   width: 120px;
   position: absolute;
   list-style: none !important;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .hanya-definition-toolbar li {

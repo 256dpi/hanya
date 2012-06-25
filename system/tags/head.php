@@ -27,12 +27,6 @@ class Head_Tag {
 		// Load jQuery and Hanya JS
 		$html .= HTML::script(Url::_("assets/system/javascripts/jquery.js"));
 		$html .= HTML::script(Url::_("assets/system/javascripts/hanya.js"));
-			
-		// Load jQuery Extensions
-		if(Memory::get("edit_page") || Memory::get("logged_in")) {
-  			//$html .= HTML::script(Url::_("assets/system/javascripts/jquery.tipsy.js"));		
-  			//$html .= HTML::stylesheet(Url::_("assets/system/stylesheets/jquery.tipsy.css"));
-		}
 
 		// FancyBox
   		$html .= HTML::script(Url::_("assets/system/fancybox/jquery.fancybox.js"));

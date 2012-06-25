@@ -4,7 +4,6 @@
 
 * process includes at first
 * Upload Control Styling
-* new definition toolbar
 
 * Find better HTML editor
 * enhanced editor for creating links and adding images
