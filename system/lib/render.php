@@ -170,7 +170,6 @@ class Render {
 		preg_match_all('!\{([a-z-_]+)\((.*)\)\}!Us',$output,$matches);
 		foreach($matches[1] as $i => $tag) {
 			if(strpos($matches[2][$i],"$") === false or $force) {
-				var_dump($force,$tag);
 				$attributes = explode("|",$matches[2][$i]);
 				$output = str_replace($matches[0][$i],self::_execute_tag($tag,$attributes),$output);
 			}
