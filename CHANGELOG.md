@@ -1,5 +1,6 @@
 ### Version 1.4
 
+* added markdown and textile field support
 * removed own modal management and added fancybox
 * removed unused plugins for jquery
 * tags with no "$" in attributes are rendered before definitons and conditions to allow {include()} in blocks
