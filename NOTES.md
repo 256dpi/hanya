@@ -3,7 +3,6 @@
 ## Todo
 
 * Upload Control Styling
-* markdown and textile support
 * Find better HTML editor
 * enhanced editor for creating links and adding images
 

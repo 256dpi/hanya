@@ -347,7 +347,8 @@ Use this field types to make your definitions more exclusive:
 	"string" => array("as"=>"string")
 	"text" => array("as"=>"text")
 	"html" => array("as"=>"html")
-	"textile" => array("as"=>"textile") // textile editor not supported yet!
+	"textile" => array("as"=>"textile")
+	"markdown" => array("as"=>"markdown")
 	"boolean" => array("as"=>"boolean")
 	"number" => array("as"=>"number")
 	"time" => array("as"=>"time")

@@ -66,6 +66,7 @@ class Sqlite {
 				case "string": 
 				case "html":
 				case "textile":
+				case "markdown":
 				case "text": 
 				case "date":
 				case "time": $sql .= ", ".$field." TEXT"; break;

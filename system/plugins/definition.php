@@ -72,6 +72,8 @@ class Definition_Plugin extends Plugin {
 					
 					// Textareas
 					case "html": $body .= HTML::textarea($name,$label,$entry->$field,array("class"=>"hanya-editor-html")); break;
+					case "textile":
+					case "markdown":
 					case "text": $body .= HTML::textarea($name,$label,$entry->$field).HTML::br(); break;
 					
 					// Special

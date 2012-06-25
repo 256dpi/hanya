@@ -40,6 +40,7 @@ class Mysql {
 				case "string": $sql .= ", `".$field."` varchar(255) DEFAULT NULL"; break;
 				case "html":
 				case "textile":
+				case "markdown":
 				case "text": $sql .= ", `".$field."` text DEFAULT NULL"; break;
 				case "date": $sql .= ", `".$field."` date DEFAULT NULL"; break;
 				case "time": $sql .= ", `".$field."` time DEFAULT NULL"; break;

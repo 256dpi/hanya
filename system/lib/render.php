@@ -227,6 +227,16 @@ class Render {
 							$item[$field."_path"] = $config["folder"]."/".$item[$field];
 							break;
 						}
+						case "markdown": {
+							$item[$field."_raw"] = $item[$field];
+							$markdown = new Markdown();
+							$item[$field] = $markdown->transform($item[$field]);
+						}
+						case "textile": {
+							$item[$field."_raw"] = $item[$field];
+							$textile = new Textile;
+    						$item[$field] = $textile->TextileThis($item[$field]);
+						}
 					}
 				}
 			}
