@@ -13,6 +13,11 @@ var Hanya = {
 	
 	// Initialize Javascript for Hanya Site
 	init: function() {
+
+		// Hanya Javascript Token
+		$(".hanya-token-javascript").each(function(){
+			$(this).val($(this).val()+"Hanya");
+		});
 		
 		// Interactify Editables
 		$(".hanya-editable").mouseenter(function(){

@@ -21,6 +21,7 @@ class Mailer_Plugin extends Plugin {
 		if(!array_key_exists($template,$config)) {
 			die("Hanya Config: define mail");
 		}
+					Memory::raise("Form validation error occured");
 		
 		// Convert LineFeeds
 		foreach($vars as $var => $value) {

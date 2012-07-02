@@ -8,6 +8,13 @@
  **/
 
 class Helper {
+
+	// Return Tolen
+	public static function token() {
+		$token = md5(strftime("%x %R"));
+		Memory::set("token",$token);
+		return $token;
+	}
 	
 	// Invoke as_array on every child
 	public static function each_as_array($results) {

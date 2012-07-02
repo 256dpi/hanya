@@ -1,3 +1,7 @@
+## Version 1.6
+
+* added token validation for forms with hardened javascript token
+
 ### Version 1.5
 
 * added markdown tag

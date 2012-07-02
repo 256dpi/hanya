@@ -452,13 +452,20 @@ First you have to specify your forms in the _index.php_:
 
 	"mail.sender" => "hanya@example.com",
 	"mail.forms" => array(
-		"contact" => array("reciever"=>"mail@example.com","subject"=>"The Subject")
+		"contact" => array("reciever"=>"mail@example.com","subject"=>"The Subject","protection"=>"javascript")
 	)
 	
+Protection variants are currently:
+
+	* none (default) - does nothing
+	* token - checks for a given token - include `<input type="hidden" name="token" value="{token()}" />`
+	* javascript - advanced token check with javascript  `<input type="hidden" class="hanya-javascript-token" name="token" value="{token()}" />`
+
 Then create a form on a page:
 
 	<form action="?command=mailer" method="post">
 	  <input type="hidden" name="form" value="contact" />
+	  <input type="hidden" name="token" value="{token()}" />
 	  <label for="mail[name]">Name</label>
 	  <input name="mail[name]" />
 	  <label for="mail[subject]">Subject</label>
