@@ -16,12 +16,33 @@ class Mailer_Plugin extends Plugin {
 		$config = Registry::get("mail.forms");
 		$vars = Request::post("mail","array");
 		$template = Request::post("form");
+		$token = Request::post("token");
 		
 		// Check Form
 		if(!array_key_exists($template,$config)) {
 			die("Hanya Config: define mail");
 		}
+
+		// Check Protection
+		switch($config[$template]["protection"]) {
+			case "javascript": {
+				if(Memory::get("token")."Hanya" != $token) {
 					Memory::raise("Form validation error occured");
+					URL::redirect_to_referer();
+				}
+				break;
+			}
+			case "token": {
+				if(Memory::get("token") != $token) {
+					Memory::raise("Form validation error occured");
+					URL::redirect_to_referer();
+				}
+				break;
+			}
+			default: case "none": {
+				break;
+			}
+		}
 		
 		// Convert LineFeeds
 		foreach($vars as $var => $value) {
