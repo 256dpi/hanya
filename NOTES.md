@@ -17,4 +17,4 @@
 
 ## Tagging
 
-Issue `git tag -a v1.5 -m "release"; git push --tags` to create new tag version.
+Issue `git tag -a v1.6 -m "release"; git push --tags` to create new tag version.
