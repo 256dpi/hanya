@@ -1,4 +1,8 @@
-## Version 1.6
+### Version 1.7
+
+* added redirect tag
+
+### Version 1.6
 
 * added token validation for forms with hardened javascript token
 

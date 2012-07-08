@@ -181,6 +181,8 @@ The `{head()}` tag also renders `<base path="">` with the url to the working dir
 
 * `{system(command)}` will execute pre defined system commands.
 
+* `{redirect(a/path/to/a/page)}` will redirect to the following page.
+
 ### Dynamic Tags
 
 * `{html(id)}` loads editable html markup from the database.
