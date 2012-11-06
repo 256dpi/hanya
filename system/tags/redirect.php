@@ -10,7 +10,11 @@
 class Redirect_Tag {
 	
 	public static function call($attributes) {
-		HTTP::location(Registry::get("base.path").$attributes[0]);
+		if(!$attributes[1]) {
+			HTTP::location(Registry::get("base.path").$attributes[0]);
+		} else {
+			HTTP::location($attributes[0]);
+		}
 		exit;
 	}
 	

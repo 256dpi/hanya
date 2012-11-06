@@ -12,7 +12,7 @@ class Head_Tag {
 	public static function call($attributes) {
 		
 		// Base URL
-		$html = '<base href="'.Registry::get("base.url").'" />';
+		//$html = '<base href="'.Registry::get("base.url").'" />';
 		
 		// Stylesheets
 		switch($attributes[0]) {
