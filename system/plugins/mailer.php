@@ -25,6 +25,13 @@ class Mailer_Plugin extends Plugin {
 
 		// Check Protection
 		switch($config[$template]["protection"]) {
+			case "captcha": {
+				if(!Recaptcha::check($vars)) {
+					Memory::raise("Form validation error occured");
+					URL::redirect_to_referer();
+				}
+				break;
+			}
 			case "javascript": {
 				if(Memory::get("token")."Hanya" != $token) {
 					Memory::raise("Form validation error occured");

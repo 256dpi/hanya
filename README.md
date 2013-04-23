@@ -462,6 +462,7 @@ Protection variants are currently:
 	* none (default) - does nothing
 	* token - checks for a given token - include `<input type="hidden" name="token" value="{token()}" />`
 	* javascript - advanced token check with javascript  `<input type="hidden" class="hanya-javascript-token" name="token" value="{token()}" />`
+	* captcha - check provided catpcha with recaptcha service
 
 Then create a form on a page:
 
@@ -491,6 +492,20 @@ To inform the user if the mail has been submitted use:
 	[/?]
 	
 Remove the `{system(reset-mail-sent)}` if you want to print the information more than once.
+
+### Recaptcha
+
+Recaptcha integration is easily done by:
+
+	{captcha()}
+
+and setting the following configuration settings:
+
+	"mail.forms" => array(
+		"contact" => array("reciever"=>"mail@example.com","subject"=>"The Subject","protection"=>"captcha")
+	),
+	"recaptcha.publickey" => "PUBLIC_KEY",
+	"recaptcha.privatekey" => "PRIVATE_KEY"
 	
 I think if you read the previous sections, you will understand the exmaples. ;)
 
@@ -703,12 +718,13 @@ These Constants are used in the Hanya Admin Toolbar.
 * jQuery wysiwyg editor (http://premiumsoftware.net/cleditor)
 * CodeMirror Editor (http://codemirror.net)
 * Less Compiler (https://github.com/leafo/lessphp)
+* Recaptcha (http://code.google.com/p/recaptcha)
 
 ## License
 
 Hanya is released under the MIT License
 
-Copyright (c) 2011 Joël Gähwiler
+Copyright Joël Gähwiler
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

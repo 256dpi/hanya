@@ -42,7 +42,7 @@ class Registry {
 			if(isset(self::$_data[$segments[0]][$segments[1]])) {
 				return self::$_data[$segments[0]][$segments[1]];
 			} else {
-				return NULL;
+				return null;
 			}
 			
 		} else {

@@ -189,6 +189,9 @@ class Hanya {
 		if(!Registry::has("base.url")) {
 			Registry::set("base.url","http://".$_SERVER["HTTP_HOST"].Registry::get("base.path"));
 		}
+
+		// Remote Address
+		Registry::set("system.remote_addr",$_SERVER["REMOTE_ADDR"]);
 		
 		// Set System Path
 		Registry::set("system.path",$_SERVER["DOCUMENT_ROOT"].Registry::get("base.path"));

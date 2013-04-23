@@ -37,6 +37,11 @@ class Memory {
 	public static function all() {
 		return $_SESSION;
 	}
+
+	// Remove a Value
+	public static function remove($key) {
+		unset($_SESSION[$key]);
+	}
 	
 	// Raise Error
 	public static function raise($error) {
