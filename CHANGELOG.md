@@ -1,3 +1,7 @@
+### Version 1.8
+
+* added recaptcha integration
+
 ### Version 1.7
 
 * added redirect tag

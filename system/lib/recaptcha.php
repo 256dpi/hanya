@@ -10,22 +10,23 @@
 class Recaptcha {
 
   public static function check($post) {
-    if ($post["recaptcha_response_field"]) {
-      $resp = recaptcha_check_answer(Registry::get("recaptcha.privatekey"),Registry::get("system.remote_addr"),$post["recaptcha_challenge_field"],$post["recaptcha_response_field"]);
+    if ($_POST["recaptcha_response_field"]) {
+      $resp = recaptcha_check_answer(Registry::get("recaptcha.privatekey"),Registry::get("system.remote_addr"),$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
       if ($resp->is_valid) {
         return true;
       } else {
-        Memmory::set("recaptcha.error",$resp->error);
+        Memory::set("recaptcha.error",$resp->error);
         return false;
       }
     }
+    return false;
   }
 
   public static function html() {
     $error = null;
-    if(Memmory::has("recaptcha.error")) {
-      $error = Memmory::get("recaptcha.error");
-      Memmory::remove("recaptcha.error");
+    if(Memory::has("recaptcha.error")) {
+      $error = Memory::get("recaptcha.error");
+      Memory::remove("recaptcha.error");
     }
     $html = recaptcha_get_html(Registry::get("recaptcha.publickey"),$error);
     return $html;
@@ -134,7 +135,6 @@ function _recaptcha_http_post($host, $path, $data, $port = 80) {
  * @param string $pubkey A public key for reCAPTCHA
  * @param string $error The error given by reCAPTCHA (optional, default is null)
  * @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
-
  * @return string - The HTML to be embedded in the user's form.
  */
 function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
