@@ -559,57 +559,57 @@ Hanya has no standard backend like the big CMS systems. Hanya tries to integrate
 
 Hover over the left top edge to get the hidden link to the login form:
 
-![Sample page with login button](http://public.256dpi.ch/github/hanya/doc1.png)
+![Sample page with login button](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc1.png)
 
 To get the toolbar you have to login into the system. Enter your credentials defined in the _index.php_:
 
-![Hanya login Form](http://public.256dpi.ch/github/hanya/doc2.png)
+![Hanya login Form](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc2.png)
 
 After the login is accepted you will get this admin toolbar if you included the `{toolbar()}` tag in your layout or page:
 
-![Sample page with hanya toolbar](http://public.256dpi.ch/github/hanya/doc3.png)
+![Sample page with hanya toolbar](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc3.png)
 
 ### Show & Edit
 
 With the first button in the toolbar you can switch between edit and show mode. In edit mode every editable definition gets surrounded by a grey line. If you hover over this container you get controls to edit, order up, order down or remove the definition (if destroyable). Here you will see the `{html(id)}` tag in action which is also a definition:
 
-![Editable definition](http://public.256dpi.ch/github/hanya/doc4.png)
+![Editable definition](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc4.png)
 
 When you click the edit button you get a form with all your fields: (only one for the html definition)
 
-![HTML definition form](http://public.256dpi.ch/github/hanya/doc5.png)
+![HTML definition form](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc5.png)
 
 The news definition from the example above will look like this:
 
-![News definition example in edit mode](http://public.256dpi.ch/github/hanya/doc6.png)
+![News definition example in edit mode](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc6.png)
 
 The Form will look like this: (i removed the translation to show you the translation-less output with keys)
 
-![News definition example form](http://public.256dpi.ch/github/hanya/doc7.png)
+![News definition example form](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc7.png)
 
 ### Filemanager
 
 The Filemanager allow you to manage the files uploaded to the _uploads_ directory. You can remove files, create folders and upload new files:
 
-![The Filemanager](http://public.256dpi.ch/github/hanya/doc8.png)
+![The Filemanager](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc8.png)
 
 ### Sourceeditor
 
 To edit your _tree_ and _elements_ online use the builtin sourceeditor. You have to set the permitions to _0777_ for the _tree_ and _elements_ direcotry and its existing contents.
 
-![The Sourceeditor](http://public.256dpi.ch/github/hanya/doc9.png)
+![The Sourceeditor](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc9.png)
 
 ### Database Manager
 
 Check your tables and empty them with the Database Manager:
 
-![The Database Manager](http://public.256dpi.ch/github/hanya/doc10.png)
+![The Database Manager](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc10.png)
 
 ### Updater
 
 Hanya has a simple integrated update system. The update system is linked to the github repository. The different Hanya versions are managed as git tags. Click on the Update tab to check for updates:
 
-![The Database Manager](http://public.256dpi.ch/github/hanya/doc11.png)
+![The Database Manager](https://s3-eu-west-1.amazonaws.com/joel-github-static/hanya/doc11.png)
 
 Review the updates first to get notices about big changes.
 
