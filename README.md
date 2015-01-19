@@ -4,6 +4,8 @@
 
 _Hanya runs best with PHP 5.3, but should run with PHP 5.2 (roughly tested)_
 
+## Important: This project is no longer maintained.
+
 ## Installation
 
 1. Download the repository as [archive](https://github.com/256dpi/hanya/tags) and extract it in your working directory.
